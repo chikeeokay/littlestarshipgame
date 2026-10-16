@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: little-joy-harbour
+    runtime: static
+    buildCommand: echo "Static game ready"
+    staticPublishPath: ./public
