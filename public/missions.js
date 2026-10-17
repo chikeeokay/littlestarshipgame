@@ -297,7 +297,7 @@ for(const [kind,templates] of Object.entries(missionTemplates))for(const object 
 let missionFilter='全部',missionBag=[],missionIndex=-1,missionSeen=new Set();
 try{const seen=JSON.parse(localStorage.getItem('littleJoyMissionSeenV5'));if(Array.isArray(seen))missionSeen=new Set(seen.filter(i=>Number.isInteger(i)&&i>=0&&i<missionDeck.length));}catch(e){}
 function refillMissions(){
- const eligible=missionDeck.map((m,i)=>i).filter(i=>missionFilter==='全部'||missionDeck[i].kind===missionFilter);
+ const eligible=missionDeck.map((m,i)=>i).filter(i=>missionFilter==='全部'||(Array.isArray(missionFilter)?missionFilter.includes(missionDeck[i].kind):missionDeck[i].kind===missionFilter));
  missionBag=eligible.filter(i=>!missionSeen.has(i));
  if(!missionBag.length){eligible.forEach(i=>missionSeen.delete(i));missionBag=eligible;}
  for(let i=missionBag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[missionBag[i],missionBag[j]]=[missionBag[j],missionBag[i]];}
@@ -311,6 +311,9 @@ function nextMission(){
 }
 function initMissions(){
  const $=id=>document.getElementById(id);$('mission-count').textContent=missionDeck.length.toLocaleString()+' 款組合';
- $('mission').onclick=nextMission;$('mission-filter').onchange=()=>{missionFilter=$('mission-filter').value;missionBag=[];nextMission();};
+ $('mission').onclick=nextMission;
+ const choices=[['task','小任務'],['joy','小幸福'],['silly','純粹無聊']];
+ function update(){let selected=choices.filter(([id])=>$('mission-'+id).checked).map(([,kind])=>kind);if(!selected.length){choices.forEach(([id])=>$('mission-'+id).checked=true);selected=choices.map(([,kind])=>kind);} $('mission-all').checked=selected.length===3;missionFilter=selected.length===3?'全部':selected;missionBag=[];nextMission();}
+ $('mission-all').onchange=()=>{choices.forEach(([id])=>$('mission-'+id).checked=true);update();};choices.forEach(([id])=>$('mission-'+id).onchange=update);
  $('mission-done').onclick=()=>{$('task-reply').textContent=['收到。冇獎金，但我點咗個頭。','已記錄喺宇宙嘅便利貼。黐唔黐得實另計。','可以收工。雖然本來都冇開工。','進度：完成一件小事。Excel 唔使開。'][Math.floor(Math.random()*4)];$('mission-done').disabled=true;};nextMission();
 }

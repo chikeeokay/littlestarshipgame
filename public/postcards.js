@@ -22,12 +22,12 @@ function renderGiftPostcard(c,g,mode,art=null,quote=null,footer=null){
  c.fillStyle=s.ink;let titleSize=68;c.font='700 '+titleSize+'px '+CARD_FONT;
  while(c.measureText(g.name).width>928&&titleSize>36){titleSize--;c.font='700 '+titleSize+'px '+CARD_FONT;}c.fillText(g.name,76,758);
  c.strokeStyle=mode==='night'?'#ffffff28':'#44332225';c.lineWidth=1;c.beginPath();c.moveTo(76,800);c.lineTo(1004,800);c.stroke();
- let storySize=32,lines=[];do{c.font=storySize+'px '+CARD_FONT;lines=wrapCardText(c,g.story,928);if(lines.length*storySize*1.65<=205)break;storySize--;}while(storySize>=22);
+ let storySize=39,lines=[];do{c.font=storySize+'px '+CARD_FONT;lines=wrapCardText(c,g.story,928);if(lines.length*storySize*1.65<=205)break;storySize--;}while(storySize>=22);
  c.fillStyle=s.ink;const lineHeight=storySize*1.65;lines.forEach((line,i)=>c.fillText(line,76,842+i*lineHeight));
  const q=quote||missionDeck[g.id%missionDeck.length],f=footer||footerDeck[g.id%footerDeck.length];
- c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('隨卡附送 · '+q.kind+' · 可做可唔做',76,1080);
- c.fillStyle=s.ink;let qs=27,ql;do{c.font=qs+'px '+CARD_FONT;ql=wrapCardText(c,q.text,928);if(ql.length<=3)break;qs--;}while(qs>18);ql.forEach((line,i)=>c.fillText(line,76,1123+i*33));
- c.fillStyle=s.muted;c.font='24px '+CARD_FONT;c.fillText(f.head,76,1240);
+ c.fillStyle=s.accent;c.font='25px '+CARD_FONT;c.fillText('隨卡附送 · '+q.kind+' · 可做可唔做',76,1080);
+ c.fillStyle=s.ink;let qs=33,ql;do{c.font=qs+'px '+CARD_FONT;ql=wrapCardText(c,q.text,928);if(ql.length<=3)break;qs--;}while(qs>18);ql.forEach((line,i)=>c.fillText(line,76,1123+i*38));
+ c.fillStyle=s.muted;c.font='28px '+CARD_FONT;c.fillText(f.head,76,1240);
  c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('小島留念 · '+q.kind,76,1280);c.textAlign='right';c.fillText(f.tag,1004,1280);c.fillStyle=s.muted;c.font='13px '+CARD_FONT;c.fillText('Art: Twemoji © Twitter & contributors · CC BY 4.0',1004,1320);c.restore();
  return {lines:lines.length,storyBottom:842+(lines.length-1)*lineHeight,fontSize:storySize};
 }
@@ -64,15 +64,18 @@ function openPostcard(){
  const $=id=>document.getElementById(id);
  nextMission();postcardQuote=missionDeck[missionIndex>=0?missionIndex:0];postcardFooter=nextFooter();postcardScene=currentScene;postcardReturn=running&&!paused;if(postcardReturn)pause();resetInput();
  $('postcard-name').textContent=gifts[selectedGift].name;$('postcard-story').textContent=gifts[selectedGift].story;
- $('postcard').showModal();setPostcardScene(postcardScene);
+ updateGiftNavigation();$('postcard').showModal();setPostcardScene(postcardScene);
 }
 function setPostcardScene(mode){
  if(!SCENES[mode])return;postcardScene=mode;
  for(const k of Object.keys(SCENES))document.getElementById('card-'+k).setAttribute('aria-pressed',String(k===mode));
  document.getElementById('postcard-status').textContent='幫你包裝緊，唔收膠袋錢。';refreshPostcard();
 }
+function updateGiftNavigation(){const ids=[...saved.found].sort((a,b)=>a-b),i=ids.indexOf(selectedGift);document.getElementById('gift-position').textContent=(i+1)+' / '+ids.length+' 件已收藏';document.getElementById('gift-prev').disabled=ids.length<2;document.getElementById('gift-next').disabled=ids.length<2;}
+function navigateGift(dir){const ids=[...saved.found].sort((a,b)=>a-b);if(ids.length<2)return;selectedGift=ids[(ids.indexOf(selectedGift)+dir+ids.length)%ids.length];showGift(selectedGift);document.getElementById('postcard-name').textContent=gifts[selectedGift].name;document.getElementById('postcard-story').textContent=gifts[selectedGift].story;nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();updateGiftNavigation();refreshPostcard();}
 function initPostcards(){
  const $=id=>document.getElementById(id);
+ $('gift-prev').onclick=()=>navigateGift(-1);$('gift-next').onclick=()=>navigateGift(1);
  $('card-new-quote').onclick=()=>{nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();refreshPostcard();};
  $('take-gift').onclick=openPostcard;$('album-take-gift').onclick=openPostcard;
  $('close-postcard').onclick=()=>$('postcard').close();
