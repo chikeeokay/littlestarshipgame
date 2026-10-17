@@ -1,52 +1,57 @@
-# 無聊小島 · Little Joy Harbour v2
+# 無聊小島 v4 · Local review build
 
-A Cantonese one-minute game: catch stars and gift boxes with a cat in a paper boat.
+**This version is for local review. It has not been pushed to GitHub or deployed to Render.**
 
-## Version 2
+## 先喺自己部機試玩
 
-- Exactly 999 gift entries with unique names and stories, built from 27 themes and 37 object variations. Theme colors and badges distinguish variations; emoji icons are shared, not 999 custom drawings.
-- Original six gift IDs and localStorage key are preserved for existing players on the same domain.
-- Five stars unlock one gift. Every seventh falling item is a gift box; catching it unlocks an extra gift. No duplicates until all 999 have been discovered.
-- Searchable album with theme filter, owned-only filter, pagination and story details. Only 18 cards render per album page, and six recent gifts appear in the sidebar.
-- Immediate keyboard press response, independent held-key tracking, continuous frame-based motion at 1.35 playfield widths/second instead of 0.65. Releasing one key no longer cancels another held key. Arrow keys and A/D work.
-- Keyboard and pointer input clear on pause/blur/restart. Opening the album pauses an active round and closing it resumes that round.
+1. 解壓 ZIP。
+2. 雙擊 `PLAY-LOCAL.html`，用 Chrome、Edge、Firefox 或 Safari 開啟。
+3. 唔使安裝、登入或連上網。畫面上方可揀日間、黃昏、夜間。
+4. 接星星／禮物盒解鎖收藏，撳已收藏禮物，再按「下載故事卡 PNG」。
+5. 故事卡可另外揀天色；手機可長按圖片儲存，支援系統分享嘅瀏覽器亦會顯示分享按鈕。
+6. `examples` 有三張實際製成嘅 PNG，可先睇效果。
 
-## Try locally first
+`PLAY-LOCAL.html` embeds the same game, story data and art as `public/` in one offline HTML file. Local-file storage behavior depends on the browser; an on-screen warning appears when saving is unavailable. Local progress does not automatically transfer to the Render domain.
 
-Extract the ZIP, then open `public/index.html` in Chrome, Edge, Firefox or Safari. Keep `game.js` and `gifts.js` alongside the HTML. No installation or build needed.
+For a stable local web origin, optionally run `python3 -m http.server 8000 --directory public` and visit `http://localhost:8000`.
 
-For a consistent browser origin and save behavior, optionally run `python3 -m http.server 8000 --directory public` from this folder and open `http://localhost:8000`.
+## New in v4
 
-Manual checks:
-1. Start a round. Tap and hold left/right or A/D. Test switching direction while still holding the other key.
-2. Release both keys: the boat should stop. Hold a direction to reach the edge without moving outside it.
-3. Catch five stars and a gift box; inspect new gifts in the sidebar and album.
-4. Search for 鯨魚, select 太空, and toggle owned-only. Close the album and check the round resumes.
-5. Pause or switch tabs and return; press continue. Test touch dragging and on-screen direction buttons on a phone.
+- 圖鑑內新增「儲存已收到嘅圖鑑」：每頁 12 件，1080 × 1440 PNG，按編號排序，沿用遊戲天色。多頁逐頁下載；999 件共 84 頁。圖片不是可匯入的進度備份。
+- 遊戲與故事文字停用選取／長按選單／拖曳；搜尋欄照常編輯，匯出圖片保留長按儲存，下載連結保留正常操作。右鍵不會移動小船。
+- Local tests: `node tests/album-export.test.cjs` checks pagination through gift 999, empty exports, real PNG dimensions, nested pause and gesture exceptions. Native phone long-press behavior still requires device verification.
 
-## Automated local checks
+## New in v3
 
-Requires Node.js; no npm dependencies. Run `node tests/game.test.cjs`.
+- Three complete scene palettes: daytime sea/clouds, dusk sunset, night stars/moon. Choice persists with existing saves. No change to movement or score when switching.
+- 1080 × 1350 PNG story cards contain the gift illustration, name, collection number, theme, complete story and chosen scenery. Downloading does not remove the gift.
+- 38 locally embedded SVG illustrations cover the object types; 999 theme/object gift variations remain. No image/font network requests at runtime. Twemoji art attribution is included in each image and THIRD_PARTY_NOTICES.md.
+- 72 nonrepeating prompts: 24 little tasks, 24 everyday small pleasures, 24 deliberately silly questions. Category selection, shuffle and optional acknowledgment. No deadlines, streaks, penalty or forced positivity.
+- Original six gift IDs, v2 collection and keyboard fixes are preserved. Opening the album/card pauses an active round; closing returns to the correct pause state.
 
-This tests the actual shipped game scripts with simulated DOM/canvas and frame timing. It verifies 999 unique entries, legacy saves, all 999 unlocks without duplicates, reload persistence, direct gift catches, keyboard event response, simultaneous keys, pointer controls, pause/resume, search, filtering, pagination, restart and storage failure.
+Tone example: 「幫你張凳改個職銜。佢承擔咗咁多，至少係高級承托主任。」
 
-These tests passed. A real browser was unavailable in the test environment, so visual layout and physical end-to-end input latency have not been measured. No claim of zero device latency is made.
+## Local verification completed
 
-## Update the existing GitHub / Render site
+- Actual game code tested using a simulated DOM/frame clock: keyboard response, simultaneous keys, A/D, touch/pointer controls, pause/resume, legacy saves, 999 unique unlocks, filtering and pagination.
+- V3 checks: three scenery choices and persistence, 72 distinct prompts/nonrepeating decks, nested dialog pause/resume and ownership checks.
+- Real Canvas rendering using @napi-rs/canvas: all 999 story cards rendered and measured to fit; 38 embedded SVGs loaded; three actual 1080×1350 PNG examples inspected.
+- Download handler tested with a browser-API stand-in: valid PNG data, correct filename, image dimensions, story text, stale asynchronous render protection and no unowned-gift downloads.
+- HTML IDs and local script references checked; standalone script contents match the modular app.
+
+**Limit:** A headless browser download failed in this environment. These are local logic and real Canvas output tests, not a full browser UI test. Native save/share dialogs and physical keyboard latency still need testing on your device. No claim of zero latency is made.
+
+Developer tests:
+- `node tests/game.test.cjs` (Node, no extra dependencies)
+- `node tests/export.test.cjs` (requires @napi-rs/canvas)
+- `node tests/postcards.test.cjs` (requires @napi-rs/canvas; optionally set JOY_TEST_CJK_FONT to a local Traditional Chinese font and JOY_TEST_OUTPUT to an output folder)
+
+## Later GitHub / Render update
 
 Repository: https://github.com/chikeeokay/littlestarshipgame
-Live URL: https://littlestarshipgame.onrender.com
+Existing live game: https://littlestarshipgame.onrender.com
 
-After local review, upload the extracted contents to the repository root using **Add file → Upload files**. Replace `public/index.html`, and add `public/game.js` and `public/gifts.js`. Upload the whole `public` folder to preserve this layout. Do not upload only the ZIP and do not add an enclosing folder. Commit to `main`.
+Do not upload until you are ready to publish: Render automatically deploys commits to `main`.
+Upload the extracted `public/` folder and supporting files to the repository root, replacing existing files. Do not upload just the ZIP or add an extra enclosing folder.
 
-Render is already configured to automatically deploy changes to `main`, so committing the update publishes it. Build command: `echo "Static game ready"`. Publish directory: `public`. No environment variables.
-
-Expected files:
-- public/index.html
-- public/game.js
-- public/gifts.js
-- tests/game.test.cjs
-- render.yaml
-- README.md
-
-Existing progress on the same Render domain remains. Progress does not transfer automatically between the local preview, ChatGPT Site and Render domain. Clearing browser data removes progress.
+Render settings remain: Static Site; build command `echo "Static game ready"`; publish directory `public`; no environment variables. `PLAY-LOCAL.html`, tests and examples are outside the publish directory.
