@@ -32,10 +32,10 @@ function renderAlbum(){
  const pages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));albumPage=Math.max(0,Math.min(albumPage,pages-1));$('album-grid').replaceChildren();
  list.slice(albumPage*PAGE_SIZE,(albumPage+1)*PAGE_SIZE).forEach(g=>$('album-grid').append(card(g.id,!found.has(g.id))));
  $('album-page').textContent=(albumPage+1)+' / '+pages+' · '+list.length+' 件';$('album-prev').disabled=albumPage===0;$('album-next').disabled=albumPage>=pages-1;
- $('album-empty').hidden=!!list.length;
+ $('album-empty').hidden=!!list.length;$('album-empty').textContent=saved.found.length?'呢個搜尋冇結果。清除條件就可以再睇全部收藏。':'你仲未收到禮物。返去接 5 粒星星，或者接住禮物盒，就會喺呢度見到。';
 }
 giftThemes.forEach((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=t.badge+' '+t.name;$('theme-filter').append(o);});
-$('open-album').onclick=()=>{albumReturn=running&&!paused;if(albumReturn)pause();resetInput();renderAlbum();$('album').showModal();};
+$('open-album').onclick=()=>{albumReturn=running&&!paused;if(albumReturn)pause();resetInput();albumPage=0;$('gift-search').value='';$('theme-filter').value='';$('owned-only').checked=true;renderAlbum();$('album').showModal();$('album').scrollTop=0;};
 $('close-album').onclick=()=>$('album').close();
 $('album').addEventListener('close',()=>{if(albumReturn&&running&&paused)pause();albumReturn=false;});
 ['gift-search','theme-filter','owned-only'].forEach(id=>$(id).addEventListener('input',()=>{albumPage=0;renderAlbum();}));

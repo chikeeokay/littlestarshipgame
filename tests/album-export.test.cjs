@@ -8,7 +8,7 @@ async function main(){
  assert(g.get('paused'));assert.equal(g.nodes['sheet-page'].textContent,'1 / 84 頁');
  g.get('sheetPage=83');await g.get('refreshSheet()');assert(g.nodes['sheet-next'].disabled);assert.equal(g.nodes['sheet-page'].textContent,'84 / 84 頁');
  assert(g.nodes['sheet-image'].alt.includes(g.get('gifts[998].name')));assert(!g.nodes['sheet-image'].alt.includes(g.get('gifts[0].name')));
- const png=Buffer.from(g.nodes['sheet-image'].src.split(',')[1],'base64');assert.equal(png.readUInt32BE(16),1080);assert.equal(png.readUInt32BE(20),1440);
+ const png=Buffer.from(g.nodes['sheet-image'].src.split(',')[1],'base64');assert.equal(png.readUInt32BE(16),2160);assert.equal(png.readUInt32BE(20),2880);
  g.nodes['sheet-close'].onclick();assert(g.get('paused'));g.nodes['close-album'].onclick();assert(!g.get('paused'));
  let prevented=false;g.nodes.game.onpointerdown({button:2,clientX:0});assert.equal(g.get('x'),.5);
  for(const type of ['contextmenu','selectstart','dragstart']){

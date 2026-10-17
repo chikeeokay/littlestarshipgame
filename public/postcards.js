@@ -9,7 +9,7 @@ function wrapCardText(c,text,maxWidth){
  }
  if(line)lines.push(line);return lines;
 }
-function renderGiftPostcard(c,g,mode,art=null){
+function renderGiftPostcard(c,g,mode,art=null,quote=null,footer=null){
  const s=SCENES[mode]||SCENES.night;
  c.save();c.clearRect(0,0,CARD_W,CARD_H);c.fillStyle=s.card;c.fillRect(0,0,CARD_W,CARD_H);
  c.save();c.beginPath();c.rect(36,36,1008,558);c.clip();c.translate(36,36);drawScenery(c,1008,558,mode,0,false);c.restore();
@@ -22,11 +22,14 @@ function renderGiftPostcard(c,g,mode,art=null){
  c.fillStyle=s.ink;let titleSize=68;c.font='700 '+titleSize+'px '+CARD_FONT;
  while(c.measureText(g.name).width>928&&titleSize>36){titleSize--;c.font='700 '+titleSize+'px '+CARD_FONT;}c.fillText(g.name,76,758);
  c.strokeStyle=mode==='night'?'#ffffff28':'#44332225';c.lineWidth=1;c.beginPath();c.moveTo(76,800);c.lineTo(1004,800);c.stroke();
- let storySize=35,lines=[];do{c.font=storySize+'px '+CARD_FONT;lines=wrapCardText(c,g.story,928);if(lines.length*storySize*1.65<=310)break;storySize--;}while(storySize>=22);
- c.fillStyle=s.ink;const lineHeight=storySize*1.65;lines.forEach((line,i)=>c.fillText(line,76,866+i*lineHeight));
- c.fillStyle=s.muted;c.font='24px '+CARD_FONT;c.fillText(s.caption,76,1230);
- c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('TAKE A LITTLE NONSENSE HOME',76,1280);c.textAlign='right';c.fillText('不設 KPI · 不用打卡',1004,1280);c.fillStyle=s.muted;c.font='13px '+CARD_FONT;c.fillText('Art: Twemoji © Twitter & contributors · CC BY 4.0',1004,1320);c.restore();
- return {lines:lines.length,storyBottom:866+(lines.length-1)*lineHeight,fontSize:storySize};
+ let storySize=32,lines=[];do{c.font=storySize+'px '+CARD_FONT;lines=wrapCardText(c,g.story,928);if(lines.length*storySize*1.65<=205)break;storySize--;}while(storySize>=22);
+ c.fillStyle=s.ink;const lineHeight=storySize*1.65;lines.forEach((line,i)=>c.fillText(line,76,842+i*lineHeight));
+ const q=quote||missionDeck[g.id%missionDeck.length],f=footer||footerDeck[g.id%footerDeck.length];
+ c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('隨卡附送 · '+q.kind+' · 可做可唔做',76,1080);
+ c.fillStyle=s.ink;let qs=27,ql;do{c.font=qs+'px '+CARD_FONT;ql=wrapCardText(c,q.text,928);if(ql.length<=3)break;qs--;}while(qs>18);ql.forEach((line,i)=>c.fillText(line,76,1123+i*33));
+ c.fillStyle=s.muted;c.font='24px '+CARD_FONT;c.fillText(f.head,76,1240);
+ c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('小島留念 · '+q.kind,76,1280);c.textAlign='right';c.fillText(f.tag,1004,1280);c.fillStyle=s.muted;c.font='13px '+CARD_FONT;c.fillText('Art: Twemoji © Twitter & contributors · CC BY 4.0',1004,1320);c.restore();
+ return {lines:lines.length,storyBottom:842+(lines.length-1)*lineHeight,fontSize:storySize};
 }
 const cardArtCache=new Map();
 function loadGiftArt(icon){
@@ -34,6 +37,7 @@ function loadGiftArt(icon){
  if(!cardArtCache.has(icon))cardArtCache.set(icon,new Promise(resolve=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>{cardArtCache.delete(icon);resolve(null);};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(GIFT_ART[icon]);}));
  return cardArtCache.get(icon);
 }
+let postcardQuote=null,postcardFooter=null;
 let postcardScene='night',postcardReturn=false,postcardURL='',postcardBlob=null,postcardVersion=0;
 async function refreshPostcard(){
  const $=id=>document.getElementById(id),version=++postcardVersion;
@@ -45,20 +49,20 @@ async function refreshPostcard(){
   if(version!==postcardVersion)return;
   const g=gifts[selectedGift],art=await loadGiftArt(g.icon);
   if(version!==postcardVersion)return;
-  const out=document.createElement('canvas');out.width=CARD_W;out.height=CARD_H;
-  renderGiftPostcard(out.getContext('2d'),g,postcardScene,art);
+  const out=document.createElement('canvas');out.width=CARD_W*2;out.height=CARD_H*2;out.getContext('2d').scale(2,2);
+  renderGiftPostcard(out.getContext('2d'),g,postcardScene,art,postcardQuote,postcardFooter);
   const url=out.toDataURL('image/png');if(version!==postcardVersion)return;
-  postcardURL=url;$('postcard-image').src=url;$('postcard-image').alt=g.name+'。'+g.story;
+  postcardURL=url;$('postcard-image').src=url;$('postcard-image').alt=g.name+'。'+g.story+'。'+(postcardQuote?postcardQuote.text:'');
   const filename='little-joy-gift-'+String(g.id+1).padStart(4,'0')+'-'+postcardScene+'.png';
   $('download-card').href=url;$('download-card').download=filename;$('download-card').setAttribute('aria-disabled','false');
-  $('postcard-status').textContent='1080 × 1350 PNG · 名稱同完整故事已放入圖片。手機亦可長按圖片儲存。';
+  $('postcard-status').textContent='2160 × 2700 高清圖片 · 完整故事同隨卡小句已放入圖片。手機亦可長按圖片儲存。';
   if(out.toBlob)out.toBlob(blob=>{if(version!==postcardVersion||!blob)return;postcardBlob=blob;try{const f=new File([blob],filename,{type:'image/png'});$('share-card').hidden=!(navigator.canShare&&navigator.canShare({files:[f]}));}catch(e){}},'image/png');
  }catch(e){$('postcard-status').textContent='今次製圖未成功，試吓重新開啟呢張卡。原本收藏仲喺度。';}
 }
 function openPostcard(){
  if(selectedGift===null||!saved.found.includes(selectedGift))return;
  const $=id=>document.getElementById(id);
- postcardScene=currentScene;postcardReturn=running&&!paused;if(postcardReturn)pause();resetInput();
+ nextMission();postcardQuote=missionDeck[missionIndex>=0?missionIndex:0];postcardFooter=nextFooter();postcardScene=currentScene;postcardReturn=running&&!paused;if(postcardReturn)pause();resetInput();
  $('postcard-name').textContent=gifts[selectedGift].name;$('postcard-story').textContent=gifts[selectedGift].story;
  $('postcard').showModal();setPostcardScene(postcardScene);
 }
@@ -69,6 +73,7 @@ function setPostcardScene(mode){
 }
 function initPostcards(){
  const $=id=>document.getElementById(id);
+ $('card-new-quote').onclick=()=>{nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();refreshPostcard();};
  $('take-gift').onclick=openPostcard;$('album-take-gift').onclick=openPostcard;
  $('close-postcard').onclick=()=>$('postcard').close();
  $('postcard').addEventListener('close',()=>{++postcardVersion;if(postcardReturn&&running&&paused&&!$('album').open)pause();postcardReturn=false;});

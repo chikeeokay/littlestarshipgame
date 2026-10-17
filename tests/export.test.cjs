@@ -9,7 +9,7 @@ async function main(){
  g.sandbox.navigator={canShare:()=>false};g.sandbox.File=File;
  g.get(fs.readFileSync(path.join(__dirname,'../public/gift-art.js'),'utf8'));
  g.get('showGift(1)');await g.get("postcardScene='day';refreshPostcard()");
- const uri=g.nodes['postcard-image'].src;assert(uri.startsWith('data:image/png;base64,'));const buf=Buffer.from(uri.split(',')[1],'base64');assert.equal(buf.readUInt32BE(16),1080);assert.equal(buf.readUInt32BE(20),1350);assert.equal(g.nodes['download-card'].download,'little-joy-gift-0002-day.png');assert.equal(g.nodes['download-card'].href,uri);assert(g.nodes['postcard-image'].alt.includes('唔返工鴨'));assert(g.nodes['postcard-image'].alt.includes('聽日先算'));
+ const uri=g.nodes['postcard-image'].src;assert(uri.startsWith('data:image/png;base64,'));const buf=Buffer.from(uri.split(',')[1],'base64');assert.equal(buf.readUInt32BE(16),2160);assert.equal(buf.readUInt32BE(20),2700);assert.equal(g.nodes['download-card'].download,'little-joy-gift-0002-day.png');assert.equal(g.nodes['download-card'].href,uri);assert(g.nodes['postcard-image'].alt.includes('唔返工鴨'));assert(g.nodes['postcard-image'].alt.includes('聽日先算'));
  // Font-loading delay must not allow an older request to replace a new selection.
  let finishFonts;g.sandbox.document.fonts={ready:new Promise(resolve=>finishFonts=resolve)};
  const old=g.get("postcardScene='dusk';refreshPostcard()");const latest=g.get("postcardScene='night';refreshPostcard()");finishFonts();await Promise.all([old,latest]);assert.equal(g.nodes['download-card'].download,'little-joy-gift-0002-night.png');

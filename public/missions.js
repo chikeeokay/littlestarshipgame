@@ -288,24 +288,29 @@ const missionDeck = [
   "text": "想像三隻企鵝合租。最大爭拗係冷氣開幾多度。"
  }
 ];
-let missionFilter='全部',missionBag=[],missionIndex=-1;
+
+// 60 objects × 20 prompts × 3 perspectives × 3 categories = 10,800 combinations.
+const missionObjects=["水樽", "茶杯", "拖鞋", "枕頭", "毛巾", "雨傘", "鎖匙", "背囊", "銀包", "筆袋", "鉛筆", "原子筆", "橡皮擦", "間尺", "記事簿", "便利貼", "信封", "書籤", "膠紙座", "紙巾盒", "充電線", "耳機", "滑鼠", "鍵盤", "遙控器", "枱燈", "時鐘", "相架", "花盆", "衣架", "衫鈕", "襪子", "帽子", "圍巾", "眼鏡盒", "梳", "鏡", "肥皂盒", "牙刷杯", "洗衣籃", "飯盒", "筷子", "湯匙", "碟", "碗", "隔熱墊", "開瓶器", "保溫袋", "餅乾罐", "購物袋", "門墊", "門柄", "抽屜", "書架", "窗簾", "坐墊", "摺凳", "風扇", "收納盒", "垃圾桶"];
+const missionTemplates={"小任務": ["揀一件{物}，幫佢改個三字藝名。", "畫一件{物}嘅輪廓，限用五條線。", "幫{物}寫一句招聘廣告。", "替{物}諗一個退休願望。", "用三個形容詞介紹{物}，禁止用「好用」。", "想像{物}係旅客，幫佢安排半日遊。", "替{物}設計一個唔使做嘢嘅職位。", "幫{物}起個紀錄片片名。", "畫一個屬於{物}嘅迷你路牌。", "替{物}諗一個只賣一樣嘢嘅店名。", "幫{物}寫一句請假理由。", "為{物}設計一個三秒入場動作。", "寫一封只有七個字嘅信畀{物}。", "幫{物}諗一個童話角色名。", "替{物}配一段兩拍節奏，心入面播就得。", "幫{物}設計一個奇怪但無害嘅超能力。", "為{物}諗一個博物館展覽名。", "將{物}想像成行星，命名佢第一個城市。", "替{物}寫一個唔超過十字嘅交友簡介。", "幫{物}設計一個只頒一次嘅獎項。"], "小幸福": ["望吓{物}嘅顏色，揀一小塊你睇得順眼嘅。", "留意{物}投落嚟嘅影，係咪比本尊更有戲？", "睇吓{物}有冇圓角，今日總有一處唔尖銳。", "留意{物}上面嘅光，可能有一小格免費舞台。", "睇吓{物}嘅邊緣，搵一條幾順眼嘅線。", "如果{物}仲用得，畀佢一秒無聲掌聲。", "望吓{物}嘅細節，有冇一處以前冇留意？", "如果{物}喺伸手可及嘅位置，恭喜少行兩步。", "睇吓{物}有冇使用痕跡，呢啲係生活嘅低成本年輪。", "望吓{物}同旁邊嘢嘅配色，撞色都算合作。", "如果今日搵到{物}，失物調查科可以提早散會。", "留意{物}佔住嘅小空間，佢唔需要好大先存在。", "試吓遠少少望{物}，有時退一步只係睇得完整啲。", "留意{物}安靜嗰一面，唔係所有嘢都要發通知。", "望吓{物}有冇左右唔對稱，唔工整都照常營業。", "如果{物}冇壞，今日維修預算暫時係零。", "搵吓{物}最普通嘅一面，普通都幾省心。", "望吓{物}同背景之間嘅空隙，留白原來唔使買。", "睇吓{物}有冇令你諗起一個小日常，無聊嗰種都得。", "如果{物}今日冇失蹤，畀記性部門放個微型假。"], "純粹無聊": ["如果{物}開茶餐廳，招牌菜會係乜？", "如果{物}出道做歌手，首支單曲叫咩？", "如果{物}有秘密基地，入口會收埋喺邊？", "如果{物}競選屋企區長，政綱會有幾離譜？", "如果{物}做天氣報告，最想預告落乜？", "如果{物}有一日假，佢會瞞住你去邊？", "如果{物}寫投訴信，第一句會點開場？", "如果{物}開電台，凌晨節目講乜？", "如果{物}識發夢，會唔會夢到自己升職？", "如果{物}拍偵探片，最可疑嘅鄰居係邊個？", "如果{物}有一張會員卡，儲分換到乜？", "如果{物}參加運動會，會發明咩比賽？", "如果{物}要上太空，行李限帶一樣會揀乜？", "如果{物}開網店，會點寫五星評價？", "如果{物}開班教嘢，第一堂會教人點偷懶？", "如果{物}有個分身，邊個負責返工？", "如果{物}主持頒獎禮，會忘記邊個名？", "如果{物}可以改一條家規，佢想改乜？", "如果{物}有私人司機，會唔會只去隔籬房？", "如果{物}係遊戲大魔王，弱點會唔會係星期一？"]};
+const missionPerspectives={"小任務": ["可以喺腦內完成，文具費批唔到。", "用最正經嘅口吻諗，內容越廢越好。", "當係畀外星人睇嘅版本，佢哋唔識投訴。"], "小幸福": ["搵唔到就跳過，呢度唔搞強制感恩。", "留意三秒就夠，唔使寫觀察報告。", "當係一幕冇劇情嘅電影，睇完唔使影評。"], "純粹無聊": ["請用茶餐廳老闆嘅語氣答。", "試吓諗一個五歲小朋友會接受嘅答案。", "用科幻片預告嘅語氣講一次，製作費仍然係零。"]};
+for(const [kind,templates] of Object.entries(missionTemplates))for(const object of missionObjects)for(const template of templates)for(const perspective of missionPerspectives[kind])missionDeck.push({kind,text:template.replace('{物}',object)+perspective});
+let missionFilter='全部',missionBag=[],missionIndex=-1,missionSeen=new Set();
+try{const seen=JSON.parse(localStorage.getItem('littleJoyMissionSeenV5'));if(Array.isArray(seen))missionSeen=new Set(seen.filter(i=>Number.isInteger(i)&&i>=0&&i<missionDeck.length));}catch(e){}
 function refillMissions(){
- missionBag=missionDeck.map((m,i)=>i).filter(i=>missionFilter==='全部'||missionDeck[i].kind===missionFilter);
+ const eligible=missionDeck.map((m,i)=>i).filter(i=>missionFilter==='全部'||missionDeck[i].kind===missionFilter);
+ missionBag=eligible.filter(i=>!missionSeen.has(i));
+ if(!missionBag.length){eligible.forEach(i=>missionSeen.delete(i));missionBag=eligible;}
  for(let i=missionBag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[missionBag[i],missionBag[j]]=[missionBag[j],missionBag[i]];}
- // Avoid an immediate repeat at a deck boundary.
  if(missionBag.length>1&&missionBag[missionBag.length-1]===missionIndex)[missionBag[0],missionBag[missionBag.length-1]]=[missionBag[missionBag.length-1],missionBag[0]];
 }
 function nextMission(){
- if(!missionBag.length)refillMissions();missionIndex=missionBag.pop();const m=missionDeck[missionIndex];
- document.getElementById('task-kind').textContent=m.kind;
- document.getElementById('task').textContent=m.text;
- document.getElementById('task-reply').textContent='做唔做都得。冇人收功課。';
- document.getElementById('mission-done').disabled=false;
+ if(!missionBag.length)refillMissions();missionIndex=missionBag.pop();missionSeen.add(missionIndex);
+ try{localStorage.setItem('littleJoyMissionSeenV5',JSON.stringify([...missionSeen]));}catch(e){}
+ const m=missionDeck[missionIndex];document.getElementById('task-kind').textContent=m.kind;document.getElementById('task').textContent=m.text;
+ document.getElementById('task-reply').textContent='做唔做都得。冇人收功課。';document.getElementById('mission-done').disabled=false;
 }
 function initMissions(){
- const $=id=>document.getElementById(id);
- $('mission').onclick=nextMission;
- $('mission-filter').onchange=()=>{missionFilter=$('mission-filter').value;missionBag=[];nextMission();};
- $('mission-done').onclick=()=>{$('task-reply').textContent=['收到。冇獎金，但我點咗個頭。','已記錄喺宇宙嘅便利貼。黐唔黐得實另計。','可以收工。雖然本來都冇開工。','進度：完成一件小事。Excel 唔使開。'][Math.floor(Math.random()*4)];$('mission-done').disabled=true;};
- nextMission();
+ const $=id=>document.getElementById(id);$('mission-count').textContent=missionDeck.length.toLocaleString()+' 款組合';
+ $('mission').onclick=nextMission;$('mission-filter').onchange=()=>{missionFilter=$('mission-filter').value;missionBag=[];nextMission();};
+ $('mission-done').onclick=()=>{$('task-reply').textContent=['收到。冇獎金，但我點咗個頭。','已記錄喺宇宙嘅便利貼。黐唔黐得實另計。','可以收工。雖然本來都冇開工。','進度：完成一件小事。Excel 唔使開。'][Math.floor(Math.random()*4)];$('mission-done').disabled=true;};nextMission();
 }

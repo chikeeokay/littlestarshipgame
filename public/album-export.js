@@ -32,10 +32,10 @@ async function refreshSheet(){
   if(document.fonts)await document.fonts.ready;
   const ids=sheetIds.slice(sheetPage*SHEET_SIZE,(sheetPage+1)*SHEET_SIZE),page=sheetPage,mode=sheetScene;
   const arts=await Promise.all(ids.map(id=>loadGiftArt(gifts[id].icon)));if(v!==sheetVersion)return;
-  const out=document.createElement('canvas');out.width=1080;out.height=1440;renderAlbumSheet(out.getContext('2d'),sheetIds,page,mode,arts);
+  const out=document.createElement('canvas');out.width=2160;out.height=2880;out.getContext('2d').scale(2,2);renderAlbumSheet(out.getContext('2d'),sheetIds,page,mode,arts);
   sheetURL=out.toDataURL('image/png');$('sheet-image').src=sheetURL;$('sheet-image').alt='已收集圖鑑，第 '+(page+1)+' 頁：'+ids.map(id=>gifts[id].name).join('、');
   $('sheet-download').href=sheetURL;$('sheet-download').download='little-joy-album-'+mode+'-'+String(page+1).padStart(2,'0')+'.png';$('sheet-download').setAttribute('aria-disabled','false');
-  $('sheet-status').textContent='1080 × 1440 PNG · 每頁最多 12 件。手機可長按圖片儲存；多頁請逐頁下載。圖片唔係遊戲進度備份。';
+  $('sheet-status').textContent='2160 × 2880 高清圖片 · 每頁最多 12 件。手機可長按圖片儲存；多頁請逐頁下載。圖片唔係遊戲進度備份。';
  }catch(e){if(v===sheetVersion)$('sheet-status').textContent='今次印唔到，試吓重新開啟。收藏冇受影響。';}
 }
 function initAlbumExport(){

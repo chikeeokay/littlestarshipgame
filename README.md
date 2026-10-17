@@ -1,4 +1,18 @@
-# 無聊小島 v4 · Local review build
+# 無聊小島 v6 · 聲音與精簡版面
+
+解壓後開 PLAY-LOCAL.html 本地試玩。要更新 GitHub，將 public 內所有檔案覆蓋原 public，記得包括新增 audio.js。提交 main 會觸發原 Render 自動部署。
+
+- 基本接星音效預設開啟，第一次點擊／按鍵後啟動聲音。
+- 雨聲、海浪、微風可勾選混播；音量與全體靜音可調，偏好會儲存在此瀏覽器。
+- 自然音為本機合成的環境聲，並非實地錄音；不需要下載素材。切到背景頁時靜音。
+- PC 的「今日想睇」移至遊戲右上方；收緊標題、留白與收藏卡。手機仍是直排。
+- 保留 999 收藏、三種背景、高清圖片及 v5 句庫。
+
+測試：既有遊戲／圖片測試通過，另以 Web Audio 模擬測試驗證多選、音量、靜音與儲存。未完成真實瀏覽器版面、手機操作及揚聲器聽感測試。未更新 GitHub 或 Render。
+
+---
+
+# 無聊小島 v5 · Local review build
 
 **This version is for local review. It has not been pushed to GitHub or deployed to Render.**
 
@@ -7,13 +21,22 @@
 1. 解壓 ZIP。
 2. 雙擊 `PLAY-LOCAL.html`，用 Chrome、Edge、Firefox 或 Safari 開啟。
 3. 唔使安裝、登入或連上網。畫面上方可揀日間、黃昏、夜間。
-4. 接星星／禮物盒解鎖收藏，撳已收藏禮物，再按「下載故事卡 PNG」。
+4. 接星星／禮物盒解鎖收藏，撳已收藏禮物，再按「下載故事卡圖片」。
 5. 故事卡可另外揀天色；手機可長按圖片儲存，支援系統分享嘅瀏覽器亦會顯示分享按鈕。
 6. `examples` 有三張實際製成嘅 PNG，可先睇效果。
 
 `PLAY-LOCAL.html` embeds the same game, story data and art as `public/` in one offline HTML file. Local-file storage behavior depends on the browser; an on-screen warning appears when saving is unavailable. Local progress does not automatically transfer to the Render domain.
 
 For a stable local web origin, optionally run `python3 -m http.server 8000 --directory public` and visit `http://localhost:8000`.
+
+## New in v5
+
+- 打開圖鑑即顯示已收藏，清除舊搜尋／主題條件，回到第一頁；收藏格移到儲存按鈕前面。未收藏會有明確提示。
+- 下載按鈕改用「圖片」。故事卡 2160 × 2700、圖鑑 2160 × 2880，仍為無損 PNG 檔案。
+- 保留原有 72 條，加上 60 物件 × 20 句式 × 3 角度 × 3 類別，共 10,872 款支線組合。這是模板組合庫，並非一萬篇獨立手寫故事。瀏覽記錄儲存在本機，同類未看完前不重複。
+- 卡片留白加入支線文字，可按「換句隨卡廢話」。每次開卡換新句；切換天色保留同一句。
+- 頁尾有 25 段短句 × 40 個小標語，共 1,000 款配搭，輪完之前不重複完整配搭，輪換進度會保存。
+- `node tests/v5.test.cjs` verifies collected-first opening, filter reset, all 10,872 unique prompt combinations and 1,000 nonrepeating footer combinations. Local logic and native Canvas tests only; mobile browser gestures still require device testing.
 
 ## New in v4
 
