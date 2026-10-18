@@ -26,8 +26,76 @@ header{padding:10px 24px}main{padding:0 24px 14px}.top-row{display:block;margin:
 @media(max-width:1000px){.layout{grid-template-columns:minmax(0,1fr) 320px}.settings-row{grid-template-columns:1fr}.side-rail .panel{padding:10px}.mission-head{flex-wrap:wrap}}
 @media(max-width:800px){header{padding:8px 12px}main{padding:0 10px 14px}.top-row{margin-bottom:6px}.intro p{display:none}.layout{grid-template-columns:1fr}.play,.play canvas{height:clamp(380px,calc(100dvh - 180px),560px);min-height:380px}.side-rail{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.game-settings{margin-bottom:8px}.score{font-size:14px;padding:8px 10px}.hud button{font-size:13px;padding:7px 8px}.overlay p{font-size:15px}}
 @media(max-width:560px){.side-rail{grid-template-columns:1fr}.side-rail .collection{grid-template-columns:repeat(3,minmax(0,1fr))}.tag{font-size:10px}.foot{flex-wrap:wrap;gap:8px}}
-select{max-width:100%;font:inherit;color:var(--ink);background:#172737;border:1px solid #61717c;border-radius:8px;padding:7px}.audio-bar label{min-height:32px} </style></head><body>
-<header><div class="brand"><span>✳</span>無聊小島</div><div class="tag">THE LITTLE JOY CLUB</div></header><main><div class="top-row"><section class="intro"><div><div class="eyebrow">冇限時，離開日常一下。</div><h1>接住一啲小快樂。</h1><p>人生大事遲啲先。依家接吓啲冇用嘢。</p></div><div class="stamp">准許自己<br>無所事事<br>✦</div></section></div><details class="game-settings"><summary>聲音、天色及落星速度 ▾</summary><div class="settings-row"><div class="audio-bar" aria-label="聲音選擇"><span>耳仔想去邊？</span><label><input type="checkbox" id="audio-effects" checked> 接星音效</label><label><input type="checkbox" id="audio-rain"> 雨聲</label><label><input type="checkbox" id="audio-sea"> 海浪</label><label><input type="checkbox" id="audio-wind"> 微風</label><label><input type="checkbox" id="audio-stream"> 山間溪流</label><label><input type="checkbox" id="audio-waterfall"> 遠處瀑布</label><label><input type="checkbox" id="audio-birds"> 森林雀鳥</label><label><input type="checkbox" id="audio-crickets"> 夏夜蟲鳴</label><label><input type="checkbox" id="audio-frogs"> 池塘蛙聲</label><label>背景音樂 <select id="audio-music"><option value="off">暫時唔播</option><option value="lofi">Lo-fi · 放工未遂</option><option value="piano">柔和鋼琴 · 今日算啦</option></select></label><label>音樂音量 <input id="audio-music-volume" type="range" min="0" max="100" value="45" aria-label="音樂音量"></label><button class="small" id="audio-bowl">◉ 敲一下頌缽</button><label>音量 <input id="audio-volume" type="range" min="0" max="100" value="35" aria-label="總音量"></label><small id="audio-status" role="status">合成旋律及自然聲景，可離線混搭。撳一下，耳仔先開工。</small></div><div class="scene-bar"><div class="scene-picker" role="group" aria-label="選擇遊戲背景"><button id="scene-day" aria-pressed="false">☀ 日間</button><button id="scene-dusk" aria-pressed="false">◒ 黃昏</button><button id="scene-night" aria-pressed="true">☾ 夜間</button></div><p id="scene-caption">夜更由月亮返，你負責發呆。</p></div></div><div class="speed-bar" role="group" aria-label="星星掉落速度"><span>落星速度</span><button class="small" id="speed-slow" aria-pressed="false">慢慢嚟</button><button class="small" id="speed-normal" aria-pressed="true">啱啱好</button><button class="small" id="speed-fast" aria-pressed="false">快少少</button></div></details><div class="layout"><section class="play" aria-label="接星星遊戲"><canvas id="game" aria-label="用左右方向鍵、拖曳或下方按鈕移動小船接星星"></canvas><div class="hud"><div class="score">小快樂 <b id="score">0</b>　<span id="timer">不限時</span></div><button class="small" id="pause" hidden>暫停 Ⅱ</button><button class="small" id="finish" hidden>結束今局</button></div><div class="toast" id="toast" aria-live="polite"></div><div class="controls"><button id="left" aria-label="向左移動">‹</button><span>← → / A D · 拖動小船</span><button id="right" aria-label="向右移動">›</button></div><div class="overlay" id="overlay"><div class="symbol" id="symbol">☾</div><h2 id="title">今晚嘅海，有啲驚喜。</h2><p id="desc">移動小船，接住跌落嚟嘅星星。<br>每接到 5 粒星星，解鎖一件新禮物。<br>直接接住 🎁，再多一份驚喜。<br>999 款收藏，集齊前唔重複。<br>漏咗都冇所謂，呢度唔扣分。</p><button class="primary" id="start">出發，放空一陣 ↗</button><div class="hint" id="best">不限時間 · 想收工就撳「結束今局」</div></div></section><div class="side-rail"><aside class="panel missions-panel"><section class="missions" aria-labelledby="mission-heading"><div class="mission-head"><span id="mission-heading">現實支線 · 可接可唔接</span><span id="mission-count">10,872 款組合</span></div><fieldset class="mission-checks"><legend>今日想睇</legend><label><input type="checkbox" id="mission-all" checked> 全部</label><label><input type="checkbox" id="mission-task" checked> 小任務</label><label><input type="checkbox" id="mission-joy" checked> 小幸福</label><label><input type="checkbox" id="mission-silly" checked> 純粹無聊</label></fieldset><div class="mission"><span id="task-kind">小任務</span><p id="task" aria-live="polite"></p></div><div class="mission-actions"><button class="small" id="mission">換一條 ↻</button><button class="small" id="mission-done">算我做咗 ✓</button></div><p id="task-reply" class="task-reply" aria-live="polite">做唔做都得。冇人收功課。</p></section></aside><aside class="panel pocket-panel"><div class="eyebrow">POCKET OF SMALL WONDERS</div><h2>你嘅快樂口袋 <span id="count" style="font-size:12px;color:var(--gold)">0/999</span></h2><p>有啲嘢冇乜用，<br>但擁有咗會笑一笑。</p><progress id="progress" max="999" value="0" aria-label="禮物收藏進度"></progress><div class="collection" id="collection"></div><button class="album-button" id="open-album">打開 999 款禮物圖鑑 ↗</button><p class="note" id="note">第一件小禮物，喺第 5 粒星星等你。<br>27 個主題，等你慢慢發現。</p><button id="take-gift" class="album-button" disabled>將呢件禮物製成故事卡 ↗</button><p id="storage" class="storage-note">收藏會留喺呢個瀏覽器。</p><p>「唔保證人生變好。<br>但起碼呢度冇人叫你開會。」</p></aside></div></div><div class="foot"><span>冇排行榜，冇連續登入。<br>想嚟就嚟，想走就走。</span><button class="sound" id="sound">♫ 音效：開</button><span class="stars">✧ · ✦ · ✧</span></div></main>
+select{max-width:100%;font:inherit;color:var(--ink);background:#172737;border:1px solid #61717c;border-radius:8px;padding:7px}.audio-bar label{min-height:32px} 
+/* Centered sky controls stay clickable even before starting and while paused. */
+.play .hud{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start;z-index:3;pointer-events:none}
+.hud .score{justify-self:start;white-space:nowrap}.hud-actions{display:flex;justify-content:flex-end;gap:7px;justify-self:end}
+.hud .scene-picker{pointer-events:auto;display:flex;gap:2px;background:#132737e8;border:1px solid #ffffff30;padding:3px;border-radius:24px}
+.hud .scene-picker button{font-size:13px;padding:7px 9px;min-height:36px;white-space:nowrap}
+.play .toast{bottom:110px;max-width:600px;font-size:16px;line-height:1.65;z-index:2;background:#102135dd;border-radius:14px;padding:9px 14px;border:1px solid #ffffff25}
+.play .toast:empty{display:none}
+@media(max-width:1150px){.play .hud{grid-template-columns:1fr auto;row-gap:8px;left:12px;right:12px;top:12px}.hud .scene-picker{grid-row:2;grid-column:1/-1;justify-self:center}.hud-actions{grid-column:2;grid-row:1}.hud .score{font-size:12px;padding:9px}.hud-actions .small{font-size:12px;padding:9px}.hud .scene-picker button{min-height:36px}}
+
+@media(max-width:1150px){.play .overlay{padding-top:100px}}
+@media(max-width:800px){.play .overlay .symbol{display:none}.play .overlay p{font-size:14px;line-height:1.45}}
+@media(max-width:380px){.hud .score{font-size:11px;padding:8px 6px}.hud-actions{gap:4px}.hud-actions .small{font-size:11px;padding:8px 6px}}
+
+/* Compact, text-sized notices never intercept a drag. */
+.play .toast{width:max-content;max-width:min(440px,calc(100% - 32px));min-height:0;padding:4px 9px;border-radius:9px;line-height:1.4;font-size:15px;pointer-events:none;overflow-wrap:anywhere;background:#102135bb}
+.gift-icon img{display:block;width:32px;height:32px;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.hud-settings{display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none;justify-self:center}
+.hud-settings .scene-picker{pointer-events:auto}
+.hud .hud-settings .speed-bar{display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;gap:3px;margin:0;padding:3px 5px;border-radius:20px;background:#132737e8;border:1px solid #ffffff25;pointer-events:auto}
+.hud-settings .speed-bar>span{font-size:11px;white-space:nowrap;margin:0 3px}
+.hud .hud-settings .speed-bar button{min-height:30px;padding:4px 7px;font-size:12px;white-space:nowrap;border-radius:18px}
+.play .overlay{padding-top:112px}
+@media(max-width:1150px){.hud-settings{grid-row:2;grid-column:1/-1}.hud .hud-settings .scene-picker{grid-row:auto;grid-column:auto}.play .overlay{padding-top:142px}.play .overlay .symbol{display:none}.play .overlay p{font-size:14px;line-height:1.4}.play .overlay h2{font-size:23px}.play .overlay .primary{margin:10px 0 6px;padding:12px 25px}.play,.play canvas{min-height:440px}}
+@media(max-width:380px){.hud .hud-settings .speed-bar button{padding:4px 6px}.play .toast{font-size:14px;max-width:calc(100% - 24px)}}
+
+/* Fit the full card and controls in the viewport; exported pixels stay unchanged. */
+#postcard[open]{display:flex;flex-direction:column;width:min(1000px,calc(100vw - 24px));height:min(820px,calc(100dvh - 24px));max-height:calc(100dvh - 24px);padding:16px;box-sizing:border-box;overflow:auto;gap:8px}
+#postcard>.album-header{margin:0;flex-shrink:0}#postcard>.album-header h2{font-size:21px;margin:0}
+#postcard>p{display:none}#postcard .gift-nav{margin:0;flex-shrink:0}
+#postcard .postcard-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:18px;flex:1;min-height:0;margin:0}
+#postcard .postcard-layout>div:first-child{display:flex;align-items:center;justify-content:center;min-height:0;max-width:100%;overflow:hidden}
+#postcard #postcard-image{display:block;object-fit:contain;width:100%;height:100%;max-width:100%;max-height:100%;border-radius:8px}
+#postcard .postcard-details{min-height:0;overflow:auto;display:flex;flex-direction:column;gap:8px;justify-content:center}
+#postcard .postcard-details h3{margin:0;font-size:20px}#postcard #postcard-story{font-size:14px;line-height:1.4;margin:0}
+#postcard .filter-label{margin:0;font-size:12px}#postcard .card-picker{align-self:flex-start}
+#postcard .card-picker button{font-size:13px;padding:7px 10px}
+#postcard .primary,#postcard .small{margin:0!important;min-height:36px;padding:8px 14px;font-size:14px;line-height:1.3}
+#postcard #download-card{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:400}
+#postcard #postcard-status{font-size:12px;line-height:1.4;margin:0}
+#photo-save-dialog[open]{display:flex;flex-direction:column;gap:10px;width:min(650px,calc(100vw - 24px));height:calc(100dvh - 24px);max-height:calc(100dvh - 24px);box-sizing:border-box;padding:14px;overflow:auto}
+#photo-save-dialog .album-header{margin:0;flex-shrink:0}#photo-save-dialog h2{margin:0;font-size:20px}
+#photo-save-image{display:block;flex:1;min-height:0;width:100%;object-fit:contain;touch-action:auto;user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default;pointer-events:auto}
+.photo-instructions{font-size:13px;line-height:1.45;margin:0;flex-shrink:0}
+#sheet .photo-save{margin:8px 0}#sheet #sheet-image{width:100%;height:auto;max-height:calc(100dvh - 280px);object-fit:contain}
+@media(max-width:650px){
+ #postcard[open]{padding:10px;gap:5px}
+ #postcard .postcard-layout{display:flex;flex-direction:column;gap:6px}
+ #postcard .postcard-layout>div:first-child{flex:1;min-height:70px;width:100%}
+ #postcard .postcard-details{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:5px;overflow:visible}
+ #postcard .postcard-details h3,#postcard #postcard-story,#postcard .filter-label{display:none}
+ #postcard .card-picker{grid-column:1/-1;justify-self:center}
+ #postcard #card-new-quote{grid-column:1/-1}
+ #postcard #share-card{grid-column:1/-1}
+ #postcard #postcard-status{grid-column:1/-1;font-size:11px;line-height:1.25}
+ #postcard .primary,#postcard .small{font-size:13px;min-height:34px;padding:7px 9px}
+ #postcard .album-header h2{font-size:19px}
+}
+@media(max-height:520px){#postcard[open]{height:calc(100dvh - 12px);max-height:calc(100dvh - 12px);padding:8px}#postcard .postcard-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,1fr)}#postcard .postcard-details{overflow:auto;display:flex;justify-content:flex-start}#postcard #postcard-story,#postcard .filter-label{display:none}#postcard .postcard-layout>div:first-child{min-height:0}}
+
+/* One compact icon row for sky and falling speed. */
+.play .hud-settings{flex-direction:row;flex-wrap:nowrap;gap:6px;align-items:center}
+.play .hud .hud-settings .scene-picker,.play .hud .hud-settings .speed-bar{margin:0;padding:3px;gap:2px;flex-shrink:0;min-width:0;border-radius:24px}
+.play .hud .hud-settings button{display:grid;place-items:center;width:36px;height:36px;min-height:36px;padding:0;font-size:0;flex:0 0 36px;border-radius:50%}
+.hud-settings svg{display:block;pointer-events:none}
+.play .overlay{padding-top:82px}
+@media(max-width:1150px){.play .overlay{padding-top:108px}}
+@media(pointer:coarse) and (min-width:390px){.play .hud .hud-settings button{width:40px;height:40px;min-height:40px;flex-basis:40px}}
+</style></head><body>
+<header><div class="brand"><span>✳</span>無聊小島</div><div class="tag">THE LITTLE JOY CLUB</div></header><main><div class="top-row"><section class="intro"><div><div class="eyebrow">冇限時，離開日常一下。</div><h1>接住一啲小快樂。</h1><p>人生大事遲啲先。依家接吓啲冇用嘢。</p></div><div class="stamp">准許自己<br>無所事事<br>✦</div></section></div><details class="game-settings"><summary>音樂及自然聲 ▾</summary><div class="settings-row"><div class="audio-bar" aria-label="聲音選擇"><span>耳仔想去邊？</span><label><input type="checkbox" id="audio-effects" checked> 接星音效</label><label><input type="checkbox" id="audio-rain"> 雨聲</label><label><input type="checkbox" id="audio-sea"> 海浪</label><label><input type="checkbox" id="audio-wind"> 微風</label><label><input type="checkbox" id="audio-stream"> 山間溪流</label><label><input type="checkbox" id="audio-waterfall"> 遠處瀑布</label><label><input type="checkbox" id="audio-birds"> 森林雀鳥</label><label><input type="checkbox" id="audio-crickets"> 夏夜蟲鳴</label><label><input type="checkbox" id="audio-frogs"> 池塘蛙聲</label><label>背景音樂 <select id="audio-music"><option value="off">暫時唔播</option><option value="lofi">Lo-fi · 放工未遂</option><option value="piano">柔和鋼琴 · 今日算啦</option><option value="jazz">Jazz · 咖啡未凍</option><option value="bowl">純頌缽 · 連續播放</option><option value="ambient">Ambient · 慢慢浮</option><option value="musicbox">音樂盒 · 收好今日</option></select></label><label>音樂音量 <input id="audio-music-volume" type="range" min="0" max="100" value="75" aria-label="音樂音量"></label><button class="small" id="audio-bowl">◉ 敲一下頌缽</button><label>音量 <input id="audio-volume" type="range" min="0" max="100" value="55" aria-label="總音量"></label><small id="audio-status" role="status">合成旋律及自然聲景，可離線混搭。撳一下，耳仔先開工。</small></div><div class="scene-bar"><p id="scene-caption">夜更由月亮返，你負責發呆。</p></div></div></details><div class="layout"><section class="play" aria-label="接星星遊戲"><canvas id="game" aria-label="用左右方向鍵、拖曳或下方按鈕移動小船接星星"></canvas><div class="hud"><div class="score">小快樂 <b id="score">0</b>　<span id="timer">不限時</span></div><div class="hud-settings"><div class="scene-picker" role="group" aria-label="選擇遊戲背景"><button id="scene-day" aria-pressed="false" title="日間背景" aria-label="日間背景"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button><button id="scene-dusk" aria-pressed="false" title="黃昏背景" aria-label="黃昏背景"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 16h18M5 13a7 7 0 0 1 14 0M12 2v3M3 6l2 2m16-2-2 2M6 20h12"/></svg></button><button id="scene-night" aria-pressed="true" title="夜間背景" aria-label="夜間背景"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 15.5A9 9 0 0 1 8.5 4a9 9 0 1 0 11.5 11.5Z"/></svg></button></div><div class="speed-bar" role="group" aria-label="星星掉落速度"><button class="small" id="speed-slow" aria-pressed="false" title="慢慢嚟 · 慢速" aria-label="慢慢嚟 · 慢速"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 10 7-10 7Z"/></svg></button><button class="small" id="speed-normal" aria-pressed="true" title="啱啱好 · 正常速度" aria-label="啱啱好 · 正常速度"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 6 7 6-7 6Zm10 0 7 6-7 6Z"/></svg></button><button class="small" id="speed-fast" aria-pressed="false" title="快少少 · 快速" aria-label="快少少 · 快速"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m2 7 5 5-5 5Zm7 0 5 5-5 5Zm7 0 5 5-5 5Z"/></svg></button></div></div><div class="hud-actions"><button class="small" id="pause" hidden>暫停 Ⅱ</button><button class="small" id="finish" hidden>結束今局</button></div></div><div class="toast" id="toast" aria-live="polite"></div><div class="controls"><button id="left" aria-label="向左移動">‹</button><span>← → / A D · 拖動小船</span><button id="right" aria-label="向右移動">›</button></div><div class="overlay" id="overlay"><div class="symbol" id="symbol">☾</div><h2 id="title">今晚嘅海，有啲驚喜。</h2><p id="desc">移動小船，接住跌落嚟嘅星星。<br>每接到 5 粒星星，解鎖一件新禮物。<br>直接接住 🎁，再多一份驚喜。<br>999 款收藏，集齊前唔重複。<br>漏咗都冇所謂，呢度唔扣分。</p><button class="primary" id="start">出發，放空一陣 ↗</button><div class="hint" id="best">不限時間 · 想收工就撳「結束今局」</div></div></section><div class="side-rail"><aside class="panel missions-panel"><section class="missions" aria-labelledby="mission-heading"><div class="mission-head"><span id="mission-heading">現實支線 · 可接可唔接</span><span id="mission-count">540 條日常小句</span></div><fieldset class="mission-checks"><legend>今日想睇</legend><label><input type="checkbox" id="mission-all" checked> 全部</label><label><input type="checkbox" id="mission-task" checked> 小任務</label><label><input type="checkbox" id="mission-joy" checked> 小幸福</label><label><input type="checkbox" id="mission-silly" checked> 純粹無聊</label></fieldset><div class="mission"><span id="task-kind">小任務</span><p id="task" aria-live="polite"></p></div><div class="mission-actions"><button class="small" id="mission">換一條 ↻</button><button class="small" id="mission-done">算我做咗 ✓</button></div><p id="task-reply" class="task-reply" aria-live="polite">做唔做都得。冇人收功課。</p></section></aside><aside class="panel pocket-panel"><div class="eyebrow">POCKET OF SMALL WONDERS</div><h2>你嘅快樂口袋 <span id="count" style="font-size:12px;color:var(--gold)">0/999</span></h2><p>有啲嘢冇乜用，<br>但擁有咗會笑一笑。</p><progress id="progress" max="999" value="0" aria-label="禮物收藏進度"></progress><div class="collection" id="collection"></div><button class="album-button" id="open-album">打開 999 款禮物圖鑑 ↗</button><p class="note" id="note">第一件小禮物，喺第 5 粒星星等你。<br>27 個主題，等你慢慢發現。</p><button id="take-gift" class="album-button" disabled>將呢件禮物製成故事卡 ↗</button><p id="storage" class="storage-note">收藏會留喺呢個瀏覽器。</p><p>「唔保證人生變好。<br>但起碼呢度冇人叫你開會。」</p></aside></div></div><div class="foot"><span>冇排行榜，冇連續登入。<br>想嚟就嚟，想走就走。</span><button class="sound" id="sound">♫ 音效：開</button><span class="stars">✧ · ✦ · ✧</span></div></main>
 <dialog id="album" aria-labelledby="album-title">
 <div class="album-header"><div><div class="eyebrow">999 LITTLE WONDERS</div><h2 id="album-title">你嘅驚喜圖鑑</h2></div><button class="small" id="close-album" autofocus>關閉 ✕</button></div>
 <p>27 個主題 × 37 個物件變奏 · 集齊前每次都係新發現</p>
@@ -36,8 +104,21 @@ select{max-width:100%;font:inherit;color:var(--ink);background:#172737;border:1p
 <div class="album-pagination"><button class="small" id="album-prev">← 上一頁</button><span id="album-page" aria-live="polite"></span><button class="small" id="album-next">下一頁 →</button></div>
 <p id="album-note" class="album-note" aria-live="polite">撳已收藏嘅禮物，睇吓佢嘅小故事。</p><button class="album-button album-export" id="album-take-gift" disabled>帶走已選禮物 · 製作故事卡 ↗</button><button class="album-button album-export" id="save-album">儲存已收到嘅圖鑑 · 圖片 ↓</button>
 </dialog>
-<dialog id="postcard" aria-labelledby="postcard-heading"><div class="album-header"><div><div class="eyebrow">TAKE A LITTLE NONSENSE HOME</div><h2 id="postcard-heading">禮物可以拎走。</h2></div><button class="small" id="close-postcard" autofocus>關閉 ✕</button></div><p>放心，拎走唔會扣庫存。呢度唔係公司文具櫃。</p><nav class="gift-nav" aria-label="瀏覽已收藏禮物"><button class="small" id="gift-prev">← 上一件</button><span id="gift-position" aria-live="polite"></span><button class="small" id="gift-next">下一件 →</button></nav><div class="postcard-layout"><div><img class="saveable-image" id="postcard-image" alt="禮物故事卡預覽" width="1080" height="1350"></div><div class="postcard-details"><h3 id="postcard-name"></h3><p id="postcard-story"></p><p class="filter-label">替張卡揀個天色</p><div class="scene-picker card-picker" role="group" aria-label="故事卡背景"><button id="card-day" aria-pressed="false">☀ 日間</button><button id="card-dusk" aria-pressed="false">◒ 黃昏</button><button id="card-night" aria-pressed="true">☾ 夜間</button></div><button class="small" id="card-new-quote" style="margin-top:16px">換句隨卡廢話 ↻</button><a class="primary download-card" id="download-card" aria-disabled="true">下載故事卡 圖片 ↓</a><button class="small" id="share-card" hidden>分享圖片 ↗</button><p id="postcard-status" class="storage-note" role="status"></p></div></div></dialog>
-<dialog id="sheet" aria-labelledby="sheet-title"><div class="album-header"><h2 id="sheet-title">成袋小廢物，帶返屋企。</h2><button class="small" id="sheet-close" autofocus>關閉 ✕</button></div><p>只印已收到嘅禮物，按編號排列。沿用你揀嘅遊戲天色。</p><img class="saveable-image" id="sheet-image" alt="已收集圖鑑預覽" width="1080" height="1440"><div class="album-pagination"><button class="small" id="sheet-prev">← 上一頁</button><span id="sheet-page" aria-live="polite"></span><button class="small" id="sheet-next">下一頁 →</button></div><a class="primary download-card" id="sheet-download" aria-disabled="true">儲存呢頁圖鑑 圖片 ↓</a><p id="sheet-status" role="status"></p></dialog>
+<dialog id="postcard" aria-labelledby="postcard-heading"><div class="album-header"><div><div class="eyebrow">TAKE A LITTLE NONSENSE HOME</div><h2 id="postcard-heading">禮物可以拎走。</h2></div><button class="small" id="close-postcard" autofocus>關閉 ✕</button></div><p>放心，拎走唔會扣庫存。呢度唔係公司文具櫃。</p><nav class="gift-nav" aria-label="瀏覽已收藏禮物"><button class="small" id="gift-prev">← 上一件</button><span id="gift-position" aria-live="polite"></span><button class="small" id="gift-next">下一件 →</button></nav><div class="postcard-layout"><div><img class="saveable-image" id="postcard-image" alt="禮物故事卡預覽" width="1080" height="1350"></div><div class="postcard-details"><h3 id="postcard-name"></h3><p id="postcard-story"></p><p class="filter-label">替張卡揀個天色</p><div class="scene-picker card-picker" role="group" aria-label="故事卡背景"><button id="card-day" aria-pressed="false">☀ 日間</button><button id="card-dusk" aria-pressed="false">◒ 黃昏</button><button id="card-night" aria-pressed="true">☾ 夜間</button></div><button class="small" id="card-new-quote" style="margin-top:16px">換句隨卡廢話 ↻</button><button class="primary photo-save" id="save-photo" disabled>存入相片 · 長按儲存</button><a class="primary download-card" id="download-card" aria-disabled="true">下載故事卡 圖片 ↓</a><button class="small" id="share-card" hidden>分享圖片 ↗</button><p id="postcard-status" class="storage-note" role="status"></p></div></div></dialog>
+<dialog id="sheet" aria-labelledby="sheet-title"><div class="album-header"><h2 id="sheet-title">成袋小廢物，帶返屋企。</h2><button class="small" id="sheet-close" autofocus>關閉 ✕</button></div><p>只印已收到嘅禮物，按編號排列。沿用你揀嘅遊戲天色。</p><img class="saveable-image" id="sheet-image" alt="已收集圖鑑預覽" width="1080" height="1440"><div class="album-pagination"><button class="small" id="sheet-prev">← 上一頁</button><span id="sheet-page" aria-live="polite"></span><button class="small" id="sheet-next">下一頁 →</button></div><button class="primary photo-save" id="sheet-save-photo" disabled>存入相片 · 長按儲存</button><a class="primary download-card" id="sheet-download" aria-disabled="true">儲存呢頁圖鑑 圖片 ↓</a><p id="sheet-status" role="status"></p></dialog>
+<dialog id="photo-save-dialog" aria-labelledby="photo-save-title"><div class="album-header"><h2 id="photo-save-title">存入相片</h2><button class="small" id="photo-save-close">返回 ✕</button></div><p class="photo-instructions">iPhone：長按下面圖片，選「儲存圖片」或「加入相片」。選單名稱視瀏覽器而定。</p><img id="photo-save-image" class="saveable-image" alt="長按此高清圖片以儲存到相片"><p class="photo-instructions">毋須傳 WhatsApp。若沒有儲存選項，可用 Safari 開啟遊戲再試。完成後撳「返回」。</p></dialog>
+<script>
+// A visible image gives iPhone its native long-press image-saving menu.
+// Websites cannot choose Photos as the native share destination or confirm a save.
+function openPhotoSave(url,description){
+ if(!url||!url.startsWith('data:image/png'))return;
+ const im=document.getElementById('photo-save-image');im.src=url;im.alt=description||'長按圖片儲存';
+ document.getElementById('photo-save-dialog').showModal();
+}
+document.getElementById('photo-save-close').onclick=()=>document.getElementById('photo-save-dialog').close();
+document.getElementById('photo-save-dialog').addEventListener('close',()=>document.getElementById('photo-save-image').removeAttribute('src'));
+
+</script>
 <script>
 /* 999 stable gift IDs; first six retain v1 saves. Theme/object variants share emoji, not unique illustrations. */
 const giftThemes = [{"name": "月光", "badge": "☾"}, {"name": "雲朵", "badge": "☁"}, {"name": "星塵", "badge": "✦"}, {"name": "深海", "badge": "≈"}, {"name": "森林", "badge": "♧"}, {"name": "雨天", "badge": "☂"}, {"name": "彩虹", "badge": "🌈"}, {"name": "夕陽", "badge": "◒"}, {"name": "午夜", "badge": "☽"}, {"name": "銀河", "badge": "✧"}, {"name": "茶餐廳", "badge": "☕"}, {"name": "魚蛋檔", "badge": "🍢"}, {"name": "菠蘿包", "badge": "🍍"}, {"name": "奶茶", "badge": "🧋"}, {"name": "雪糕", "badge": "🍦"}, {"name": "糖果", "badge": "🍬"}, {"name": "貓咪", "badge": "🐾"}, {"name": "鴨仔", "badge": "🦆"}, {"name": "柴犬", "badge": "🐕"}, {"name": "企鵝", "badge": "🐧"}, {"name": "太空", "badge": "🪐"}, {"name": "機械", "badge": "⚙"}, {"name": "魔法", "badge": "✴"}, {"name": "懷舊", "badge": "▣"}, {"name": "迷你", "badge": "·"}, {"name": "反重力", "badge": "↟"}, {"name": "放假", "badge": "☀"}];
@@ -9065,304 +9146,2171 @@ function drawScenery(c,w,h,mode='night',t=0,animate=false){
 
 </script>
 <script>
+// Individually written entries. Existing indices preserved for reading history.
 const missionDeck = [
  {
   "kind": "小任務",
-  "text": "幫你張凳改個職銜。佢承擔咗咁多，至少係高級承托主任。"
+  "text": "飲啖水。唔使一口氣改變人生，先改變一下口乾。"
  },
  {
   "kind": "小任務",
-  "text": "飲一啖水。唔係養生挑戰，只係個口都要補貨。"
+  "text": "將膊頭放低少少。佢哋唔使陪你一齊頂住成件事。"
  },
  {
   "kind": "小任務",
-  "text": "將膊頭放低少少。佢哋唔使貼住耳仔開會。"
+  "text": "揀一首以前成日聽嘅歌，播一次。睇吓係首歌老咗，定係你終於聽明。"
  },
  {
   "kind": "小任務",
-  "text": "播一首舊歌。放心，唔使順便檢討青春。"
+  "text": "望吓窗外，搵一樣郁得慢過你嘅嘢。搵唔到就算，今日你贏。"
  },
  {
   "kind": "小任務",
-  "text": "搵一件藍色物件，任命佢做今日海洋部代表。"
+  "text": "將一件用完嘅嘢放返原位。一件就夠，唔好俾間屋以為你開始大掃除。"
  },
  {
   "kind": "小任務",
-  "text": "望遠少少十秒。幫眼睛轉個風景台。"
+  "text": "搵張相簿入面捨不得刪、但又唔知留嚟做乜嘅相。幫佢改個展覽名，例如《唔記得點解影咗個渠蓋》。"
  },
  {
   "kind": "小任務",
-  "text": "喺紙上畫隻鴨。唔似都得，就話係鴨嘅抽象期。"
+  "text": "用十秒伸個懶腰，做到一隻貓咁理直氣壯。唔使交代啱啱做過幾多嘢。"
  },
  {
   "kind": "小任務",
-  "text": "將一件擺歪咗嘅嘢扶正。今日嘅大型工程完工。"
+  "text": "將手上嗰啖嘢食慢少少。買都買咗，唔好淨係俾個胃知道係乜味。"
  },
  {
   "kind": "小任務",
-  "text": "伸一伸手指。佢哋今日都打咗好多冇人工嘅字。"
+  "text": "今日經過熟悉嘅路，留意一間平時冇望過嘅舖。唔使幫襯，認識一下隔籬有咩賣都得。"
  },
  {
   "kind": "小任務",
-  "text": "揀一張冇用途但幾得意嘅相，再望一次。相簿唔係只用嚟搵收據。"
+  "text": "試吓坐一分鐘，唔搵嘢睇，唔諗下一步。覺得無聊都正常，呢度本身就叫無聊小島。"
  },
  {
   "kind": "小任務",
-  "text": "對住一盆植物點個頭。大家都係靠水頂住。"
+  "text": "抹一抹手機鏡頭。下次影相，唔使再將指紋當柔光濾鏡。"
  },
  {
   "kind": "小任務",
-  "text": "幫一件普通物件寫句廣告。例如：呢支筆，暫時未失蹤。"
+  "text": "將桌面一張唔再需要嘅紙掉咗。其餘嗰疊先唔好望，避免工程突然擴大。"
  },
  {
   "kind": "小任務",
-  "text": "聽三秒周圍嘅聲。當係免費版環境音專輯。"
+  "text": "合埋一個肯定唔會再睇嘅分頁。畀瀏覽器同自己一個交代。"
  },
  {
   "kind": "小任務",
-  "text": "換個坐姿。唔使換人生，換吓屁股個角度先。"
+  "text": "試吓回想今日食過最好味嗰一啖。唔使係大餐，偷食嗰粒薯條都算。"
  },
  {
   "kind": "小任務",
-  "text": "將手機放低二十秒。放心，群組廢話識自己生長。"
+  "text": "如果方便，換個位坐兩分鐘。同一個房間，換個角度已經係平價旅行。"
  },
  {
   "kind": "小任務",
-  "text": "摸吓衫袖，感受吓布料。你而家係低成本時裝評審。"
+  "text": "搵張紙畫個圓，唔用工具。畫成薯仔都唔使重交。"
  },
  {
   "kind": "小任務",
-  "text": "望吓最近嘅影子，幫佢改個藝名。"
+  "text": "摸吓衫袋有冇紙巾。洗衫前發現，係情報；洗衫後發現，係雪景。"
  },
  {
   "kind": "小任務",
-  "text": "搵一樣圓形嘅嘢，當佢係行星。禁止收泊車費。"
+  "text": "將一件成日搵唔到嘅嘢擺喺固定位置。先試一件，唔好一次過考驗全屋記性。"
  },
  {
   "kind": "小任務",
-  "text": "心入面講一次「呢個唔急」。請揀一件真係唔急嘅事，唔好揀煲緊嘅水。"
+  "text": "聽吓附近最細聲嘅聲音。雪櫃嗡嗡聲都算，佢平時講嘢冇人理。"
  },
  {
   "kind": "小任務",
-  "text": "畀自己十秒乜都唔做。唔使倒數得咁專業。"
+  "text": "揀張今日影嘅相，望多次先決定要唔要分享。有啲嘢自己睇過，已經完成用途。"
  },
  {
   "kind": "小任務",
-  "text": "將你而家個表情想像成 emoji。唔使一定係笑樣。"
+  "text": "將待辦入面一件真係唔急嘅事移去聽日。只限真係唔急，唔包括熄火。"
  },
  {
   "kind": "小任務",
-  "text": "幫今日起個戲名。例如：《個滑鼠又冇電》。"
+  "text": "試吓用慣用手以外嗰隻手寫自己個名。原來識咗咁多年，仲可以寫到似第一次見。"
  },
  {
   "kind": "小任務",
-  "text": "睇吓手邊有冇一樣好耐冇用嘅嘢。問候一下，唔使即刻斷捨離。"
+  "text": "幫而家嘅心情揀個天氣。陰天都得，天氣報告唔需要討好觀眾。"
  },
  {
   "kind": "小任務",
-  "text": "哼兩句歌。走音唔收附加費。"
+  "text": "睇一眼杯入面仲有幾多水。唔好等渴到先發現，原來最後一啖係兩個鐘前。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一樣今日做完嘅小事，唔好即刻加句「但係」。倒咗垃圾就係倒咗，唔使順便評核人生。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將最常用嘅 emoji 當成今日自畫像。如果係個薯仔，亦都幾誠實。"
+ },
+ {
+  "kind": "小任務",
+  "text": "離開張枱行幾步，去邊都得。唔使搵藉口扮影印，呢度冇主管。"
+ },
+ {
+  "kind": "小任務",
+  "text": "搵一件著得舒服嘅衫留俾今晚。返到屋企，至少有一樣嘢唔會勒住你。"
+ },
+ {
+  "kind": "小任務",
+  "text": "整理銀包入面一張過期收據。嗰餐飯已經食完好耐，可以正式結案。"
+ },
+ {
+  "kind": "小任務",
+  "text": "畀自己揀一次「都可以」以外嘅答案。先由飲凍定熱開始，唔使決定移民。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓而家嘅天空係咩顏色。唔一定要影低，個天唔會查閱覽紀錄。"
+ },
+ {
+  "kind": "小任務",
+  "text": "播一首歌，只聽到唱完先做下一樣嘢。唔使同時摺衫，首歌已經有伴奏。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一條纏埋嘅充電線慢慢解開。解唔開先放低，唔使同條線爭一口氣。"
+ },
+ {
+  "kind": "小任務",
+  "text": "諗一樣細個覺得好好食嘅嘢。仲買得到嘅話，留低個名，下次路過先算。"
+ },
+ {
+  "kind": "小任務",
+  "text": "輕輕郁吓坐咗好耐嘅腳趾。提醒佢哋今日有份出席，只係暫時冇發言。"
+ },
+ {
+  "kind": "小任務",
+  "text": "打開一本擺咗好耐嘅書，睇一頁就得。書籤搬前少少，唔使即日畢業。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓屋企邊樣嘢用咗最耐。佢未必靚，但陪你搬過屋嗰隻膠箱，資歷可能深過同事。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將一個細煩惱寫低。紙張唔會幫你解決，但至少唔會答「你諗多咗」。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一個唔使回覆嘅通知清走。唔係每個紅點都值得你出場。"
+ },
+ {
+  "kind": "小任務",
+  "text": "留意一棵路邊嘅樹，認住佢。下次經過，呢條路就多咗個唔使寒暄嘅熟面口。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓用一句說話介紹今日，唔准用「忙」。例如：個人喺度，精神未到。"
+ },
+ {
+  "kind": "小任務",
+  "text": "飲完嗰杯嘢先洗個杯。一個杯嘅工作量，暫時唔升級做全廚房。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一樣唔使買嘢都做到嘅休息。坐低、望天、聽歌，今日購物車可以唔參與。"
+ },
+ {
+  "kind": "小任務",
+  "text": "檢查吓背囊有冇帶住一樣早就唔需要嘅嘢。舊傳單唔會因為去過幾次街而升值。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將鬧鐘個名改得客氣少少。「起身喇」已經夠，唔使由朝早開始鬧自己。"
+ },
+ {
+  "kind": "小任務",
+  "text": "喺心入面列三樣今日唔使做嘅事。冇飛機要趕都算，少一樣已經少一樣。"
+ },
+ {
+  "kind": "小任務",
+  "text": "畫一條線代表今日心情。直線、波浪、亂畫都得，唔會有人攞去做業績圖。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一張普通日常相留低。將來想記起嘅，未必淨係生日蛋糕。"
+ },
+ {
+  "kind": "小任務",
+  "text": "如果手邊有零食，揀最想食嗰件，唔好先清晒唔鍾意嗰啲。你又唔係庫存管理員。"
+ },
+ {
+  "kind": "小任務",
+  "text": "睇吓時間，再決定係咪真係趕。個腦有時會自動播追逐戰配樂。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓放低手機，望住飲品升起嘅熱氣一陣。凍飲就睇杯邊水珠，唔使為任務轉餐。"
+ },
+ {
+  "kind": "小任務",
+  "text": "摺好一條毛巾。完成一件有頭有尾、又唔會回覆你「再改改」嘅事。"
+ },
+ {
+  "kind": "小任務",
+  "text": "諗起一個好耐冇用嘅廣東話詞語，默默講一次。有啲字，讀出口先記得佢幾有聲氣。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日行路時留意一塊有趣嘅招牌。睇清楚條路先，唔好為咗笑點撞柱。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一件掛住「遲啲先」但兩分鐘就做到嘅小事做埋。超過兩分鐘嗰啲，今日唔收。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一段自己鍾意嘅歌詞，心入面唱一次。忘記中間嗰句可以哼，原唱唔喺現場。"
+ },
+ {
+  "kind": "小任務",
+  "text": "諗吓今晚最想點休息，答案可以係冇安排。空白唔一定係漏填。"
+ },
+ {
+  "kind": "小任務",
+  "text": "如果窗邊有陽光，望吓佢照到邊。光行得好慢，唔會催你跟上。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將呢一刻想講但唔一定要寄出嘅說話寫喺備忘錄。先存檔，傳送鍵唔使急住返工。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一件今日已經夠好嘅小事，停喺嗰度。張枱清到有位放杯水，未必要清到可以拍廣告。"
  },
  {
   "kind": "小幸福",
-  "text": "有冇一啖飲品溫度啱啱好？呢個品質控制值得靜靜嘉許。"
+  "text": "鬧鐘未響就醒咗，望一眼時間，原來仲可以瞓。嗰一下，比收到「會議取消」更直接。"
  },
  {
   "kind": "小幸福",
-  "text": "如果今日條充電線一插就入，記住呢個罕見合作時刻。"
+  "text": "沖完涼換上乾淨衫，冷氣啱啱好。今日有咩未搞掂，可以暫時喺浴室門外等。"
  },
  {
   "kind": "小幸福",
-  "text": "搵一束照喺牆上嘅光。唔使影相，佢都唔會嬲。"
+  "text": "以為牙膏冇晒，點知仲擠到一次。生活偶爾都會幫你拖多一日。"
  },
  {
   "kind": "小幸福",
-  "text": "有冇一件衫著得好舒服？佢可能先係今日最佳隊友。"
+  "text": "巴士啱啱到，而你唔使跑。難得有件事，係你行到就得。"
  },
  {
   "kind": "小幸福",
-  "text": "留意一陣啱啱好嘅風。免費冷氣，冇遙控器。"
+  "text": "第一啖飲品，甜度同凍度都啱。唔使講大道理，呢啖值得點一點頭。"
  },
  {
   "kind": "小幸福",
-  "text": "如果電梯啱啱到，容許自己覺得賺咗。雖然戶口冇多錢。"
+  "text": "換完床單鑽入被竇嗰一下。明明都係自己張床，突然有少少入住感。"
  },
  {
   "kind": "小幸福",
-  "text": "聽到雀叫可以聽吓；聽唔到都得，雀可能未開咪。"
+  "text": "耳機隨機播到一首好耐冇聽、但仲識跟住唱嘅歌。原來個腦唔係乜都忘記，佢有自己嘅收藏。"
  },
  {
   "kind": "小幸福",
-  "text": "留意附近有冇好聞嘅味。冇就算，唔使同垃圾桶硬碰。"
+  "text": "拆包裝嗰條易撕線，今次真係易撕。人同包裝之間，終於有返少少信任。"
  },
  {
   "kind": "小幸福",
-  "text": "如果今日冇踩到水氹，都算腳襪部門運作正常。"
+  "text": "出門口先落雨，返到屋企先落雨，係兩種完全唔同嘅雨。"
  },
  {
   "kind": "小幸福",
-  "text": "摸到暖笠笠嘅杯？嗰幾秒可以唔諗任何大計。"
+  "text": "想搵嘅嘢，就喺第一個打開嘅櫃桶。今日唔使由搵充電線，搵到懷疑自己。"
  },
  {
   "kind": "小幸福",
-  "text": "望吓一朵形狀奇怪嘅雲。似雞髀都可以，雲唔介意。"
+  "text": "沖涼水一開就啱溫度，唔使喺太凍同太熱之間來回談判。"
  },
  {
   "kind": "小幸福",
-  "text": "搵一樣你唔討厭嘅顏色。唔使「熱愛」，唔討厭已經夠用。"
+  "text": "排緊隊嗰陣突然開多個收銀位，仲啱啱叫你過去。今日有條近路係正式批准嘅。"
  },
  {
   "kind": "小幸福",
-  "text": "如果今日個包裝一撕就開，呢個世界曾經合作過。"
+  "text": "條襪落咗雨都冇濕。只係腳趾知道，呢件事值得慶祝。"
  },
  {
   "kind": "小幸福",
-  "text": "有冇一首歌啱啱播中你想聽嗰首？演算法偶爾都識做人。"
+  "text": "買到最後一個想食嘅麵包。唔係人生勝利，但午餐暫時冇遺憾。"
  },
  {
   "kind": "小幸福",
-  "text": "如果有地方坐，而且張凳唔搖，請接受呢份基本但難得嘅穩定。"
+  "text": "件衫冇標籤拮頸，褲頭又唔勒。舒服有時就係冇嘢不停提醒你佢存在。"
  },
  {
   "kind": "小幸福",
-  "text": "睇到街貓就遠遠望吓。佢未必愛你，但佢條尾幾好睇。"
+  "text": "搭車有位坐，仲唔使問人借過。嗰幾個站，膝頭先放工。"
  },
  {
   "kind": "小幸福",
-  "text": "如果今天搵到兩隻配對襪，家庭人口普查成功。"
+  "text": "返到屋企發現垃圾已經有人倒咗。少一件事，比多一句加油實際。"
  },
  {
   "kind": "小幸福",
-  "text": "留意第一啖食物。未必驚艷，但起碼唔係開會。"
+  "text": "筷子夾到最後一粒魚蛋，冇跣返落碗。手同晚餐，配合得幾好。"
  },
  {
   "kind": "小幸福",
-  "text": "有冇一個角落比其他地方靜？呢個係今日嘅低配私人包廂。"
+  "text": "洗完嘅衫有陽光味，唔係焗住嗰陣味。晾衫嗰陣辛苦，收衫嗰陣有少少回報。"
  },
  {
   "kind": "小幸福",
-  "text": "如果門一推就開，冇推錯拉門，今日已避過一場小尷尬。"
+  "text": "開門嗰下鎖匙一次就揀啱。背住成袋嘢嘅時候，呢種順利特別有份量。"
  },
  {
   "kind": "小幸福",
-  "text": "留意一樣舊嘢仲用得好好。佢冇升級，但佢有返工。"
+  "text": "喺舊外套袋摸到張紙幣。係自己啲錢，但都想多謝一下以前嘅自己。"
  },
  {
   "kind": "小幸福",
-  "text": "如果而家冇人叫你，呢幾秒暫時歸你所有。"
+  "text": "想睇嘅片，字幕啱啱好同步。終於唔使個腦另外做配對工作。"
  },
  {
   "kind": "小幸福",
-  "text": "睇吓一塊餅乾有冇特別奇怪嘅形狀。食之前先開個迷你展覽。"
+  "text": "電話叉滿電，先發現今日唔使急住出門。電同時間都有剩，幾罕見。"
  },
  {
   "kind": "小幸福",
-  "text": "如果今日拎鎖匙一次就搵到，手袋黑洞暫停營業。"
+  "text": "買返嚟嘅生果，熟度啱啱好。唔使再擺三日，亦唔使即刻搶救。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一口氣除到件衫上面條鬆線，冇愈拉愈長。今次小事真係維持咗小事。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "返屋企嗰段路有一陣涼風，唔使加錢，亦唔需要下載會員程式。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "張被夠長，腳伸直都遮得住。人有時要嘅安全感，好具體。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "難得同朋友一齊唔講嘢，都冇人急住搵話題。沉默今次唔使補救。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "話咗想食嘅嘢，隔幾日有人仲記得。嗰份被記住，比個餐本身更耐味。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "電腦問你要唔要更新嗰陣，今次真係可以揀遲啲。至少有一個對話肯接受你嘅時間。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來預咗好難洗嘅碗，浸一陣就乾淨。啲污漬今日肯合作。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "打開飯盒，餸同飯冇倒瀉到一齊。袋住一路行返嚟，佢哋都幾守規矩。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "行入一間舖，店員俾你自己慢慢睇。你同件貨之間，暫時唔需要第三者。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "煮麵嗰陣啱啱有人叫你食飯。難得有人比你個肚更早安排好。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "收到朋友傳嚟一張冇乜意義但好好笑嘅相。原來有人見到廢嘢會諗起你，幾親切。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "冷氣停咗一陣先開返，熟悉嘅涼風返到嚟。今次唔講節能，先承認真係舒服。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "條拉鏈一拉就順，冇夾到件衫。出門前少咗一場細規模搏鬥。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "飲湯嗰陣唔燙口，亦未凍。終於唔使喺飲湯之前做呼吸練習。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "平時成日要等嘅升降機，今日門一開就喺度。好似有人預先幫你撳咗。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "影合照時大家都冇眨眼。唔使再笑多一次，塊面可以休息。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "搵返一首只記得旋律、搵咗好耐嘅歌。個腦嗰句「係乜嚟㗎」終於可以落幕。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一個唔熟嘅人幫你扶住道門。只係幾秒，但你拎住嘢嗰隻手知道有幾方便。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "開會提早完，下一件事又未開始。多出嚟嗰十分鐘，唔好咁快幫佢搵工作。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "瞓醒發現頭先遲到、失物、搭錯車，全部都係夢。仲瞓得返就更加抵。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "屋企個鐘慢慢行，今晚冇人等你出門。時間第一次唔似催促。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "食到脆卜卜嘅多士，碎屑全部跌喺碟。好味同易收拾，可以同時發生。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一個本來怕尷尬嘅電話，對方講嘢意外地好容易。掛線嗰下，肩膊都有鬆返。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "開窗見到遠處有人晾衫、有人行狗。唔係風景名勝，但生活照常運作都幾好睇。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來以為要買新嘅嘢，換粒電池就用得返。銀包同件嘢一齊鬆口氣。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "今日嘅湯匙冇跌入湯，耳機冇跌入坑。未必有大好事，但有啲麻煩冇發生。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "食咗辣嘢先發現杯水仲有。嗰一刻，半杯已經好慷慨。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "煲飯冇黐底，盛完最後一碗都順手。晚餐連收尾都照顧到你。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "想借嗰本書啱啱喺架上。唔使預約、唔使等，今日可以直接帶故事走。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "隔住玻璃見到落大雨，而你手上有杯暖嘢。雨聲同淋雨，原來差一塊窗。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "行過麵包舖聞到出爐味，未買已經得到一小部分好處。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "擰開樽蓋嗰下唔使求救。唔係要證明獨立，只係而家就想飲。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有人傳「唔急，得閒先覆」，之後真係冇再追。原來呢句說話可以係真嘅。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "揀咗好耐嘅電影，開頭十分鐘已經覺得啱睇。今晚唔使繼續搵片搵到瞓。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有一日照鏡，唔係特別靚，只係冇想挑剔。可以直接去刷牙，慳返好多精神。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "臨瞓先發現聽日唔使早起。連而家呢幾分鐘，都突然鬆動咗。"
  },
  {
   "kind": "純粹無聊",
-  "text": "幫你個水樽設計一段辭職宣言。原因：成日俾人擰。"
+  "text": "張凳放咗件衫，就會慢慢變成衣櫃。佢冇申請轉職，但做得幾投入。"
  },
  {
   "kind": "純粹無聊",
-  "text": "想像月亮開咗間便利店。凌晨兩點最暢銷嘅會係乜？"
+  "text": "我開雪櫃唔一定係肚餓。有時只係想睇吓，入面有冇新消息。"
  },
  {
   "kind": "純粹無聊",
-  "text": "如果你隻杯有 WhatsApp，佢個狀態會寫咩？「已讀，未洗」？"
+  "text": "「我放喺一個好安全嘅地方」通常代表，連我自己都攞唔到。"
  },
  {
   "kind": "純粹無聊",
-  "text": "畀雪櫃一個樂隊名。佢日日都喺度低音伴奏。"
+  "text": "手機得返 2% 就即刻搵叉電。我得返 2%，仲會諗係咪應該做埋呢樣先。"
  },
  {
   "kind": "純粹無聊",
-  "text": "心入面開個獎：今日最佳門柄。得獎者唔使致辭。"
+  "text": "洗衫其實有三個階段：洗、晾，同埋喺張凳上面住一排。"
  },
  {
   "kind": "純粹無聊",
-  "text": "如果鞋帶可以請假，佢最想放邊一日？"
+  "text": "每次撳「忘記密碼」，都似同網站承認：係呀，又係我。"
  },
  {
   "kind": "純粹無聊",
-  "text": "想像你隻拖鞋有秘密身份。唔好小看佢，佢識你屋企所有路線。"
+  "text": "最有耐性嘅係微波爐。你唔攞嘢，佢真係會隔一陣就提你，完全唔怕煩到你。"
  },
  {
   "kind": "純粹無聊",
-  "text": "幫一粒塵改名。之後各自生活，唔使建立長期關係。"
+  "text": "有啲分頁唔關，唔係仲要睇。係一關，就要承認自己其實唔會睇。"
  },
  {
   "kind": "純粹無聊",
-  "text": "設計一個廢超能力。例如：準確知道邊粒魚蛋最圓。"
+  "text": "「五分鐘後起身」入面嘅五分鐘，唔受一般時鐘管轄。"
  },
  {
   "kind": "純粹無聊",
-  "text": "如果鴨開會，會唔會每個議題都係「嘎」？"
+  "text": "貓望住牆，我會覺得佢見到我見唔到嘅嘢。我望住牆，人哋只會問我做乜唔做嘢。"
  },
  {
   "kind": "純粹無聊",
-  "text": "幫你最近食過嘅麵包寫一句人物設定。"
+  "text": "每次清理手機相簿，都會發現自己曾經好重視一張泊車位相。"
  },
  {
   "kind": "純粹無聊",
-  "text": "想像電梯播你嘅入場音樂。請揀一首唔會令其他乘客逃走嘅。"
+  "text": "我嘅記性好有原則：記得十年前尷尬嗰句，唔記得啱啱拎手機想做乜。"
  },
  {
   "kind": "純粹無聊",
-  "text": "如果星期一係一種蔬菜，你覺得佢係邊種？唔准告蔬菜。"
+  "text": "買收納盒嗰陣覺得生活就快有秩序。返到屋企，先要搵地方擺收納盒。"
  },
  {
   "kind": "純粹無聊",
-  "text": "為「再瞓五分鐘」設計一個公司名。業務發展應該幾穩定。"
+  "text": "最接近瞬間移動嘅經驗，係星期日晚眨一眨眼，就到星期一朝早。"
  },
  {
   "kind": "純粹無聊",
-  "text": "想像個滑鼠係真老鼠。佢今日行咗幾多冤枉路？"
+  "text": "密碼要有大楷、小楷、數字同符號。我只係想查吓件貨去到邊。"
  },
  {
   "kind": "純粹無聊",
-  "text": "替橡筋諗一句座右銘。可以係：伸縮自如，但有底線。"
+  "text": "我唔係冇方向感。只係出咗地鐵站之後，要先行錯一邊確認一下。"
  },
  {
   "kind": "純粹無聊",
-  "text": "如果雲有客服，你想問佢點解成日變樣？"
+  "text": "「順便買少少嘢」嘅少少，通常要兩隻手先拎得返屋企。"
  },
  {
   "kind": "純粹無聊",
-  "text": "幫你張枱寫個交友簡介。優點：穩定。缺點：唔識主動。"
+  "text": "天氣預報話體感溫度。我覺得返工日同放假日，都應該有體感時長。"
  },
  {
   "kind": "純粹無聊",
-  "text": "想像番茄參加面試。最大優點係咩？「容易融入醬體」。"
+  "text": "床最舒服嘅時間，永遠係唔應該再瞓嗰陣。佢幾識揀時間表現自己。"
  },
  {
   "kind": "純粹無聊",
-  "text": "你隻枕頭如果出回憶錄，第一章會唔會叫《又係你》？"
+  "text": "耳機成日自己打結，但我叫自己打起精神就冇咁自動。"
  },
  {
   "kind": "純粹無聊",
-  "text": "替「等微波爐叮」呢個運動設計奧運標誌。"
+  "text": "上網搵「簡單食譜」，第一步係屋企要有十二種調味料。我屋企最齊嘅係外賣餐具。"
  },
  {
   "kind": "純粹無聊",
-  "text": "如果海浪有工時表，佢應該儲咗好多補假。"
+  "text": "每次等人覆訊息，我就會變成一個好關心電話有冇網絡嘅人。"
  },
  {
   "kind": "純粹無聊",
-  "text": "幫今日見過最普通嘅物件封爵。叉燒包公爵，聽落唔錯。"
+  "text": "啲衫喺舖頭燈光下面好有前途。返到屋企，大家一齊冷靜返。"
  },
  {
   "kind": "純粹無聊",
-  "text": "想像三隻企鵝合租。最大爭拗係冷氣開幾多度。"
+  "text": "打掃最危險嘅一步係打開舊相簿。本來想清間房，結果坐低研究十年前個髮型。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「隨便食啲嘢」係一個可以討論四十分鐘嘅議題。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "行入房唔記得做乜，行返出去又記得。原來個門口係記憶開關。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我收藏咗好多省時間教學，目前主要時間都用嚟收藏。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "電話問「你仲喺唔喺度？」我都想問返佢，有時真係唔太肯定。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "遙控器最鍾意匿喺坐墊下面。佢知道你越想舒服，就越唔想起身搵。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一個人食薯片最難嘅唔係開袋，係認真相信自己會食幾塊就停。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「最後睇多一條」唔係數量，係每條片開始之前嘅儀式。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有時拎住手機搵手機，唔係粗心。係連個工具都一齊參與咗調查。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "電腦桌面叫桌面，難怪我都係將啲嘢暫時放喺度，然後永遠唔執。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我出門前會確認三次鎖門，但唔會懷疑自己係咪已經問咗三次。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一件衫只著過一陣，唔夠污糟洗，又唔夠乾淨入櫃。張凳就係處理呢啲灰色地帶。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「稍後提醒我」係我同更新通知之間，維持多年嘅穩定關係。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "鬧鐘響之前，世界可以有好多可能。響咗之後，通常只剩低趕。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "搬屋先知道自己有咁多嘢；拆箱先知道，大部分都唔急住要。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "買咗新記事簿，頭兩頁寫到好靚。第三頁開始，字已經趕返去過原本嘅生活。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我嘅購物車好豐富，因為喺入面住唔使交租。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次剪指甲都覺得十隻手指好多。食零食嗰陣又冇嫌過。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "明明係等下載，坐喺度望住條進度線，感覺自己都有幫手。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "飲管插唔入嘅時候，我會突然變得好介意自己嘅技術。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "搜尋紀錄最了解我：半分鐘前查宇宙起源，半分鐘後查雞翼翻熱幾耐。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我唔係鍾意拖延，只係每次準備開始，突然都覺得杯水需要添滿。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "落雨唔記得帶遮，帶遮又唔落雨。我暫時唔敢肯定自己有冇控制天氣嘅能力。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「請稍候」寫得好有禮貌，但永遠唔肯講係等幾耐。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我可以分得出電話輕輕震一下，但有人當面叫我個名，要叫第二次。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "最難掉嘅盒，係覺得將來會啱用嗰個盒。至於裝咩，留待將來提供。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "食飽先買餸係理性。餓住買餸，係想包起成個超市。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "群組話「簡單講兩句」，我就知道可以去沖杯茶再返嚟。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "鞋帶一邊長一邊短，雖然唔影響行路，但會令我覺得今日未正式準備好。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「呢件衫洗完會縮」有時係產品資訊，有時係我嘅希望。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "手寫購物清單，去到超市先發現留咗喺屋企。至少張枱好清楚今晚食乜。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我對方向最有信心嗰次，通常係未打開地圖之前。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "手機儲存空間爆滿嗰陣，連一張模糊相都突然有紀念價值。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "想早瞓嘅晚上，個腦特別想重播八年前講錯嘅一句說話。仲要高清。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次撕保鮮紙都似一場談判。我要一塊，佢想同自己黐埋。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "睇煮食影片覺得自己識煮，正如睇運動比賽覺得自己好攰。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "星期日唔係特別短，只係我通常用咗半日，先正式接受今日係星期日。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓自己隻手有冇一直握住拳。冇打算搏鬥嘅話，可以先鬆開。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一個冇咁趕嘅下午，提早五分鐘落樓。試一次唔同升降機鬥耐性。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將鞋入面嗰粒沙倒出嚟。唔係所有不舒服，都值得忍到返屋企。"
+ },
+ {
+  "kind": "小任務",
+  "text": "畀你最鍾意嗰個杯出場。唔使等客人嚟，你都會飲水。"
+ },
+ {
+  "kind": "小任務",
+  "text": "睇吓書架有冇一本借咗未還嘅書。先記低，唔好等人哋以為已經送咗俾你。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日揀一次近路以外嘅路行。只限唔趕時間，唔好將探索變成遲到。"
+ },
+ {
+  "kind": "小任務",
+  "text": "喺相簿搵一張以前屋企嘅相。睇吓嗰張熟悉嘅枱，原來有幾耐冇見。"
+ },
+ {
+  "kind": "小任務",
+  "text": "想食湯麵就食湯麵，唔好因為隔籬叫撈麵，就開始懷疑自己。"
+ },
+ {
+  "kind": "小任務",
+  "text": "用一分鐘試吓邊支筆仲寫得。寫唔出嗰支唔係對你有意見，真係冇墨。"
+ },
+ {
+  "kind": "小任務",
+  "text": "著鞋之前抖一抖隻腳。唔使一邊單腳企，一邊趕住回覆三個群組。"
+ },
+ {
+  "kind": "小任務",
+  "text": "幫下次出門嘅自己擺好鎖匙。當係照顧一個朝早通常唔太清醒嘅朋友。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一個你唔識讀嘅街名，查吓點讀。下次搭車就多識一個字，唔使寫心得。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日試吓唔快轉一段鍾意嘅前奏。首歌未唱，唔代表未開始。"
+ },
+ {
+  "kind": "小任務",
+  "text": "有暖飲嘅話，先聞一下。買一杯嘢，唔好淨係用口參與。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓窗簾有冇開到自己鍾意嘅位置。唔使全開，留一條光都得。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將電腦椅推返舒服嘅距離。唔好成日伸長個人，去遷就張枱。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓用普通速度講一句「我諗吓先」。唔係所有問題都要即時搶答。"
+ },
+ {
+  "kind": "小任務",
+  "text": "寫低一樣今日唔想再搜尋嘅嘢。有啲比較睇到最後，只會多開十個分頁。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將外賣餐具整理一小格。夠用就得，唔需要備戰到下一個世紀。"
+ },
+ {
+  "kind": "小任務",
+  "text": "有句話打咗又刪，先存低。今日未寄出，唔代表永遠冇得講。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將通知聲細一格。個世界要搵你，都唔一定要嗌。"
+ },
+ {
+  "kind": "小任務",
+  "text": "去洗手嗰陣順便望吓鏡，唔檢查缺點。認一認今日同你返工嗰個人。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一個無聊但想知嘅問題查答案。例如點解鴿行路會點頭。好奇唔使對工作有用。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將成日拖住唔換嘅爛橡筋換走。唔係念舊嘅嘢，就唔使留低考驗耐性。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將雨傘晾開先收。下一場雨嚟之前，唔使先聞返上一場。"
+ },
+ {
+  "kind": "小任務",
+  "text": "睇吓手機亮度係咪太光。唔使個人已經攰，塊面仲似照緊攝影燈。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日搵一次可以慢慢排嘅隊，唔估邊條快。先放低嗰份冇薪水嘅交通分析工作。"
+ },
+ {
+  "kind": "小任務",
+  "text": "用手指跟住桌面畫個小迷宮。搵唔到出口就畫多個，自己嘅遊戲可以咁。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一件唔著但仲好好嘅衫，摺好放埋一邊。捐唔捐遲啲決定，先唔使日日同佢對望。"
+ },
+ {
+  "kind": "小任務",
+  "text": "行過花舖時望吓有咩顏色。唔買都可以見到花，唔使有特別日子。"
+ },
+ {
+  "kind": "小任務",
+  "text": "食飯前坐穩先。唔好件衫啱啱離開椅背，隻手已經趕住回覆訊息。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓記住今晚月亮個樣。唔係考天文，下次見到佢唔同樣會有少少新鮮。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一個壞咗嘅書籤換成張廢紙。閱讀唔需要等文具配齊。"
+ },
+ {
+  "kind": "小任務",
+  "text": "有一個想去但好近嘅地方？喺地圖加個星。唔使去外地先叫有地方想去。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀張你自己覺得幾好笑嘅相，唔需要證明俾其他人睇佢有幾好笑。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試一次行樓梯時唔睇電話。先睇清下一級，人生下一步可以遲啲。"
+ },
+ {
+  "kind": "小任務",
+  "text": "聽一聽首歌入面嘅低音。平時主唱講晒，今次俾後面嗰個出吓聲。"
+ },
+ {
+  "kind": "小任務",
+  "text": "幫自己倒一杯唔滿瀉嘅水。留返少少空間，拎住就唔使咁小心。"
+ },
+ {
+  "kind": "小任務",
+  "text": "把今日最唔想忘記嘅一句說話記低。唔一定有智慧，朋友講錯字都可以。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將枕頭拍鬆少少。今日先照顧等陣要瞓落去嗰個頭。"
+ },
+ {
+  "kind": "小任務",
+  "text": "返到屋企先除低個袋，再決定做乜。身體已經到站，唔使繼續負重。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓唔一口氣聽晒語音訊息。聽到攰就停，手機冇規定要連播。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一首歌留俾下次搭車。等車嗰幾分鐘，就唔係完全冇安排。"
+ },
+ {
+  "kind": "小任務",
+  "text": "睇吓雪櫃有冇一樣快要過期但仲想食嘅嘢。今日先救一盒乳酪，唔使救全世界。"
+ },
+ {
+  "kind": "小任務",
+  "text": "用一句說話記錄今日嘅天氣，寫自己嘅感覺。可以係「風大到個髮型已辭職」。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將一條長訊息分兩段先寄。照顧一下對方隻眼，亦照顧自己個呼吸。"
+ },
+ {
+  "kind": "小任務",
+  "text": "伸手之前先睇清楚要拎邊樣。今日畀枱上啲水杯少一次驚嚇。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將行程中一段等候留白。唔一定要喺每個空檔塞入一件事。"
+ },
+ {
+  "kind": "小任務",
+  "text": "想唔起個字就先寫同音字。唔好俾一個字扣起成句說話。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓留意腳底踩住嘅地板有幾凍。你可以淨係知道，唔需要得出人生道理。"
+ },
+ {
+  "kind": "小任務",
+  "text": "聽完一首歌，停三秒先揀下一首。俾最後嗰個音有時間走開。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日揀一個唔急嘅訊息，等坐低先覆。唔好一路行一路當自己有三隻眼。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓你部手機個背景。用咗幾年都冇留意嘅話，今日重新見一次。"
+ },
+ {
+  "kind": "小任務",
+  "text": "寫個只有一項嘅購物清單。第一次試吓張清單短過張收據。"
+ },
+ {
+  "kind": "小任務",
+  "text": "用最舒服嘅速度梳一次頭。唔係準備見人，係唔想再扯住自己。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一個成日滑落嚟嘅坐墊擺好。細細個不舒服，唔一定要當佢不存在。"
+ },
+ {
+  "kind": "小任務",
+  "text": "搵吓附近有冇一種你唔識名嘅雀。認唔到就叫佢路過嗰隻，觀察照樣成立。"
+ },
+ {
+  "kind": "小任務",
+  "text": "打開窗聽幾秒外面。好嘈就關返，呢個任務接受即場退貨。"
+ },
+ {
+  "kind": "小任務",
+  "text": "食完嗰件好味嘅嘢，停一停先搵下一件。畀啱啱嗰口多留幾秒。"
+ },
+ {
+  "kind": "小任務",
+  "text": "整理一個電話聯絡人嘅名字。「整冷氣嗰個」都可以，唔使連姓氏都考古。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一樣唔使即刻修好嘅小問題，今日先唔掂佢。鬆咗粒鈕同漏緊水，記得分清楚。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日對一樣唔鍾意嘅食物講聲唔要。你唔需要同每種蔬菜建立感情。"
+ },
+ {
+  "kind": "小任務",
+  "text": "用十秒望清楚一張熟悉嘅照片背景。主角背後嗰個膠袋，可能都陪咗你好多年。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將行路嗰兩步放慢少少。唔係為咗變優雅，只係前面未轉綠燈。"
+ },
+ {
+  "kind": "小任務",
+  "text": "幫自己搵個舒服嘅坐姿先開片。兩個鐘嘅電影，唔好由條頸負責埋單。"
+ },
+ {
+  "kind": "小任務",
+  "text": "睇吓個杯係咪已經凍咗。想飲熱嘅就翻熱，唔好一路嫌一路飲到見底。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將最近一直哼錯嘅歌詞查清楚。又或者保留你嗰版，反正唱咗咁多年。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一個想學但冇實際用途嘅小技能，試一次。摺紙船都好，今日有成品可以漂。"
+ },
+ {
+  "kind": "小任務",
+  "text": "放返好個藥箱或者針線盒。唔急住用嗰陣，反而最有空搵返啲嘢。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望一眼遠處嘅招牌，再望返近處。眼睛今日唔使只負責一塊螢幕。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一張記低咗內容嘅便利貼撕走。牆上唔需要開永久會議。"
+ },
+ {
+  "kind": "小任務",
+  "text": "如果今日唔想影相，試一次唔拎手機出嚟。風景唔會因為冇存檔而冇出現過。"
+ },
+ {
+  "kind": "小任務",
+  "text": "幫下次煮飯嘅自己洗好一個碗。唔係備餐大計，只係少洗一件。"
+ },
+ {
+  "kind": "小任務",
+  "text": "諗一個可以直接拒絕嘅小邀請，練習講「今次唔喇」。唔使連理由都寫成短篇小說。"
+ },
+ {
+  "kind": "小任務",
+  "text": "伸直腰時唔好順便吸肚。你而家係休息，唔係影證件相。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將手錶鬆一格，或者除一陣戒指。睇吓有冇啲緊，已經習慣到冇察覺。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日用一次平時留嚟招呼客人嘅碟。自己食，都算有客到。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一件擺咗喺門口好耐嘅嘢帶返應該去嘅地方。佢等咗咁耐，今日順路送一程。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓身邊有冇一個好舒服嘅色。記住佢，下次買衫唔使只靠黑色救場。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將耳機戴得舒服先開聲。唔好為咗放鬆，先夾住自己對耳。"
+ },
+ {
+  "kind": "小任務",
+  "text": "畫隻隨便嘅貓，再幫佢加鬚。唔似貓都可以，起碼佢有裝備。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一樣「其實唔需要」嘅購物車商品移走。唔買唔係錯過，有時只係少收一個盒。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日留意一次店員有冇叫你慢用。真係慢少少，唔好浪費呢句許可。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一個成日打錯嘅字加入常用詞。幫自己慳返下次鬧鍵盤嘅時間。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓喺等水滾嗰陣乜都唔拎。雙手暫時空住，唔會被沒收。"
+ },
+ {
+  "kind": "小任務",
+  "text": "睇吓你最舊嗰對鞋磨成點。唔使感慨，純粹認吓佢陪你行過嘅路。"
+ },
+ {
+  "kind": "小任務",
+  "text": "如果今日天氣舒服，喺屋企樓下停多一分鐘。唔需要為呢分鐘安排打卡點。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一個真係想知近況嘅朋友，心入面諗吓想問乜。想好再傳，唔使勉強寒暄。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將午餐最後一啖留俾最鍾意嗰樣餸。安排一個自己決定嘅結尾。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓附近有冇人同你一樣等緊。唔使搭訕，只係知道唔止你停咗喺度。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將一件已經答應、但時間未定嘅小事寫落日曆。唔使個腦日日用通知音提醒。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日講一次「唔知」。唔使立即補一個估嘅答案，留返空位俾真答案。"
+ },
+ {
+  "kind": "小任務",
+  "text": "用一個小碟裝零食先食。唔係限制數量，係想唔使隻手一路喺袋底探險。"
+ },
+ {
+  "kind": "小任務",
+  "text": "想休息嗰陣，先睇清楚自己係攰、肚餓定口渴。三樣可以都有，唔使單選。"
+ },
+ {
+  "kind": "小任務",
+  "text": "喺舊歌清單揀一首唔記得點解收藏嘅歌。俾以前嘅自己做一次 DJ。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將鞋櫃一對鞋擺齊。望落順眼就停，唔使順手清算全屋。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一段路，行到轉角先再睇手機。目的地好細，都可以好清楚。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓今餐有冇一樣食材你其實好鍾意。唔使等餐廳寫「招牌」先認得。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將明日嘅衫放好。朝早少一場選舉，候選人仲要全部係黑色。"
+ },
+ {
+  "kind": "小任務",
+  "text": "把一樣心掛掛嘅細事設個提醒。個腦唔使成晚自願做鬧鐘。"
+ },
+ {
+  "kind": "小任務",
+  "text": "有紙同筆嘅話，寫一個好大嘅「休」。唔使書法靚，意思到就得。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日見到好笑嘅店名，記低佢。唔係做市場研究，係留啲真廢話用。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓用細聲一點嘅音量聽熟歌。可能會發現，唔大聲都陪到你。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一個過咗期嘅優惠券刪走。慳唔到嗰十蚊，唔使再每日提一次。"
+ },
+ {
+  "kind": "小任務",
+  "text": "望吓自己而家坐緊嗰張凳有冇搖。唔舒服就換，唔使培養適應力。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀一樣食物，回想第一次食佢係喺邊。唔記得都得，味道唔會取消你資格。"
+ },
+ {
+  "kind": "小任務",
+  "text": "今日影一張唔修圖嘅普通相。留低現場，唔使順便開後期製作公司。"
+ },
+ {
+  "kind": "小任務",
+  "text": "諗吓有冇一個角落可以放空杯。替等陣嘅自己留個落手位。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓慢慢收好條耳機線，當係同今日講完最後一句。聽日再亂都係聽日嘅事。"
+ },
+ {
+  "kind": "小任務",
+  "text": "如果屋企有本日曆，揭到今日。唔使追返中間漏咗嘅日子。"
+ },
+ {
+  "kind": "小任務",
+  "text": "搵一樣你買得幾抵嘅嘢，用吓佢。唔使次次諗起自己亂買嗰啲。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一個長期開住但唔用嘅程式關咗。佢可以收工，你都可以考慮。"
+ },
+ {
+  "kind": "小任務",
+  "text": "揀個唔會阻住人嘅地方停一停。睇吓街道喺你唔趕路嗰陣，原來係咩速度。"
+ },
+ {
+  "kind": "小任務",
+  "text": "聽到自己嘆氣，唔使立即責備。當係個身體伸咗個冇聲音限制嘅懶腰。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓坐低先飲完半杯水。唔係所有嘢都需要邊行邊完成。"
+ },
+ {
+  "kind": "小任務",
+  "text": "回想一樣最近學識嘅小事。新巴士站喺邊都算，唔使有證書。"
+ },
+ {
+  "kind": "小任務",
+  "text": "幫今日揀一個結尾動作：洗杯、熄燈，或者拉埋窗簾。做完就唔開續集。"
+ },
+ {
+  "kind": "小任務",
+  "text": "將一個一直覺得「有空先睇」嘅連結打開。唔啱睇就關，唔使收藏到搬屋。"
+ },
+ {
+  "kind": "小任務",
+  "text": "試吓將嘴角同眉頭都放鬆。唔需要擺笑樣，冇表情都係合法表情。"
+ },
+ {
+  "kind": "小任務",
+  "text": "留意而家有冇一樣嘢其實幾方便。唔使感恩儀式，承認個插頭夠近都得。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "新買嘅鞋第一次出街就唔磨腳。原來有啲新關係，唔使痛一輪先適應。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "洗完手，紙巾機第一下就有紙。冇需要喺洗手間練揮手感應術。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "等緊嘅人話自己都遲五分鐘。唔係鼓勵遲到，只係個心突然冇咁趕。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "轉車時兩班車啱啱接上。今日行程中間，冇塞入一段企喺度懷疑人生。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "食到一隻完整嘅煎蛋，蛋黃仲係自己想要嘅熟度。早餐唔需要再補充意見。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "搵到一個真係唔辣嘅選項。今餐終於唔使一邊食，一邊相信店員對「少少」嘅定義。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "隔籬個人細聲講電話。喺公共地方遇到有人記得其他人存在，幾舒服。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "手機跌落地，拎返起冇事。嗰兩秒已經預備咗嘅維修費，可以收返埋。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "睇緊本書，啱啱有句說話講中自己。唔使同作者識，都有被明白一下嘅感覺。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "行錯路，但條路有間好香嘅餅店。唔使話一切有安排，係真係幾香。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "件外套有夠深嘅袋，電話放入去唔會露半截。設計師今次有諗過人會用。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "啱啱想搵紙巾，袋入面真係有。以前嗰個隨手放入去嘅自己，做咗件好事。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "朋友冇問你點解咁耐先覆，只係接住講。對話唔使先補交缺席原因。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "晏晝瞓咗一陣，醒返冇頭重重。短休息今次真係以休息收場。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "煮好嘅麵啱啱彈牙，唔係食到一碗溫柔過頭嘅麵糊。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "下班返到屋企，見到盞熟悉嘅燈。未必有人等，但個地方係你識嘅。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "剪開零食袋之後，冇成袋爆散。食之前唔需要先做清潔。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一張一直以為唔見咗嘅照片，原來喺舊對話入面。記憶今次有副本。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "街上有隻狗行到好專心，鼻貼住地下。睇住佢，突然覺得散步可以有好多內容。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "開飯嗰陣飯仲冒緊煙。唔使趕時間嗰啖熱，特別容易記得。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "對方記得你唔加蔥，唔使每次重講。偏好有地方存低，比會員積分實用。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "文件一次就印啱方向。今日冇白紙替你承受技術問題。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "搬開梳化搵到失蹤嗰隻耳塞。嗰個空咗一邊嘅盒，終於齊人。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "行過公園聞到剪完草嘅味。唔一定想落場運動，經過都分到少少清新。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "雨停之後出門，地濕但鞋冇濕。享受到涼，避開咗狼狽。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "新毛巾洗完唔甩毛。沖完涼唔使再逐條搣自己身上嘅纖維。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來擔心好貴嘅維修，師傅話只係鬆咗。原來有啲問題真係扭緊就得。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有人記得問你上次講過嗰件小事。原來嗰日唔係得你自己在意。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "紙袋個底夠實淨，一路拎到屋企都冇穿。信任有時係兩盒飯嘅重量。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "個插蘇唔喺床背後，伸手就插到。今次叉電唔使搬傢俬。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "早餐最後一口多士啱啱配完杯茶。兩樣嘢一齊收尾，冇留低孤零零嗰口。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "今日條褲有袋。冇咩好講，但出街真係方便好多。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "對方話「我嚟啦」，之後真係喺門口出現。呢句說話冇包含隱藏旅程。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "出去行一陣返嚟，屋企仍然有啱啱沖好嗰杯茶嘅香。門一開就接到。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "打字打一半，輸入法估中咗。難得有人喺你未講完之前，理解得啱。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "買到啱啱好份量嘅餸，食完唔頂肚，亦唔使再搵零食補尾。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "地鐵車廂唔迫，又唔凍得過分。呢程車冇嘢值得投訴，已經好完整。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "攞返件晾乾嘅衫，鈕扣一粒都冇少。洗衣機今次冇收手續費。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "做咗一道菜，有人真係食清。唔係為咗讚你，係因為好食。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "水壺入面仲有熱水，唔使重新等。想飲嗰刻，同飲到嗰刻距離好短。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "書店有張可以坐嘅凳，冇人企喺旁邊等你起身。可以讀慢啲。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "喺陌生地方問路，對方講得好清楚。唔使用尷尬嘅微笑扮聽明。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "出門前記得關窗，落雨嗰陣先諗起。今晚返屋企，窗邊唔會有額外工作。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "聽到隔籬枱有人笑到停唔到。唔知佢哋講緊乜，自己都鬆咗少少。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "買到一支唔漏墨、寫得順嘅筆。寫個名都多咗少少手感。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來以為電話冇電，原來只係螢幕熄咗。唔使即刻搵位叉住自己嘅通訊工具。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "晾衫嗰陣天氣晴朗，收衫嗰陣都仲晴朗。中間冇追逐雨雲嘅情節。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有人幫你影相，影完真係問你滿唔滿意。唔係按咗一下就交差。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "飲凍飲時杯底冇漏，袋入面嘅紙都仲乾。快樂冇附送清潔帳單。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "返到常去嘅舖，唔使研究餐牌。偶爾有一餐，熟悉就夠。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "星期六朝早窗外有光，但冇鬧鐘。醒嚟唔需要即刻進入下一步。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一條本來卡住嘅拉鏈，慢慢拉就順返。呢次唔使靠大力。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有人俾你講完先回應。嗰幾秒冇被搶走，成句話都完整啲。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來以為忘記帶，摸吓袋原來有。虛驚之後，連件普通物件都順眼咗。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "新開嘅咖啡包撕開嗰下，香味先出嚟。未沖已經有少少回報。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "播歌唔使開到好大，周圍都夠靜。耳仔唔需要同世界爭位。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "收工嗰陣見到天空仲未黑。今日仲有一小段日光留低。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "舊衫洗過好多次，摸落更軟，仲未變形。有啲嘢真係愈用愈舒服。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "手上個任務有人接到，話「你交俾我」。呢次唔係叫你再跟進一下。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "搭車瞓醒，啱啱好仲差一個站。小睡冇變成郊遊。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一碗湯唔使加任何調味已經啱。隻手可以專心拎住匙羹。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有人話「我都係咁」，而佢真係有類似經歷。嗰下唔係安慰，係認得。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "買返嚟嘅充電線夠長，終於唔使個人遷就牆邊。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "出門前突然諗起今日要帶嘅嘢。記性遲到，但趕得切上車。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "公園條長凳有一小格陰影，啱啱坐到。太陽同樹葉合作得幾好。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "剪咗頭髮唔需要等兩星期先順眼。今次出門口就可以接受自己。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "去取件唔使排隊，件貨又唔重。行程冇延誤，手腕亦冇意見。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "飯後水果已經有人切好。少咗皮同核，連懶都唔使克服。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "大雨嗰陣車剛好駛入有蓋嘅站。落車唔使先同雨水談條件。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "以為朋友忙緊，點知佢啱啱得閒。嗰段對話唔使預約下星期。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一個怕會講錯嘅名字，今次讀啱。對方點頭，自己亦鬆一口氣。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "打開窗，外面唔係工程聲，係風吹樹葉。今朝背景聲揀得幾好。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "超市剛好入咗常買嗰款。唔使每次日用品都重新面試一次。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有一餐唔需要自己決定食乜，仲要係鍾意嘅。腦同胃都受到照顧。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "對襪一洗完就搵到另一隻。洗衣籃今日冇發生失蹤案。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有人幫你留咗一件點心，唔係食剩先問你要唔要。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "煮飯時抽氣扇唔太嘈，仲聽得到首歌。廚房唔一定只可以有煎炸聲。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "回家換上拖鞋，隻腳終於唔使保持外出狀態。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "收到一張朋友自己影嘅天空。唔係重要資訊，但係佢嗰一刻諗起咗你。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "打開舊筆記，見到以前嘅自己寫得好認真。唔一定記得內容，但認得嗰份投入。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "今日個袋唔重，行路雙手都得閒。冇攞住嘢原來都係一種舒服。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一個本來諗住會好麻煩嘅手續，兩分鐘就做完。剩低時間可以唔補返其他麻煩。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "門口唔使搵鎖匙，因為有人聽到腳步幫你開門。回家少咗最後一關。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "喺便利店買到啱啱想飲嗰款，仲係凍嘅。願望夠細，今晚即刻做到。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "人多嘅地方有人肯俾你行先。只係半步，但你唔使再側身閃一次。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一道菜有鍋氣，食得出係啱啱煮。午飯終於唔似喺等你完成一項程序。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "播返舊錄音，聽到熟悉嘅笑聲。原來有啲聲音可以收埋喺電話入面。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一個問題終於有清楚答案，唔使再估人哋嗰句係咩意思。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "見到小朋友認真研究一隻蝸牛。嗰條路對佢嚟講，原來有新嘢發生。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "面包入面嘅餡唔係只集中喺第一啖。一路食落去，宣傳都冇失實。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "抹完眼鏡先發現世界唔係咁灰。個風景冇變，只係終於清楚返。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "去到一個地方，廁所唔難搵。唔使所有出遊都加入尋寶環節。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "朋友知道你想早走，冇再勸你留。今次告別唔使過三輪審批。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來以為只係客氣一句，對方真係記得幫你留位。去到有人指住嗰張凳。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "聽完一首好啱心情嘅歌，唔需要立即講點解鍾意。可以淨係再播一次。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "熟悉嘅小店仍然喺度，老闆認唔認得你都冇所謂，味道認得你就得。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來要返去補攞嘅嘢，同行嗰個人啱啱有多一份。行程冇折返。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "寫咗好耐嘅文字成功儲存，關檔前冇彈出任何驚嚇問題。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "今日行咗好多路，鞋帶由頭到尾都冇鬆。細節一路冇添亂。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "床頭有水，夜晚口渴唔使開全屋燈。之前嘅自己真係有照顧到之後嘅自己。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "有個人收到你個冷笑話，真係笑咗。笑點唔使解釋，已經搵到同類。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一個長期等緊嘅包裹終於到。未拆，淨係拎上手都先開心少少。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "店員冇因為你只買一樣細嘢就趕你。嗰份從容唔使按消費金額計。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "可以慢慢食完一個雪糕，唔使追住啲溶咗嘅邊。今日溫度肯合作。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "煮好嘅嘢啱啱有人一齊食。熱度、時間同人，都同時到齊。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "收起晾咗嘅被，帶住暖暖嘅重量。今晚瞓落去會知道今日有太陽。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "朋友傳嚟嘅語音冇背景噪音，唔使將手機貼到成塊面都參與聆聽。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一項擔心咗幾日嘅工作做完，原來冇想像中咁難。唔使責怪自己擔心得多，先抖吓。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "平時好嘈嗰條街今日靜少少。行過都聽到自己對鞋嘅聲。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "一杯水唔使特別好飲，只要喺渴嗰陣有。嗰下已經好夠。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "朋友冇用建議填滿你嘅抱怨，只係陪你鬧兩句。問題未解決，氣先順咗。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "朝早打開門，空氣唔焗。今日至少由門口開始，唔係一場耐力賽。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "電影完咗播字幕，有時間聽埋首歌。唔使急住由故事跳返行程。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "最後一張紙巾抽完，櫃入面真係有後備。今日嘅自己唔使即刻落街。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "買到一個好剝嘅橙，皮唔黐住肉。食生果唔使先完成手工課。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "望到熟悉嘅人喺人群入面向你揮手。未行到埋去，已經唔使再搵。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "天黑前返到屋企，仲有時間慢慢揀晚餐。今晚唔係全程追住鐘。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "換電視台啱啱撞到鍾意嗰套舊戲。唔使由頭睇，熟到中途入場都開心。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "本來只想坐低一陣，結果真係冇人打擾。嗰陣就完整咁屬於你。"
+ },
+ {
+  "kind": "小幸福",
+  "text": "瞓覺前諗起今日一個好笑細節，又自己笑一次。同一件事，開心可以重用。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我覺得最守時嘅係肚餓。開會延長佢唔理，搭車塞住佢都照到。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "天氣一凍，件外套就開始接管所有隨身物品。到春天先發現，銀包唔係失蹤，係住錯季節。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "人哋話唔好活喺過去，但我個電話成日問我要唔要重溫五年前嘅今日。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次拎碗都估自己食得少。盛到一半先發現，個碗對我嘅了解唔夠深。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我對「免費送貨」嘅熱情，有時會令我多買一百蚊，去慳三十蚊。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "隻手明明知道熄燈掣喺邊，搬完屋仲要喺舊位置撳幾日。身體都幾念舊。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「你有冇空？」係一句會令我先檢查對方係邊個，再檢查日曆嘅說話。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "影相嗰陣我會話自己唔上鏡。睇返十年前嘅相，又會覺得嗰時幾好睇。可能只係審批慢。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有啲歌識唱副歌，唔識歌名。就似有啲同事識認樣，唔敢開口叫。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "洗頭前覺得好麻煩，洗完又覺得自己點解唔早啲洗。呢段劇情每次都可以重播。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我最穩定嘅運動，係聽到門鐘之後由梳化跑去門口。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "開視像會議之前會整理背景。現實生活只需要乾淨一個鏡頭咁闊。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有啲衣架只肯空住嗰陣合作。掛咗衫就會同隔籬黐埋，一副唔想分開嘅樣。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我以為自己識好多歌，直到有人叫我由第一句開始唱。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「有空請你食飯」同「有空執屋」，都係未有確實落成日期嘅計劃。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "冰格最深處嗰包嘢，我已經唔敢問佢幾時嚟，只希望佢仲記得自己係乜。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我唔係每次都諗太多。有時諗咗好耐，內容其實都係今晚食乜。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "搭錯方向最尷尬嘅係，開頭仲覺得今日個車站好少人，幾舒服。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「兩分鐘就搞掂」係一個通常要先準備二十分鐘嘅承諾。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "傘摺返埋永遠冇原裝咁細。出廠嗰位師傅，可能掌握咗摺疊空間嘅技術。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次買水果都覺得自己會即刻食。返到屋企，先安排佢哋喺枱上參展幾日。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "鬧鐘有貪睡功能，我覺得好矛盾。你明明係嚟叫醒我，點解又留後門。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "網上會議最有共識嘅一句，通常係「聽唔聽到我講嘢」。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「我記低咗」唔代表安全。下一步係記得自己記咗喺邊。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "將電話攞遠啲睇時間，結果又順手開咗另一個程式。時間係幾點，仍然未知道。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "雪櫃門有個架專放醬料，實際上係各式「開咗但未用完」嘅等待區。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我最有想像力嘅時候，係諗點樣用一句說話解釋自己點解遲咗。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "洗碗嗰陣先發現，煮一碗麵原來可以用到半個廚房嘅器材。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "條毛巾掛歪咗，我未必會執；手機圖示差一格，我可以研究十分鐘。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「呢啲留返下次用」係我屋企最多收藏品嘅來源。下次一直好有禮貌，未嚟打擾。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我同印表機冇私人恩怨，但每次趕時間佢都表現得好似有。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "去超市只想買奶，出嚟拎住兩袋嘢。奶就睇下有冇記得。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "明明係床單包住張床，換床單嗰陣卻似張床喺度反抗我。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "個人越攰，越容易點開「十個提升效率方法」。最後連休息都變咗做研究。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我可以接受天氣變，但接受唔到出門前睇完預報，行到樓下先變。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "朋友話「就到」，我會開始猜佢對「到」嘅地理定義。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "啲花生殼好識揀位跌，專搵掃把最難入嗰條罅。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "如果將收據上面啲字變大，我可能就唔會每次都似研究古文咁望住佢。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我嘅步數有時唔係行街賺返嚟，係出門前返入房攞漏咗嘅嘢。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "想清空下載資料夾，先要面對一批叫「最終版2真係最終」嘅檔案。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一個人住最自由嘅地方，係可以將椅子用作任何用途，除咗坐。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "煮食節目話「少許」，我就知道接落嚟係靠緣分。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "密碼提示寫「你應該記得」。以前嘅我對而家嘅我，真係過分樂觀。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "啱啱買嗰件嘢減價，幅通知會比平時任何廣告都醒目。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "睡前個腦成日突然有靈感。寫低之後，朝早會懷疑係咪有人用過我部電話。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次行李超重，都會短暫考慮自己可唔可以著晒啲衫上身。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「唔使帶嘢，嚟就得」係一句會令人喺超市門口反覆思考嘅說話。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "屋企冇人嘅時候，雪櫃啲聲特別多。原來平時佢都有嘢講，只係我冇聽。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我以為飲完咖啡會更有效率，結果只係更精神咁拖延。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "細個覺得大人乜都識。大個先知道，大家只係比較熟練咁上網查。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "紙巾最後一張永遠比想像中早出現。呢個盒從來唔做低存量通知。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「你決定啦」聽落好自由，直到對方每個提議都話「唔係咁想」。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我整理房間最常用嘅方法，係將一堆嘢搬去另一個表面。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "買嘢之前會睇二十篇評價，買完會專搵話佢好嗰啲繼續睇。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "鬧鐘第一次響係通知，第二次係提醒，第三次開始我先承認事情嚴重。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "屋企最多嘅唔係雜物，係「呢個仲有用」。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我每次話「睇埋呢頁」，本書都會啱啱喺頁尾出現新問題。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「唔好諗咁多」有時好似叫一個打緊嗝嘅人唔好再打。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一個未拆嘅包裹可以好有吸引力，拆開見到自己買嘅洗潔精，就會迅速回到現實。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我同瑜伽墊嘅關係幾穩定：佢捲住，我坐住，大家都冇勉強對方。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "寫購物清單係理性嘅我，行過零食區係另一位負責人。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一講要早啲出門，所有襪都會突然變成單身。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "網頁叫我證明唔係機械人。我搵紅綠燈搵到第三輪，開始對自己都有疑問。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有啲訊息睇完以為自己覆咗，其實只係喺腦內舉行咗一次完整對話。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "細個嫌午睡，大個想午睡。人生有啲願望，係換咗時間先識欣賞。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "拎住一杯熱飲嘅時候，手會變得好有禮貌，所有動作都慢返晒。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "出門帶充電寶會覺得好安心。直到發現條線留喺屋企，安心原來都有配件。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次話自己要少買嘢，都會先想買個好睇嘅收納工具支持呢個計劃。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "雪糕最準時嘅時候，係我想影相嗰陣，佢準時開始溶。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我係一個有計劃嘅人，只係計劃通常寫喺另一部手機嘅備忘錄。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「簡單介紹自己」最難嘅地方，係突然要幫一個認識咗幾十年嘅人寫摘要。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "夜晚覺得第二朝一定做到，朝早覺得昨晚嗰個人根本唔了解實際情況。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "電梯入面嘅鏡，令我知道自己出門前嗰次檢查係幾咁草率。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「可以食住等」係個陷阱。等到主菜嚟，我通常已經完成咗一餐嘅份量。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我嘅旅遊紀念品有時唔係買返嚟，係酒店拖鞋同一堆唔捨得掉嘅票尾。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有啲膠袋摺細之後，會用成個抽屜嘅時間慢慢彈返開。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "最了解自己肩膊有幾攰嘅時候，係突然發現佢已經升到耳仔隔籬。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "手機相機一打開自拍，我就會重新考慮今朝嘅精神狀態。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "揀餐廳嗰陣個個都隨便，叫餸嗰陣大家突然都好有研究。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「等我得閒先」嘅得閒，可能同傳說中嘅空置抽屜一樣，好少見過實物。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "網上買衫個模特兒冇講，原來效果包括佢個身形，同埋現場嗰陣風。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我每次聽到自己錄音，都會覺得呢個人邊位，點解佢知道我要講乜。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "微波爐轉完嗰陣，碟好熱，食物中間好凍。大家嘅工作分配有啲問題。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「睇完就瞓」最常見嘅結局，係睇到一段教人改善睡眠嘅影片。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一個空盒擺喺屋企，幾日後就會有嘢入住。呢個物業市場好活躍。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我覺得橡筋有兩種狀態：搵唔到，或者突然喺一個地方有二十條。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "攞完洗衣機啲衫，發現袖口捲住一隻襪。佢唔係失蹤，係搭順風車。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次坐低想專心，就會發現張枱啲灰突然好值得研究。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有啲對話回覆一個貼圖，唔係冇誠意，係文字部門已經落閘。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「一路行一路諗」對我有時有效，通常會諗起自己行錯路。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "用書做枕頭會令人想瞓，打開書亦都會。佢好多功能。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我唔怕長篇說明書，怕嘅係最後一步先話第一步嗰個方向相反。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次有人問我近排做緊乜，我都會突然忘記自己其實每日有起身。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "最想飲水嘅時候，往往係啱啱舒服咁坐低，而個杯遠咗十厘米。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「已讀」只證明隻眼返過工，唔代表個腦已經有回覆方案。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "所有叫我輕輕撕開嘅包裝，都應該先睇過我同佢搏鬥嘅紀錄。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "煮飯嗰陣想食清淡啲，打開雪櫃見到醬料，會聽到另一套政見。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我唔係冇收納習慣，我習慣將所有重要嘢放喺一個連自己都搵唔返嘅地方。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次講「我真係最後一口」，碟底都會留低一粒唔大唔細、好難唔理嘅嘢。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "網上教學最神奇嘅步驟係「然後整理乾淨」。畫面一轉，世界就有秩序。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "會議前我以為冇嘢講，會議後先諗到全部重點。個腦可能用咗延遲字幕。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「我出門喇」有時只係一個理想狀態，現實仲差鞋、鎖匙同電話。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我每次想練早起，夜晚都會覺得自由時間得返而家呢一段。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "手機提示我今日螢幕時間增加咗。我都知，唔使再用一個通知增加少少。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "冰箱貼上面寫住放假地方嘅名，下面吸住水電費單。紀念同現實，合作得好緊密。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "原來「唔見」可以分幾級：唔喺枱面、唔喺袋、唔喺屋企，同埋原來喺手。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次換被袋都覺得自己應該有個幫手。唔需要識煮飯，肯捉住另外兩個角就得。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我對運動最積極嘅一刻，係揀運動鞋顏色嗰陣。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「試新嘢」聽落好容易，去到餐牌面前，我同熟悉嗰款又會互相認得。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "有啲檔案叫「暫存」，住得比正式文件仲耐。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我可以記住一段完全冇用途嘅廣告歌，但記唔住自己啱啱設定嗰個驗證問題。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "每次煮多咗飯都話留聽日。到夜晚，聽日嘅飯有時會提早出席。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "一個群組冇聲幾日，我會覺得好靜；突然九十九個訊息，我又唔敢開。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "將鬧鐘放遠啲真係有用。我學識咗起身行過去熄，再行返床上。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我唔係唔識分輕重緩急，只係所有事都自稱最急，冇人提供證據。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "「原來你都鍾意呢首」係一種可以令兩個人立即跳過天氣話題嘅發現。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "買新杯嗰陣覺得自己會飲多啲水。後來證實，只係多咗一個待洗嘅選擇。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我每次話唔想再買黑衫，最後都會認真比較兩件唔同程度嘅黑。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "自動門冇反應嗰陣，我會先調整企位，再考慮係咪自己存在感太低。"
+ },
+ {
+  "kind": "純粹無聊",
+  "text": "我諗緊要唔要休息嗰陣，通常已經喺度坐咗二十分鐘。分別只係未正式批准。"
  }
 ];
-
-// 60 objects × 20 prompts × 3 perspectives × 3 categories = 10,800 combinations.
-const missionObjects=["水樽", "茶杯", "拖鞋", "枕頭", "毛巾", "雨傘", "鎖匙", "背囊", "銀包", "筆袋", "鉛筆", "原子筆", "橡皮擦", "間尺", "記事簿", "便利貼", "信封", "書籤", "膠紙座", "紙巾盒", "充電線", "耳機", "滑鼠", "鍵盤", "遙控器", "枱燈", "時鐘", "相架", "花盆", "衣架", "衫鈕", "襪子", "帽子", "圍巾", "眼鏡盒", "梳", "鏡", "肥皂盒", "牙刷杯", "洗衣籃", "飯盒", "筷子", "湯匙", "碟", "碗", "隔熱墊", "開瓶器", "保溫袋", "餅乾罐", "購物袋", "門墊", "門柄", "抽屜", "書架", "窗簾", "坐墊", "摺凳", "風扇", "收納盒", "垃圾桶"];
-const missionTemplates={"小任務": ["揀一件{物}，幫佢改個三字藝名。", "畫一件{物}嘅輪廓，限用五條線。", "幫{物}寫一句招聘廣告。", "替{物}諗一個退休願望。", "用三個形容詞介紹{物}，禁止用「好用」。", "想像{物}係旅客，幫佢安排半日遊。", "替{物}設計一個唔使做嘢嘅職位。", "幫{物}起個紀錄片片名。", "畫一個屬於{物}嘅迷你路牌。", "替{物}諗一個只賣一樣嘢嘅店名。", "幫{物}寫一句請假理由。", "為{物}設計一個三秒入場動作。", "寫一封只有七個字嘅信畀{物}。", "幫{物}諗一個童話角色名。", "替{物}配一段兩拍節奏，心入面播就得。", "幫{物}設計一個奇怪但無害嘅超能力。", "為{物}諗一個博物館展覽名。", "將{物}想像成行星，命名佢第一個城市。", "替{物}寫一個唔超過十字嘅交友簡介。", "幫{物}設計一個只頒一次嘅獎項。"], "小幸福": ["望吓{物}嘅顏色，揀一小塊你睇得順眼嘅。", "留意{物}投落嚟嘅影，係咪比本尊更有戲？", "睇吓{物}有冇圓角，今日總有一處唔尖銳。", "留意{物}上面嘅光，可能有一小格免費舞台。", "睇吓{物}嘅邊緣，搵一條幾順眼嘅線。", "如果{物}仲用得，畀佢一秒無聲掌聲。", "望吓{物}嘅細節，有冇一處以前冇留意？", "如果{物}喺伸手可及嘅位置，恭喜少行兩步。", "睇吓{物}有冇使用痕跡，呢啲係生活嘅低成本年輪。", "望吓{物}同旁邊嘢嘅配色，撞色都算合作。", "如果今日搵到{物}，失物調查科可以提早散會。", "留意{物}佔住嘅小空間，佢唔需要好大先存在。", "試吓遠少少望{物}，有時退一步只係睇得完整啲。", "留意{物}安靜嗰一面，唔係所有嘢都要發通知。", "望吓{物}有冇左右唔對稱，唔工整都照常營業。", "如果{物}冇壞，今日維修預算暫時係零。", "搵吓{物}最普通嘅一面，普通都幾省心。", "望吓{物}同背景之間嘅空隙，留白原來唔使買。", "睇吓{物}有冇令你諗起一個小日常，無聊嗰種都得。", "如果{物}今日冇失蹤，畀記性部門放個微型假。"], "純粹無聊": ["如果{物}開茶餐廳，招牌菜會係乜？", "如果{物}出道做歌手，首支單曲叫咩？", "如果{物}有秘密基地，入口會收埋喺邊？", "如果{物}競選屋企區長，政綱會有幾離譜？", "如果{物}做天氣報告，最想預告落乜？", "如果{物}有一日假，佢會瞞住你去邊？", "如果{物}寫投訴信，第一句會點開場？", "如果{物}開電台，凌晨節目講乜？", "如果{物}識發夢，會唔會夢到自己升職？", "如果{物}拍偵探片，最可疑嘅鄰居係邊個？", "如果{物}有一張會員卡，儲分換到乜？", "如果{物}參加運動會，會發明咩比賽？", "如果{物}要上太空，行李限帶一樣會揀乜？", "如果{物}開網店，會點寫五星評價？", "如果{物}開班教嘢，第一堂會教人點偷懶？", "如果{物}有個分身，邊個負責返工？", "如果{物}主持頒獎禮，會忘記邊個名？", "如果{物}可以改一條家規，佢想改乜？", "如果{物}有私人司機，會唔會只去隔籬房？", "如果{物}係遊戲大魔王，弱點會唔會係星期一？"]};
-const missionPerspectives={"小任務": ["可以喺腦內完成，文具費批唔到。", "用最正經嘅口吻諗，內容越廢越好。", "當係畀外星人睇嘅版本，佢哋唔識投訴。"], "小幸福": ["搵唔到就跳過，呢度唔搞強制感恩。", "留意三秒就夠，唔使寫觀察報告。", "當係一幕冇劇情嘅電影，睇完唔使影評。"], "純粹無聊": ["請用茶餐廳老闆嘅語氣答。", "試吓諗一個五歲小朋友會接受嘅答案。", "用科幻片預告嘅語氣講一次，製作費仍然係零。"]};
-for(const [kind,templates] of Object.entries(missionTemplates))for(const object of missionObjects)for(const template of templates)for(const perspective of missionPerspectives[kind])missionDeck.push({kind,text:template.replace('{物}',object)+perspective});
 let missionFilter='全部',missionBag=[],missionIndex=-1,missionSeen=new Set();
-try{const seen=JSON.parse(localStorage.getItem('littleJoyMissionSeenV5'));if(Array.isArray(seen))missionSeen=new Set(seen.filter(i=>Number.isInteger(i)&&i>=0&&i<missionDeck.length));}catch(e){}
+try{const seen=JSON.parse(localStorage.getItem('littleJoyMissionSeenV10'));if(Array.isArray(seen))missionSeen=new Set(seen.filter(i=>Number.isInteger(i)&&i>=0&&i<missionDeck.length));}catch(e){}
 function refillMissions(){
  const eligible=missionDeck.map((m,i)=>i).filter(i=>missionFilter==='全部'||(Array.isArray(missionFilter)?missionFilter.includes(missionDeck[i].kind):missionDeck[i].kind===missionFilter));
  missionBag=eligible.filter(i=>!missionSeen.has(i));
@@ -9372,12 +11320,12 @@ function refillMissions(){
 }
 function nextMission(){
  if(!missionBag.length)refillMissions();missionIndex=missionBag.pop();missionSeen.add(missionIndex);
- try{localStorage.setItem('littleJoyMissionSeenV5',JSON.stringify([...missionSeen]));}catch(e){}
+ try{localStorage.setItem('littleJoyMissionSeenV10',JSON.stringify([...missionSeen]));}catch(e){}
  const m=missionDeck[missionIndex];document.getElementById('task-kind').textContent=m.kind;document.getElementById('task').textContent=m.text;
  document.getElementById('task-reply').textContent='做唔做都得。冇人收功課。';document.getElementById('mission-done').disabled=false;
 }
 function initMissions(){
- const $=id=>document.getElementById(id);$('mission-count').textContent=missionDeck.length.toLocaleString()+' 款組合';
+ const $=id=>document.getElementById(id);$('mission-count').textContent=missionDeck.length.toLocaleString()+' 條日常小句';
  $('mission').onclick=nextMission;
  const choices=[['task','小任務'],['joy','小幸福'],['silly','純粹無聊']];
  function update(){let selected=choices.filter(([id])=>$('mission-'+id).checked).map(([,kind])=>kind);if(!selected.length){choices.forEach(([id])=>$('mission-'+id).checked=true);selected=choices.map(([,kind])=>kind);} $('mission-all').checked=selected.length===3;missionFilter=selected.length===3?'全部':selected;missionBag=[];nextMission();}
@@ -9392,11 +11340,252 @@ const GIFT_ART = {"🍞": "<svg width=\"512\" height=\"512\" xmlns=\"http://www.
 
 </script>
 <script>
-const footerHeads=["今日個腦開咗飛行模式。", "宇宙好大，張凳啱啱好。", "呢張卡唔會催你覆訊息。", "煩惱暫存，唔使即日取件。", "今日嘅效率交咗畀海風。", "一事無成，都有一張圖。", "而家暫時唔接受人生提案。", "月亮冇打卡，照樣有出糧個樣。", "將大計縮細到一啖茶。", "冇靈感，先保留呼吸空間。", "啲雲行得慢，冇人扣佢分。", "先坐低，劇情可以等。", "呢一刻冇乜特別，幾好。", "今日嘅待辦：唔好整濕對襪。", "海浪又返嚟，可能唔記得鎖門。", "小廢物有位，人都應該有。", "休息唔係失蹤，係暫時冇字幕。", "心情未整理，圖鑑已排好。", "今日冇答案，得一張圖片。", "有啲路行慢啲，先睇到貓。", "時間有流過，我有坐過。", "生活未必順，但張圖係直嘅。", "世界繼續轉，我轉個坐姿。", "呢度唔查你今日做咗幾多。", "無聊有時只係腦袋未落單。"];
-const footerTags=["不設早會", "不追進度", "不用交功課", "謝絕雞湯續杯", "容許發呆", "歡迎坐低", "唔使扮忙", "唔計排名", "可以唔答", "冇人評分", "毋須心得", "唔收膠袋錢", "冇最低消費", "隨時散場", "不必合群", "允許慢半拍", "不問五年計劃", "冇出席紀錄", "免交報告", "唔使上鏡", "不用表演開心", "廢話免費", "可以純粹路過", "無需解釋", "禁止加班通知", "休息唔使預約", "未讀都得", "冇續約壓力", "唔催交貨", "小事照收", "唔收服務費", "歡迎冇靈感", "自由揀天色", "唔使保持最佳狀態", "不設成功案例", "唔使答得漂亮", "可以中途改主意", "冇人收回禮", "不設連續登入", "收工不用批准"];
-const footerDeck=footerHeads.flatMap(head=>footerTags.map(tag=>({head,tag})));
-let footerCursor=0;try{footerCursor=Math.max(0,Number(localStorage.getItem('littleJoyFooterV5'))||0)%footerDeck.length;}catch(e){}
-function nextFooter(){const f=footerDeck[(footerCursor*137)%footerDeck.length];footerCursor=(footerCursor+1)%footerDeck.length;try{localStorage.setItem('littleJoyFooterV5',String(footerCursor));}catch(e){}return f;}
+// Each footer is an authored pair; no random head/tag multiplication.
+const footerDeck=[
+ {
+  "head": "今日冇大發現，執到粒星都算。",
+  "tag": "收入口袋先"
+ },
+ {
+  "head": "唔知下一步做乜，就先坐喺呢一步。",
+  "tag": "呢度有位"
+ },
+ {
+  "head": "呢件禮物唔使供，亦唔會續費。",
+  "tag": "收得幾安心"
+ },
+ {
+  "head": "今日個腦有啲塞，條船仲行得。",
+  "tag": "慢慢漂住先"
+ },
+ {
+  "head": "唔係所有時間，都要換成成果。",
+  "tag": "呢分鐘留返自己"
+ },
+ {
+  "head": "張卡可以儲存，呢一刻唔使整理。",
+  "tag": "遲啲再諗"
+ },
+ {
+  "head": "今日冇乜想講，聽吓水聲都得。",
+  "tag": "唔使填補沉默"
+ },
+ {
+  "head": "有啲嘢帶走係因為鍾意，唔係因為有用。",
+  "tag": "呢件就係"
+ },
+ {
+  "head": "唔使等放大假，先批准自己抖一抖。",
+  "tag": "而家都得"
+ },
+ {
+  "head": "呢度啲星跌落嚟，唔會整爛車頂。",
+  "tag": "可以放心抬頭"
+ },
+ {
+  "head": "返工要交進度，嚟呢度只需郁吓隻船。",
+  "tag": "要求暫時咁多"
+ },
+ {
+  "head": "暫時答唔到人生問題，先答今晚食乜。",
+  "tag": "細題目先做"
+ },
+ {
+  "head": "今日可以普通，唔一定要值得出帖。",
+  "tag": "唔分享都算數"
+ },
+ {
+  "head": "拎咗禮物可以走，唔使聽埋推銷。",
+  "tag": "真係冇下一步"
+ },
+ {
+  "head": "唔想追趕，就睇吓有咩會自己飄過嚟。",
+  "tag": "例如呢粒星"
+ },
+ {
+  "head": "休息完未必即刻精神，但休息過都係事實。",
+  "tag": "唔追問成效"
+ },
+ {
+  "head": "有啲夜晚，早啲閂燈就係全部安排。",
+  "tag": "唔使加節目"
+ },
+ {
+  "head": "今日嘅收藏多咗一件，其他事聽日先數。",
+  "tag": "先數開心嗰邊"
+ },
+ {
+  "head": "你可以只係路過，唔需要成為常客。",
+  "tag": "下次隨意"
+ },
+ {
+  "head": "個世界好多提示音，呢張圖冇。",
+  "tag": "靜靜收埋"
+ },
+ {
+  "head": "唔係每次出發，都要搵到新方向。",
+  "tag": "兜個圈都得"
+ },
+ {
+  "head": "圖鑑未齊唔會寄信催你。",
+  "tag": "慢慢儲"
+ },
+ {
+  "head": "呢張卡唔知你幾多歲，亦唔會問。",
+  "tag": "冇比較對象"
+ },
+ {
+  "head": "今日唔想做決定，連天色都可以照舊。",
+  "tag": "揀少一樣"
+ },
+ {
+  "head": "漏接嗰粒星已經漂走，唔使寫檢討。",
+  "tag": "睇下一粒"
+ },
+ {
+  "head": "有啲事做到啱啱好，就可以停手。",
+  "tag": "例如今日"
+ },
+ {
+  "head": "呢度冇連續登入獎，唔記得嚟都冇損失。",
+  "tag": "有空先見"
+ },
+ {
+  "head": "你唔使先開心，先可以玩一陣。",
+  "tag": "咩心情都入得"
+ },
+ {
+  "head": "本來只係想消磨時間，順便儲到張圖。",
+  "tag": "算係附送"
+ },
+ {
+  "head": "收到呢件禮物，唔使諗回禮。",
+  "tag": "來往可以咁簡單"
+ },
+ {
+  "head": "今日啲力用得七七八八，呢度唔收尾數。",
+  "tag": "剩低自己留"
+ },
+ {
+  "head": "發呆嗰陣唔一定喺諗嘢。",
+  "tag": "有時真係冇"
+ },
+ {
+  "head": "唔使將每次休息，都解釋成為咗行更遠。",
+  "tag": "坐低就坐低"
+ },
+ {
+  "head": "忙完先休息，有時會等唔到忙完。",
+  "tag": "中途都可以抖"
+ },
+ {
+  "head": "呢張圖冇限時優惠，可以聽日再睇。",
+  "tag": "唔趕住珍惜"
+ },
+ {
+  "head": "冇接到星嗰陣，都有海可以望。",
+  "tag": "冇白行"
+ },
+ {
+  "head": "今日冇新故事，舊歌可以再播。",
+  "tag": "重聽唔扣分"
+ },
+ {
+  "head": "屋企未執好，唔妨礙先沖杯茶。",
+  "tag": "杯底有位就得"
+ },
+ {
+  "head": "唔使變成好叻嘅人，先配得一個舒服嘅晚上。",
+  "tag": "今晚先舒服"
+ },
+ {
+  "head": "張卡擺喺相簿唔睇，都唔會投訴。",
+  "tag": "收藏冇功課"
+ },
+ {
+  "head": "啲雲冇固定形狀，今日個人有啲散都算合景。",
+  "tag": "先唔整理"
+ },
+ {
+  "head": "想繼續就繼續，想收工就撳掣。",
+  "tag": "今次你話事"
+ },
+ {
+  "head": "做咗好多小事嘅一日，都可以只話自己有啲攰。",
+  "tag": "唔使附清單"
+ },
+ {
+  "head": "呢度嘅禮物唔會過期，亦唔使雪住。",
+  "tag": "銀包冇意見"
+ },
+ {
+  "head": "喺相簿多留一張冇用途嘅圖，未至於太過分。",
+  "tag": "就放喺度"
+ },
+ {
+  "head": "今日最遠嘅旅程，可能係由張枱去張床。",
+  "tag": "到咗就好"
+ },
+ {
+  "head": "有啲心情唔知點形容，揀個背景先。",
+  "tag": "文字可以欠住"
+ },
+ {
+  "head": "條船冇目的地，唔代表你操作錯誤。",
+  "tag": "本來就係咁玩"
+ },
+ {
+  "head": "唔使每日都有突破，有日冇嘢壞已經幾省心。",
+  "tag": "今日唔報修"
+ },
+ {
+  "head": "呢份小禮物唔解決問題，但都唔會新增問題。",
+  "tag": "幾難得"
+ },
+ {
+  "head": "有啲日子只係平平安安咁過咗，唔需要另加高潮。",
+  "tag": "就停喺呢幕"
+ },
+ {
+  "head": "故事睇完唔使答閱讀理解。",
+  "tag": "知道自己睇過就得"
+ },
+ {
+  "head": "隔咗好耐先返嚟，隻船都唔會問你去咗邊。",
+  "tag": "上船就得"
+ },
+ {
+  "head": "就算今日冇人讚你，都可以先食晚飯。",
+  "tag": "唔使等評語"
+ },
+ {
+  "head": "而家冇靈感，唔好急住判斷成個人生。",
+  "tag": "可能只係眼瞓"
+ },
+ {
+  "head": "有啲快樂細到唔值得開會講，自己知就得。",
+  "tag": "呢件算一個"
+ },
+ {
+  "head": "畫面可以切去日間，現實今晚就唔加班喇。",
+  "tag": "月亮自己返工"
+ },
+ {
+  "head": "唔係每段空白都要填返嘢。",
+  "tag": "留俾隻船經過"
+ },
+ {
+  "head": "唔想將今日過成一個故事，普通咁完都得。",
+  "tag": "冇彩蛋要等"
+ },
+ {
+  "head": "收藏唔係為咗證明玩咗幾耐，係想留低呢件。",
+  "tag": "鍾意先帶走"
+ }
+];
+let footerCursor=0;
+try{const n=Number(localStorage.getItem('littleJoyFooterV10'));if(Number.isInteger(n)&&n>=0)footerCursor=n%footerDeck.length;}catch(e){}
+function nextFooter(){const f=footerDeck[footerCursor];footerCursor=(footerCursor+1)%footerDeck.length;try{localStorage.setItem('littleJoyFooterV10',String(footerCursor));}catch(e){}return f;}
 
 </script>
 <script>
@@ -9429,9 +11618,9 @@ function renderGiftPostcard(c,g,mode,art=null,quote=null,footer=null){
  const q=quote||missionDeck[g.id%missionDeck.length],f=footer||footerDeck[g.id%footerDeck.length];
  c.fillStyle=s.accent;c.font='25px '+CARD_FONT;c.fillText('隨卡附送 · '+q.kind+' · 可做可唔做',76,1080);
  c.fillStyle=s.ink;let qs=33,ql;do{c.font=qs+'px '+CARD_FONT;ql=wrapCardText(c,q.text,928);if(ql.length<=3)break;qs--;}while(qs>18);ql.forEach((line,i)=>c.fillText(line,76,1123+i*38));
- c.fillStyle=s.muted;c.font='28px '+CARD_FONT;c.fillText(f.head,76,1240);
+ c.fillStyle=s.muted;let footerSize=28;c.font=footerSize+'px '+CARD_FONT;while(c.measureText(f.head).width>928&&footerSize>18){footerSize--;c.font=footerSize+'px '+CARD_FONT;}const footerWidth=c.measureText(f.head).width;c.fillText(f.head,76,1240);
  c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('小島留念 · '+q.kind,76,1280);c.textAlign='right';c.fillText(f.tag,1004,1280);c.fillStyle=s.muted;c.font='13px '+CARD_FONT;c.fillText('Art: Twemoji © Twitter & contributors · CC BY 4.0',1004,1320);c.restore();
- return {lines:lines.length,storyBottom:842+(lines.length-1)*lineHeight,fontSize:storySize};
+ return {lines:lines.length,storyBottom:842+(lines.length-1)*lineHeight,fontSize:storySize,quoteLines:ql.length,quoteBottom:1123+(ql.length-1)*38,footerWidth};
 }
 const cardArtCache=new Map();
 function loadGiftArt(icon){
@@ -9443,7 +11632,7 @@ let postcardQuote=null,postcardFooter=null;
 let postcardScene='night',postcardReturn=false,postcardURL='',postcardBlob=null,postcardVersion=0;
 async function refreshPostcard(){
  const $=id=>document.getElementById(id),version=++postcardVersion;
- postcardURL='';postcardBlob=null;$('download-card').removeAttribute('href');$('download-card').setAttribute('aria-disabled','true');$('share-card').hidden=true;
+ postcardURL='';postcardBlob=null;document.getElementById('save-photo').disabled=true;$('download-card').removeAttribute('href');$('download-card').setAttribute('aria-disabled','true');$('share-card').hidden=true;
  try{
   if(selectedGift===null||!saved.found.includes(selectedGift))throw new Error('gift_not_owned');
   // Wait for available local fonts; no external font dependency.
@@ -9454,10 +11643,10 @@ async function refreshPostcard(){
   const out=document.createElement('canvas');out.width=CARD_W*2;out.height=CARD_H*2;out.getContext('2d').scale(2,2);
   renderGiftPostcard(out.getContext('2d'),g,postcardScene,art,postcardQuote,postcardFooter);
   const url=out.toDataURL('image/png');if(version!==postcardVersion)return;
-  postcardURL=url;$('postcard-image').src=url;$('postcard-image').alt=g.name+'。'+g.story+'。'+(postcardQuote?postcardQuote.text:'');
+  postcardURL=url;$('save-photo').disabled=false;$('postcard-image').src=url;$('postcard-image').alt=g.name+'。'+g.story+'。'+(postcardQuote?postcardQuote.text:'');
   const filename='little-joy-gift-'+String(g.id+1).padStart(4,'0')+'-'+postcardScene+'.png';
   $('download-card').href=url;$('download-card').download=filename;$('download-card').setAttribute('aria-disabled','false');
-  $('postcard-status').textContent='2160 × 2700 高清圖片 · 完整故事同隨卡小句已放入圖片。手機亦可長按圖片儲存。';
+  $('postcard-status').textContent='2160 × 2700 高清原圖。存相簿請撳「存入相片」，再長按圖片。';
   if(out.toBlob)out.toBlob(blob=>{if(version!==postcardVersion||!blob)return;postcardBlob=blob;try{const f=new File([blob],filename,{type:'image/png'});$('share-card').hidden=!(navigator.canShare&&navigator.canShare({files:[f]}));}catch(e){}},'image/png');
  }catch(e){$('postcard-status').textContent='今次製圖未成功，試吓重新開啟呢張卡。原本收藏仲喺度。';}
 }
@@ -9477,6 +11666,7 @@ function updateGiftNavigation(){const ids=[...saved.found].sort((a,b)=>a-b),i=id
 function navigateGift(dir){const ids=[...saved.found].sort((a,b)=>a-b);if(ids.length<2)return;selectedGift=ids[(ids.indexOf(selectedGift)+dir+ids.length)%ids.length];showGift(selectedGift);document.getElementById('postcard-name').textContent=gifts[selectedGift].name;document.getElementById('postcard-story').textContent=gifts[selectedGift].story;nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();updateGiftNavigation();refreshPostcard();}
 function initPostcards(){
  const $=id=>document.getElementById(id);
+ $('save-photo').onclick=()=>{if(postcardURL)openPhotoSave(postcardURL,$('postcard-image').alt);};
  $('gift-prev').onclick=()=>navigateGift(-1);$('gift-next').onclick=()=>navigateGift(1);
  $('card-new-quote').onclick=()=>{nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();refreshPostcard();};
  $('take-gift').onclick=openPostcard;$('album-take-gift').onclick=openPostcard;
@@ -9513,7 +11703,7 @@ function renderAlbumSheet(c,ids,page,mode,arts=[]){
 }
 async function refreshSheet(){
  const v=++sheetVersion,pages=Math.ceil(sheetIds.length/SHEET_SIZE);
- sheetPage=Math.max(0,Math.min(sheetPage,pages-1));sheetURL='';
+ sheetPage=Math.max(0,Math.min(sheetPage,pages-1));sheetURL='';$('sheet-save-photo').disabled=true;
  $('sheet-download').removeAttribute('href');$('sheet-download').setAttribute('aria-disabled','true');$('sheet-image').removeAttribute('src');
  $('sheet-prev').disabled=sheetPage===0;$('sheet-next').disabled=sheetPage>=pages-1;
  $('sheet-page').textContent=pages?(sheetPage+1)+' / '+pages+' 頁':'';
@@ -9524,12 +11714,13 @@ async function refreshSheet(){
   const ids=sheetIds.slice(sheetPage*SHEET_SIZE,(sheetPage+1)*SHEET_SIZE),page=sheetPage,mode=sheetScene;
   const arts=await Promise.all(ids.map(id=>loadGiftArt(gifts[id].icon)));if(v!==sheetVersion)return;
   const out=document.createElement('canvas');out.width=2160;out.height=2880;out.getContext('2d').scale(2,2);renderAlbumSheet(out.getContext('2d'),sheetIds,page,mode,arts);
-  sheetURL=out.toDataURL('image/png');$('sheet-image').src=sheetURL;$('sheet-image').alt='已收集圖鑑，第 '+(page+1)+' 頁：'+ids.map(id=>gifts[id].name).join('、');
+  sheetURL=out.toDataURL('image/png');$('sheet-save-photo').disabled=false;$('sheet-image').src=sheetURL;$('sheet-image').alt='已收集圖鑑，第 '+(page+1)+' 頁：'+ids.map(id=>gifts[id].name).join('、');
   $('sheet-download').href=sheetURL;$('sheet-download').download='little-joy-album-'+mode+'-'+String(page+1).padStart(2,'0')+'.png';$('sheet-download').setAttribute('aria-disabled','false');
   $('sheet-status').textContent='2160 × 2880 高清圖片 · 每頁最多 12 件。手機可長按圖片儲存；多頁請逐頁下載。圖片唔係遊戲進度備份。';
  }catch(e){if(v===sheetVersion)$('sheet-status').textContent='今次印唔到，試吓重新開啟。收藏冇受影響。';}
 }
 function initAlbumExport(){
+ $('sheet-save-photo').onclick=()=>{if(sheetURL)openPhotoSave(sheetURL,$('sheet-image').alt);};
  $('save-album').onclick=()=>{sheetIds=[...saved.found].sort((a,b)=>a-b);sheetPage=0;sheetScene=currentScene;sheetReturn=running&&!paused;if(sheetReturn)pause();resetInput();$('sheet').showModal();refreshSheet();};
  $('sheet-close').onclick=()=>$('sheet').close();
  $('sheet').addEventListener('close',()=>{++sheetVersion;if(sheetReturn&&running&&paused&&!$('album').open)pause();sheetReturn=false;});
@@ -9566,7 +11757,10 @@ function showGift(i){if(!saved.found.includes(i))return;selectedGift=i;const g=g
 function card(i,locked=false){
  const g=gifts[i],b=document.createElement('button');b.className='gift-card'+(locked?' locked':'');b.style.setProperty('--gift-color',g.color);
  b.setAttribute('aria-label',(locked?'未發現：':'')+g.name);b.title=g.name;
- const icon=document.createElement('span');icon.className='gift-icon';icon.textContent=locked?'?':g.icon;
+ const icon=document.createElement('span');icon.className='gift-icon';
+ if(locked){icon.textContent='?';}else if(typeof GIFT_ART!=='undefined'&&GIFT_ART[g.icon]){
+  const img=document.createElement('img');img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(GIFT_ART[g.icon]);img.alt='';img.width=32;img.height=32;img.draggable=false;icon.append(img);
+ }else{icon.textContent='✦';}
  const badge=document.createElement('small');badge.textContent=g.badge+' '+giftThemes[g.theme].name;
  const label=document.createElement('span');label.className='gift-name';label.textContent=g.name;
  b.append(icon,badge,label);b.onclick=()=>{if(locked)$('album-note').textContent='呢件仲未發現。接星星或者禮物盒，就有機會遇見佢。';else{showGift(i);$('album-note').textContent=g.name+'：'+g.story;openPostcard();}};return b;
@@ -9594,13 +11788,42 @@ $('album').addEventListener('close',()=>{if(albumReturn&&running&&paused)pause()
 ['gift-search','theme-filter','owned-only'].forEach(id=>$(id).addEventListener('input',()=>{albumPage=0;renderAlbum();}));
 $('album-prev').onclick=()=>{albumPage--;renderAlbum();};$('album-next').onclick=()=>{albumPage++;renderAlbum();};
 collection();
-function resize(){let r=canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=W*devicePixelRatio;canvas.height=H*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}window.addEventListener('resize',resize);resize();function ping(){if(!sound)return;try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();audio.resume();let o=audio.createOscillator(),g=audio.createGain();o.connect(g);g.connect(audio.destination);o.frequency.value=520+(score%5)*85;g.gain.setValueAtTime(.06,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.25);o.start();o.stop(audio.currentTime+.25)}catch(e){}}$('sound').onclick=()=>{sound=!sound;$('sound').textContent='♫ 音效：'+(sound?'開':'關');if(sound)ping()};function notify(t){$('toast').textContent=t;toastUntil=performance.now()+2600}function reward(){
+function resize(){let r=canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=W*devicePixelRatio;canvas.height=H*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}window.addEventListener('resize',resize);resize();function ping(){if(!sound)return;try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();audio.resume();let o=audio.createOscillator(),g=audio.createGain();o.connect(g);g.connect(audio.destination);o.frequency.value=520+(score%5)*85;g.gain.setValueAtTime(.06,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.25);o.start();o.stop(audio.currentTime+.25)}catch(e){}}$('sound').onclick=()=>{sound=!sound;$('sound').textContent='♫ 音效：'+(sound?'開':'關');if(sound)ping()};function notify(t){$('toast').textContent=t;toastUntil=performance.now()+4200}function reward(){
  const found=new Set(saved.found),remaining=gifts.filter(g=>!found.has(g.id));
  const pool=remaining.length?remaining:gifts,g=pool[Math.floor(Math.random()*pool.length)];
  if(!found.has(g.id))saved.found.push(g.id);
- save();collection();showGift(g.id);notify(g.icon+' '+(remaining.length?'新發現：':'再遇見：')+g.name);
+ save();collection();showGift(g.id);notify((remaining.length?'新發現：':'再遇見：')+g.name);
 }
-function begin(){resetInput();spawnCount=0;score=0;time=0;spawn=.3;items=[];sparkles=[];x=.5;running=true;paused=false;$('score').textContent=0;$('timer').textContent='不限時';$('overlay').classList.add('hidden');$('pause').hidden=false;$('finish').hidden=false;$('pause').textContent='暫停 Ⅱ';$('toast').textContent='';last=performance.now()}function pause(){if(!running)return;resetInput();paused=!paused;$('pause').textContent=paused?'繼續 ▷':'暫停 Ⅱ';$('overlay').classList.toggle('hidden',!paused);if(paused){$('symbol').textContent='☁';$('title').textContent='停一停，都幾好。';$('desc').textContent='小船會喺度等你。準備好先再出發。';$('start').textContent='繼續漂流 →';$('best').textContent='時間已暫停'}else{last=performance.now()}}$('pause').onclick=pause;$('finish').onclick=end;$('start').onclick=()=>{if(running&&paused)pause();else begin()};document.addEventListener('visibilitychange',()=>{if(document.hidden&&running&&!paused)pause()});function end(){if(!running)return;resetInput();running=false;paused=false;saved.best=Math.max(saved.best,score);save();$('pause').hidden=true;$('finish').hidden=true;$('overlay').classList.remove('hidden');$('symbol').textContent='✦';$('title').textContent='帶返 '+score+' 粒小快樂。';$('desc').textContent=score?'今次漂流冇解決人生，但船冇沉，算交代到。':'發咗一陣呆。海冇投訴，隻貓都冇意見。';$('start').textContent='再漂流一陣 ↗';$('best').textContent='口袋收藏 '+saved.found.length+'/'+gifts.length+' · 最多接過 '+saved.best+' 粒';$('toast').textContent=''}// Track pressed keys independently. The latest direction wins; releasing it
+const catchLines=[
+'又接到一粒。今日嘅收入以發光為主。',
+'唔使找續，呢度全部冇面額。',
+'手勢唔錯。暫時未有人工。',
+'隻貓睇到，但佢唔打算拍手。',
+'接得住呢粒，唔代表要接晒所有嘢。',
+'又多一粒。個口袋開始有夜景。',
+'呢粒唔係禮物，係禮物前面嗰段路。',
+'冇人同你爭，慢慢嚟。',
+'唔值錢，但至少唔使供。',
+'隻船今日載星，暫時唔載工作。',
+'接到喇。唔需要寫領取原因。',
+'呢粒保存期限長過雪櫃嗰盒奶。',
+'唔係每粒都有驚喜，有啲只係準時跌落嚟。',
+'又儲到少少。唔使用嚟證明自己。',
+'漏咗嗰粒唔緊要，呢粒已經上船。',
+'今晚嘅星唔使排隊買。',
+'嗰一下幾準。可以自己滿意一下。',
+'冇升職，但收藏路上行前咗一步。',
+'隻貓負責坐，你負責全部操作。合作愉快。',
+'呢粒冇附送通知，接完可以繼續發呆。',
+'星光可以儲，唔會有人問你有冇單據。',
+'又接到。條船冇嫌你帶太多。',
+'無聊到有少少忙，但隨時可以收工。',
+'唔係大事，不過啱啱好接住咗。'
+];
+let catchBag=[],lastCatchLine=-1,lastChatterAt=-100;
+function nextCatchLine(){if(!catchBag.length){catchBag=catchLines.map((_,i)=>i);for(let i=catchBag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[catchBag[i],catchBag[j]]=[catchBag[j],catchBag[i]];}if(catchBag[catchBag.length-1]===lastCatchLine)[catchBag[0],catchBag[catchBag.length-1]]=[catchBag[catchBag.length-1],catchBag[0]];}lastCatchLine=catchBag.pop();return catchLines[lastCatchLine];}
+function catchChatter(){if(score===1){notify('接到喇。唔值錢，但手感幾好。');lastChatterAt=time;return;}if(time-lastChatterAt>=8&&performance.now()>toastUntil&&Math.random()<.4){notify(nextCatchLine());lastChatterAt=time;}}
+function begin(){resetInput();spawnCount=0;lastChatterAt=-100;toastUntil=0;score=0;time=0;spawn=.3;items=[];sparkles=[];x=.5;running=true;paused=false;$('score').textContent=0;$('timer').textContent='不限時';$('overlay').classList.add('hidden');$('pause').hidden=false;$('finish').hidden=false;$('pause').textContent='暫停 Ⅱ';$('toast').textContent='';last=performance.now()}function pause(){if(!running)return;resetInput();paused=!paused;$('pause').textContent=paused?'繼續 ▷':'暫停 Ⅱ';$('overlay').classList.toggle('hidden',!paused);if(paused){$('symbol').textContent='☁';$('title').textContent='停一停，都幾好。';$('desc').textContent='小船會喺度等你。準備好先再出發。';$('start').textContent='繼續漂流 →';$('best').textContent='時間已暫停'}else{last=performance.now()}}$('pause').onclick=pause;$('finish').onclick=end;$('start').onclick=()=>{if(running&&paused)pause();else begin()};document.addEventListener('visibilitychange',()=>{if(document.hidden&&running&&!paused)pause()});function end(){if(!running)return;resetInput();running=false;paused=false;saved.best=Math.max(saved.best,score);save();$('pause').hidden=true;$('finish').hidden=true;$('overlay').classList.remove('hidden');$('symbol').textContent='✦';$('title').textContent='帶返 '+score+' 粒小快樂。';$('desc').textContent=score?'今次漂流冇解決人生，但船冇沉，算交代到。':'發咗一陣呆。海冇投訴，隻貓都冇意見。';$('start').textContent='再漂流一陣 ↗';$('best').textContent='口袋收藏 '+saved.found.length+'/'+gifts.length+' · 最多接過 '+saved.best+' 粒';$('toast').textContent=''}// Track pressed keys independently. The latest direction wins; releasing it
 // restores the other held direction. Movement never waits for OS key repeat.
 const heldKeys=new Map(),pointerKeys=new Map();let inputOrder=0,spawnCount=0;
 const LEFT=new Set(['ArrowLeft','KeyA']),RIGHT=new Set(['ArrowRight','KeyD']);
@@ -9627,7 +11850,7 @@ canvas.onpointermove=e=>{if(drag)move(e);};canvas.onpointerup=canvas.onpointerca
  $(id).onpointerdown=e=>{if(!running||paused||e.button>0)return;e.preventDefault();pointerKeys.set(e.pointerId,{dir,order:++inputOrder});$(id).setPointerCapture(e.pointerId);nudge(dir);};
  $(id).onpointerup=$(id).onpointercancel=$(id).onlostpointercapture=e=>pointerKeys.delete(e.pointerId);
 });
-function star(px,py,r,col){ctx.fillStyle=col;ctx.beginPath();for(let i=0;i<10;i++){let a=i*Math.PI/5-Math.PI/2,rr=i%2?r*.45:r;ctx.lineTo(px+Math.cos(a)*rr,py+Math.sin(a)*rr)}ctx.closePath();ctx.fill()}function draw(t){let dt=Math.min((t-last)/1000||0,.04);last=t;const active=running&&!paused;if(active){time+=dt;$('timer').textContent='不限時';x=Math.max(.06,Math.min(.94,x+inputDirection()*dt*1.35));spawn-=dt;if(spawn<=0){spawnCount++;items.push({x:.08+Math.random()*.84,y:65,v:65+Math.random()*35,gift:spawnCount%7===0});spawn=.65+Math.random()*.3}items.forEach(a=>{a.y+=a.v*dt*fallSpeed;if(a.y>=H-90&&a.y<H-60&&Math.abs(a.x*W-x*W)<38){a.hit=true;score++;$('score').textContent=score;ping();for(let k=0;k<9;k++)sparkles.push({x:a.x*W,y:a.y,vx:(Math.random()-.5)*95,vy:-Math.random()*80,life:1});if(a.gift)reward();if(score%5===0)reward();else if(score===1&&!a.gift)notify('接到喇。唔值錢，但手感幾好。')}});items=items.filter(a=>!a.hit&&a.y<H-42);sparkles.forEach(a=>{a.x+=a.vx*dt;a.y+=a.vy*dt;a.life-=dt});sparkles=sparkles.filter(a=>a.life>0);}paint(t);requestAnimationFrame(draw);}
+function star(px,py,r,col){ctx.fillStyle=col;ctx.beginPath();for(let i=0;i<10;i++){let a=i*Math.PI/5-Math.PI/2,rr=i%2?r*.45:r;ctx.lineTo(px+Math.cos(a)*rr,py+Math.sin(a)*rr)}ctx.closePath();ctx.fill()}function draw(t){let dt=Math.min((t-last)/1000||0,.04);last=t;const active=running&&!paused;if(active){time+=dt;$('timer').textContent='不限時';x=Math.max(.06,Math.min(.94,x+inputDirection()*dt*1.35));spawn-=dt;if(spawn<=0){spawnCount++;items.push({x:.08+Math.random()*.84,y:65,v:65+Math.random()*35,gift:spawnCount%7===0});spawn=.65+Math.random()*.3}items.forEach(a=>{a.y+=a.v*dt*fallSpeed;if(a.y>=H-90&&a.y<H-60&&Math.abs(a.x*W-x*W)<38){a.hit=true;score++;$('score').textContent=score;ping();for(let k=0;k<9;k++)sparkles.push({x:a.x*W,y:a.y,vx:(Math.random()-.5)*95,vy:-Math.random()*80,life:1});if(a.gift)reward();if(score%5===0)reward();else if(!a.gift)catchChatter()}});items=items.filter(a=>!a.hit&&a.y<H-42);sparkles.forEach(a=>{a.x+=a.vx*dt;a.y+=a.vy*dt;a.life-=dt});sparkles=sparkles.filter(a=>a.life>0);}paint(t);requestAnimationFrame(draw);}
 function paint(t){const active=running&&!paused;if(t>toastUntil)$('toast').textContent='';drawScenery(ctx,W,H,currentScene,t,active);items.forEach(a=>{ctx.shadowBlur=14;ctx.shadowColor='#ffd17a';if(a.gift){ctx.font='25px system-ui';ctx.textAlign='center';ctx.fillText('🎁',a.x*W,a.y+8);}else star(a.x*W,a.y,10,SCENES[currentScene].star);ctx.shadowBlur=0});sparkles.forEach(a=>{ctx.globalAlpha=a.life;star(a.x,a.y,3,'#ffe3a2')});ctx.globalAlpha=1;let bx=x*W,by=H-78;ctx.save();ctx.translate(bx,by);ctx.fillStyle='#edba84';ctx.beginPath();ctx.moveTo(-34,0);ctx.lineTo(34,0);ctx.lineTo(17,18);ctx.lineTo(-17,18);ctx.closePath();ctx.fill();ctx.fillStyle='#ffe6ba';ctx.beginPath();ctx.moveTo(-30,0);ctx.lineTo(5,-17);ctx.lineTo(30,0);ctx.fill();ctx.fillStyle='#e9e4d3';ctx.beginPath();ctx.ellipse(-7,-13,11,12,0,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(-17,-18);ctx.lineTo(-16,-30);ctx.lineTo(-7,-23);ctx.lineTo(1,-30);ctx.lineTo(3,-17);ctx.fill();ctx.fillStyle='#283742';ctx.fillRect(-12,-18,2,3);ctx.fillRect(-4,-18,2,3);ctx.restore();}
 function setScene(mode,persist=true){
  if(!Object.hasOwn(SCENES,mode))return;currentScene=mode;saved.scene=mode;
@@ -9648,12 +11871,12 @@ requestAnimationFrame(draw);
 // Local synthesized ambience: no network or media downloads required.
 (()=>{
  const nature=['rain','sea','wind','stream','waterfall','birds','crickets','frogs'];
- const ids=['effects',...nature];let prefs={effects:true,rain:false,sea:false,wind:false,stream:false,waterfall:false,birds:false,crickets:false,frogs:false,music:"off",musicVolume:45,volume:35,muted:false};
- try{const p=JSON.parse(localStorage.getItem('littleJoyAudioV1'));if(p&&typeof p==='object'){for(const k of [...ids,'muted'])if(typeof p[k]==='boolean')prefs[k]=p[k];if(['off','lofi','piano'].includes(p.music))prefs.music=p.music;if(Number.isFinite(p.musicVolume))prefs.musicVolume=Math.max(0,Math.min(100,p.musicVolume));if(Number.isFinite(p.volume))prefs.volume=Math.max(0,Math.min(100,p.volume));}}catch(_){}
- let ac=null,master=null,unlocked=false;const layers={};let musicBus=null,timer=null,nextBeat=0,beat=0;const nextCall={};
+ const ids=['effects',...nature];let prefs={effects:true,rain:false,sea:false,wind:false,stream:false,waterfall:false,birds:false,crickets:false,frogs:false,music:"off",musicVolume:75,volume:55,muted:false,defaultsVersion:11};
+ try{const p=JSON.parse(localStorage.getItem('littleJoyAudioV1'));if(p&&typeof p==='object'){for(const k of [...ids,'muted'])if(typeof p[k]==='boolean')prefs[k]=p[k];if(['off','lofi','piano','jazz','bowl','ambient','musicbox'].includes(p.music))prefs.music=p.music;if(Number.isFinite(p.musicVolume))prefs.musicVolume=Math.max(0,Math.min(100,p.musicVolume));if(Number.isFinite(p.volume))prefs.volume=Math.max(0,Math.min(100,p.volume));if(p.defaultsVersion!==11){if(p.musicVolume===45)prefs.musicVolume=75;if(p.volume===35)prefs.volume=55;}}}catch(_){}
+ let ac=null,master=null,unlocked=false;const layers={};let musicBus=null,timer=null,nextBeat=0,beat=0;const nextCall={};const musicNodes=new Set();
  const status=t=>$('audio-status').textContent=t;
  function persist(){try{localStorage.setItem('littleJoyAudioV1',JSON.stringify(prefs));}catch(_){}}
- function sync(){for(const k of ids)$('audio-'+k).checked=prefs[k];$('audio-volume').value=prefs.volume;$('audio-music').value=prefs.music;$('audio-music-volume').value=prefs.musicVolume;$('sound').textContent=prefs.muted?'♫ 全部聲音：靜音':'♫ 全部聲音：開';$('sound').setAttribute('aria-pressed',String(!prefs.muted));sound=prefs.effects&&!prefs.muted;}
+ function sync(){for(const k of ids)$('audio-'+k).checked=prefs[k];$('audio-volume').value=prefs.volume;$('audio-music').value=prefs.music;$('audio-music-volume').value=prefs.musicVolume;$('sound').textContent=prefs.muted?'♫ 全部聲音：靜音':'♫ 全部聲音：開';$('sound').setAttribute('aria-pressed',String(!prefs.muted));sound=prefs.effects&&!prefs.muted&&prefs.music!=='bowl';}
  function layer(kind){
   if(layers[kind])return layers[kind];
   if(['birds','crickets','frogs'].includes(kind)){const gain=ac.createGain();gain.gain.value=0;gain.connect(master);return layers[kind]={gain};}
@@ -9664,18 +11887,18 @@ requestAnimationFrame(draw);
   const lfo=ac.createOscillator(),depth=ac.createGain();lfo.frequency.value=kind==='sea'?.12:kind==='wind'?.075:.43;depth.gain.value=kind==='sea'?450:kind==='wind'?180:220;lfo.connect(depth);depth.connect(filter.frequency);lfo.start();
   return layers[kind]={gain,source,lfo};
  }
- function apply(){if(!ac)return;master.gain.setTargetAtTime(prefs.muted||document.hidden?0:prefs.volume/100,ac.currentTime,.08);if(musicBus)musicBus.gain.setTargetAtTime(prefs.music==='off'?0:prefs.musicVolume/100,ac.currentTime,.15);for(const k of nature){if(prefs[k]||layers[k])layer(k).gain.gain.setTargetAtTime(prefs[k]?({rain:.13,sea:.32,wind:.24,stream:.24,waterfall:.12,birds:.22,crickets:.12,frogs:.22}[k]):0,ac.currentTime,.18);}}
+ function apply(){if(!ac)return;master.gain.setTargetAtTime(prefs.muted||document.hidden?0:prefs.volume/100,ac.currentTime,.08);if(musicBus)musicBus.gain.setTargetAtTime(prefs.music==='off'?0:prefs.musicVolume/100,ac.currentTime,.15);for(const k of nature){if(prefs[k]||layers[k])layer(k).gain.gain.setTargetAtTime(prefs[k]&&prefs.music!=='bowl'?({rain:.13,sea:.32,wind:.24,stream:.24,waterfall:.12,birds:.22,crickets:.12,frogs:.22}[k]):0,ac.currentTime,.18);}}
 
- function tone(bus,freq,t,duration,level,type='sine',endFreq){
+ function tone(bus,freq,t,duration,level,type='sine',endFreq,attack=.015){
   const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);
   if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,t+duration);
-  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(level,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+duration);
-  o.connect(g);g.connect(bus);o.start(t);o.stop(t+duration+.02);o.onended=()=>{o.disconnect();g.disconnect();};
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(level,t+attack);g.gain.exponentialRampToValueAtTime(.0001,t+duration);
+  o.connect(g);g.connect(bus);if(bus===musicBus)musicNodes.add({o,g});o.start(t);o.stop(t+duration+.02);o.onended=()=>{for(const n of musicNodes)if(n.o===o)musicNodes.delete(n);o.disconnect();g.disconnect();};
  }
  function schedule(){
   if(!ac||ac.state!=='running'||document.hidden||prefs.muted)return;
   const now=ac.currentTime;
-  for(const k of ['birds','crickets','frogs'])if(prefs[k]&&now>=(nextCall[k]||0)){
+  for(const k of ['birds','crickets','frogs'])if(prefs.music!=='bowl'&&prefs[k]&&now>=(nextCall[k]||0)){
    const bus=layer(k).gain;
    if(k==='birds'){const f=1600+Math.random()*1200;for(let j=0;j<3;j++)tone(bus,f,now+j*.16,.13,.22,'sine',f*1.45);nextCall[k]=now+2+Math.random()*5;}
    if(k==='crickets'){for(let j=0;j<4;j++)tone(bus,3900,now+j*.09,.045,.15);nextCall[k]=now+.9+Math.random()*.8;}
@@ -9683,25 +11906,45 @@ requestAnimationFrame(draw);
   }
   if(prefs.music==='off'){nextBeat=now;return;}
   if(nextBeat<now)nextBeat=now;
-  // A gentle original four-chord progression, varied melody and optional soft beat.
-  const chords=[[48,52,55,59],[45,48,52,55],[53,57,60,64],[43,47,50,55]];
   const hz=n=>440*Math.pow(2,(n-69)/12);
   while(nextBeat<now+.15){
-   const chord=chords[Math.floor(beat/8)%4],t=nextBeat;
-   if(beat%8===0)chord.forEach((n,i)=>{tone(musicBus,hz(n),t+i*.035,2.8,.055);tone(musicBus,hz(n)*2,t+i*.035,1.5,.012);});
-   if(beat%2===0){const n=chord[Math.floor(Math.random()*4)]+12;tone(musicBus,hz(n),t,1.7,.075);tone(musicBus,hz(n)*2,t,1,.015);}
-   if(prefs.music==='lofi'){
-    if(beat%4===0)tone(musicBus,110,t,.16,.12,'sine',42);
-    if(beat%4===2)tone(musicBus,170,t,.09,.035,'triangle',110);
-    tone(musicBus,6000,t,.025,.009,'triangle');
+   const t=nextBeat,mode=prefs.music;
+   let step=.5;
+   if(mode==='bowl'){
+    // Overlapping inharmonic resonances, no other ambience or catch sounds.
+    const base=[174,196,164.81,174][beat%4];
+    [1,2.71,5.43,8.93].forEach((ratio,i)=>tone(musicBus,base*ratio,t,12-i*1.5,.2/((i+1)*(i+1))));
+    step=8;
+   }else if(mode==='jazz'){
+    // ii-V-I-vi voicings, swung eighths, walking bass and sparse comping.
+    const chords=[[50,53,57,60,64],[43,53,59,62,69],[48,52,55,59,62],[45,52,55,60,64]];
+    const c=chords[Math.floor(beat/8)%4];
+    if([0,3,6].includes(beat%8))c.slice(1,4).forEach((n,i)=>{tone(musicBus,hz(n),t+i*.008,.7,.045);tone(musicBus,hz(n)*2,t+i*.008,.3,.008);});
+    if(beat%2===0)tone(musicBus,hz(c[[0,2,3,1][Math.floor(beat%8/2)]]-12),t,.44,.13,'triangle');
+    if(beat%8!==7){const n=c[[4,2,3,1,4,3,2,1][beat%8]]+12;tone(musicBus,hz(n),t,.32,.045,'triangle');}
+    if(beat%4===2)tone(musicBus,4200,t,.035,.012,'triangle');
+    step=beat%2===0?.36:.18;
+   }else if(mode==='ambient'){
+    const c=[[48,55,62],[45,52,59],[53,60,67],[43,50,57]][beat%4];
+    c.forEach((n,i)=>tone(musicBus,hz(n),t+i*.6,8,.065,'sine',hz(n)*1.002,1.5));step=6;
+   }else if(mode==='musicbox'){
+    const melody=[72,76,79,83,79,76,74,71,69,72,76,79,76,72,67,71];const f=hz(melody[beat%melody.length]);
+    tone(musicBus,f,t,1.8,.09);tone(musicBus,f*2.01,t,1,.025);tone(musicBus,f*3,t,.4,.008);step=.62;
+   }else{
+    const c=[[48,52,55,59],[45,48,52,55],[53,57,60,64],[43,47,50,55]][Math.floor(beat/8)%4];
+    if(beat%8===0)c.forEach((n,i)=>{tone(musicBus,hz(n),t+i*.035,2.8,.055);tone(musicBus,hz(n)*2,t+i*.035,1.5,.012);});
+    if(beat%2===0){const n=c[Math.floor(Math.random()*4)]+12;tone(musicBus,hz(n),t,1.7,.075);tone(musicBus,hz(n)*2,t,1,.015);}
+    if(mode==='lofi'){if(beat%4===0)tone(musicBus,110,t,.16,.12,'sine',42);if(beat%4===2)tone(musicBus,170,t,.09,.035,'triangle',110);tone(musicBus,6000,t,.025,.009,'triangle');}
+    step=mode==='lofi'?.4167:.5;
    }
-   beat++;nextBeat+=prefs.music==='lofi'?.4167:.5;
+   beat++;nextBeat+=step;
   }
  }
- $('audio-music').onchange=()=>{prefs.music=$('audio-music').value;beat=0;nextBeat=0;persist();unlock();};
+ function clearMusic(){if(!ac)return;for(const n of musicNodes){n.g.gain.setTargetAtTime(.0001,ac.currentTime,.025);try{n.o.stop(ac.currentTime+.12);}catch(_){}}musicNodes.clear();}
+ $('audio-music').onchange=()=>{clearMusic();prefs.music=$('audio-music').value;beat=0;nextBeat=0;persist();sync();unlock();};
  $('audio-music-volume').oninput=()=>{prefs.musicVolume=Number($('audio-music-volume').value);persist();apply();};
- async function unlock(){try{if(!ac){const C=window.AudioContext||window.webkitAudioContext;if(!C){status('呢個瀏覽器暫時播唔到聲。遊戲照玩。');return;}ac=new C();master=ac.createGain();master.gain.value=0;const limiter=ac.createDynamicsCompressor();limiter.threshold.value=-12;limiter.ratio.value=8;master.connect(limiter);limiter.connect(ac.destination);musicBus=ac.createGain();musicBus.gain.value=0;musicBus.connect(master);timer=setInterval(schedule,100);}if(ac.state!=='running')await ac.resume();unlocked=ac.state==='running';apply();status(unlocked?'合成聲景可混搭。耳仔放假，個人未必。':'再撳一下開聲。');}catch(_){status('聲音未開到，再撳一下試吓。');}}
- ping=function(){if(!prefs.effects||prefs.muted||!ac||ac.state!=='running')return;const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=520+(score%5)*85;o.connect(g);g.connect(master);g.gain.setValueAtTime(.0001,ac.currentTime);g.gain.exponentialRampToValueAtTime(.16,ac.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+.23);o.start();o.stop(ac.currentTime+.25);o.onended=()=>{o.disconnect();g.disconnect();};};
+ async function unlock(){try{if(!ac){const C=window.AudioContext||window.webkitAudioContext;if(!C){status('呢個瀏覽器暫時播唔到聲。遊戲照玩。');return;}ac=new C();master=ac.createGain();master.gain.value=0;const limiter=ac.createDynamicsCompressor();limiter.threshold.value=-12;limiter.ratio.value=8;master.connect(limiter);limiter.connect(ac.destination);musicBus=ac.createGain();musicBus.gain.value=0;musicBus.connect(master);timer=setInterval(schedule,100);}if(ac.state!=='running')await ac.resume();unlocked=ac.state==='running';apply();status(unlocked?(prefs.music==='bowl'?'純頌缽連續播放中；自然聲同接星音效暫停，轉曲會恢復。':'合成聲景可混搭。耳仔放假，個人未必。'):'再撳一下開聲。');}catch(_){status('聲音未開到，再撳一下試吓。');}}
+ ping=function(){if(!prefs.effects||prefs.muted||prefs.music==='bowl'||!ac||ac.state!=='running')return;const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=520+(score%5)*85;o.connect(g);g.connect(master);g.gain.setValueAtTime(.0001,ac.currentTime);g.gain.exponentialRampToValueAtTime(.16,ac.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+.23);o.start();o.stop(ac.currentTime+.25);o.onended=()=>{o.disconnect();g.disconnect();};};
  for(const k of ids)$('audio-'+k).onchange=()=>{prefs[k]=$('audio-'+k).checked;persist();sync();unlock();};
  let lastBowl=-100;
  $('audio-bowl').onclick=async()=>{await unlock();if(!ac||ac.state!=='running')return;if(prefs.muted){status('先取消靜音，頌缽先有聲。');return;}if(ac.currentTime-lastBowl<1)return;lastBowl=ac.currentTime;

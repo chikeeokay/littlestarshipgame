@@ -12,6 +12,13 @@ context.c=c.getContext('2d');context.c.scale(2,2);
 async function main(){
 const art={};const svgs=vm.runInContext("GIFT_ART",context);for(const [icon,svg] of Object.entries(svgs))art[icon]=await loadImage(Buffer.from(svg));
 let maxBottom=0;
+for(let i=0;i<540;i++){
+ context.copyIndex=i;
+ const stats=vm.runInContext("renderGiftPostcard(c,gifts[0],'night',null,missionDeck[copyIndex],footerDeck[copyIndex%footerDeck.length])",context);
+ assert(stats.quoteLines<=3,`Quote overflow ${i}`);assert(stats.quoteBottom<1230);assert(stats.footerWidth<=928,`Footer overflow ${i}`);
+}
+console.log('PASS all 540 quotes fit the story card quote region.');
+
 for(let i=0;i<999;i++){
  context.giftIndex=i;context.art=art[vm.runInContext('gifts[giftIndex].icon',context)];
  const stats=vm.runInContext("renderGiftPostcard(c,gifts[giftIndex],'night',art)",context);

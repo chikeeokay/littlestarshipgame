@@ -22,7 +22,7 @@ function renderAlbumSheet(c,ids,page,mode,arts=[]){
 }
 async function refreshSheet(){
  const v=++sheetVersion,pages=Math.ceil(sheetIds.length/SHEET_SIZE);
- sheetPage=Math.max(0,Math.min(sheetPage,pages-1));sheetURL='';
+ sheetPage=Math.max(0,Math.min(sheetPage,pages-1));sheetURL='';$('sheet-save-photo').disabled=true;
  $('sheet-download').removeAttribute('href');$('sheet-download').setAttribute('aria-disabled','true');$('sheet-image').removeAttribute('src');
  $('sheet-prev').disabled=sheetPage===0;$('sheet-next').disabled=sheetPage>=pages-1;
  $('sheet-page').textContent=pages?(sheetPage+1)+' / '+pages+' 頁':'';
@@ -33,12 +33,13 @@ async function refreshSheet(){
   const ids=sheetIds.slice(sheetPage*SHEET_SIZE,(sheetPage+1)*SHEET_SIZE),page=sheetPage,mode=sheetScene;
   const arts=await Promise.all(ids.map(id=>loadGiftArt(gifts[id].icon)));if(v!==sheetVersion)return;
   const out=document.createElement('canvas');out.width=2160;out.height=2880;out.getContext('2d').scale(2,2);renderAlbumSheet(out.getContext('2d'),sheetIds,page,mode,arts);
-  sheetURL=out.toDataURL('image/png');$('sheet-image').src=sheetURL;$('sheet-image').alt='已收集圖鑑，第 '+(page+1)+' 頁：'+ids.map(id=>gifts[id].name).join('、');
+  sheetURL=out.toDataURL('image/png');$('sheet-save-photo').disabled=false;$('sheet-image').src=sheetURL;$('sheet-image').alt='已收集圖鑑，第 '+(page+1)+' 頁：'+ids.map(id=>gifts[id].name).join('、');
   $('sheet-download').href=sheetURL;$('sheet-download').download='little-joy-album-'+mode+'-'+String(page+1).padStart(2,'0')+'.png';$('sheet-download').setAttribute('aria-disabled','false');
   $('sheet-status').textContent='2160 × 2880 高清圖片 · 每頁最多 12 件。手機可長按圖片儲存；多頁請逐頁下載。圖片唔係遊戲進度備份。';
  }catch(e){if(v===sheetVersion)$('sheet-status').textContent='今次印唔到，試吓重新開啟。收藏冇受影響。';}
 }
 function initAlbumExport(){
+ $('sheet-save-photo').onclick=()=>{if(sheetURL)openPhotoSave(sheetURL,$('sheet-image').alt);};
  $('save-album').onclick=()=>{sheetIds=[...saved.found].sort((a,b)=>a-b);sheetPage=0;sheetScene=currentScene;sheetReturn=running&&!paused;if(sheetReturn)pause();resetInput();$('sheet').showModal();refreshSheet();};
  $('sheet-close').onclick=()=>$('sheet').close();
  $('sheet').addEventListener('close',()=>{++sheetVersion;if(sheetReturn&&running&&paused&&!$('album').open)pause();sheetReturn=false;});

@@ -27,9 +27,9 @@ function renderGiftPostcard(c,g,mode,art=null,quote=null,footer=null){
  const q=quote||missionDeck[g.id%missionDeck.length],f=footer||footerDeck[g.id%footerDeck.length];
  c.fillStyle=s.accent;c.font='25px '+CARD_FONT;c.fillText('隨卡附送 · '+q.kind+' · 可做可唔做',76,1080);
  c.fillStyle=s.ink;let qs=33,ql;do{c.font=qs+'px '+CARD_FONT;ql=wrapCardText(c,q.text,928);if(ql.length<=3)break;qs--;}while(qs>18);ql.forEach((line,i)=>c.fillText(line,76,1123+i*38));
- c.fillStyle=s.muted;c.font='28px '+CARD_FONT;c.fillText(f.head,76,1240);
+ c.fillStyle=s.muted;let footerSize=28;c.font=footerSize+'px '+CARD_FONT;while(c.measureText(f.head).width>928&&footerSize>18){footerSize--;c.font=footerSize+'px '+CARD_FONT;}const footerWidth=c.measureText(f.head).width;c.fillText(f.head,76,1240);
  c.fillStyle=s.accent;c.font='20px '+CARD_FONT;c.fillText('小島留念 · '+q.kind,76,1280);c.textAlign='right';c.fillText(f.tag,1004,1280);c.fillStyle=s.muted;c.font='13px '+CARD_FONT;c.fillText('Art: Twemoji © Twitter & contributors · CC BY 4.0',1004,1320);c.restore();
- return {lines:lines.length,storyBottom:842+(lines.length-1)*lineHeight,fontSize:storySize};
+ return {lines:lines.length,storyBottom:842+(lines.length-1)*lineHeight,fontSize:storySize,quoteLines:ql.length,quoteBottom:1123+(ql.length-1)*38,footerWidth};
 }
 const cardArtCache=new Map();
 function loadGiftArt(icon){
@@ -41,7 +41,7 @@ let postcardQuote=null,postcardFooter=null;
 let postcardScene='night',postcardReturn=false,postcardURL='',postcardBlob=null,postcardVersion=0;
 async function refreshPostcard(){
  const $=id=>document.getElementById(id),version=++postcardVersion;
- postcardURL='';postcardBlob=null;$('download-card').removeAttribute('href');$('download-card').setAttribute('aria-disabled','true');$('share-card').hidden=true;
+ postcardURL='';postcardBlob=null;document.getElementById('save-photo').disabled=true;$('download-card').removeAttribute('href');$('download-card').setAttribute('aria-disabled','true');$('share-card').hidden=true;
  try{
   if(selectedGift===null||!saved.found.includes(selectedGift))throw new Error('gift_not_owned');
   // Wait for available local fonts; no external font dependency.
@@ -52,10 +52,10 @@ async function refreshPostcard(){
   const out=document.createElement('canvas');out.width=CARD_W*2;out.height=CARD_H*2;out.getContext('2d').scale(2,2);
   renderGiftPostcard(out.getContext('2d'),g,postcardScene,art,postcardQuote,postcardFooter);
   const url=out.toDataURL('image/png');if(version!==postcardVersion)return;
-  postcardURL=url;$('postcard-image').src=url;$('postcard-image').alt=g.name+'。'+g.story+'。'+(postcardQuote?postcardQuote.text:'');
+  postcardURL=url;$('save-photo').disabled=false;$('postcard-image').src=url;$('postcard-image').alt=g.name+'。'+g.story+'。'+(postcardQuote?postcardQuote.text:'');
   const filename='little-joy-gift-'+String(g.id+1).padStart(4,'0')+'-'+postcardScene+'.png';
   $('download-card').href=url;$('download-card').download=filename;$('download-card').setAttribute('aria-disabled','false');
-  $('postcard-status').textContent='2160 × 2700 高清圖片 · 完整故事同隨卡小句已放入圖片。手機亦可長按圖片儲存。';
+  $('postcard-status').textContent='2160 × 2700 高清原圖。存相簿請撳「存入相片」，再長按圖片。';
   if(out.toBlob)out.toBlob(blob=>{if(version!==postcardVersion||!blob)return;postcardBlob=blob;try{const f=new File([blob],filename,{type:'image/png'});$('share-card').hidden=!(navigator.canShare&&navigator.canShare({files:[f]}));}catch(e){}},'image/png');
  }catch(e){$('postcard-status').textContent='今次製圖未成功，試吓重新開啟呢張卡。原本收藏仲喺度。';}
 }
@@ -75,6 +75,7 @@ function updateGiftNavigation(){const ids=[...saved.found].sort((a,b)=>a-b),i=id
 function navigateGift(dir){const ids=[...saved.found].sort((a,b)=>a-b);if(ids.length<2)return;selectedGift=ids[(ids.indexOf(selectedGift)+dir+ids.length)%ids.length];showGift(selectedGift);document.getElementById('postcard-name').textContent=gifts[selectedGift].name;document.getElementById('postcard-story').textContent=gifts[selectedGift].story;nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();updateGiftNavigation();refreshPostcard();}
 function initPostcards(){
  const $=id=>document.getElementById(id);
+ $('save-photo').onclick=()=>{if(postcardURL)openPhotoSave(postcardURL,$('postcard-image').alt);};
  $('gift-prev').onclick=()=>navigateGift(-1);$('gift-next').onclick=()=>navigateGift(1);
  $('card-new-quote').onclick=()=>{nextMission();postcardQuote=missionDeck[missionIndex];postcardFooter=nextFooter();refreshPostcard();};
  $('take-gift').onclick=openPostcard;$('album-take-gift').onclick=openPostcard;
